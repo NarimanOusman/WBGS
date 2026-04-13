@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Projects Dashboard | WAU State{% endblock %}
+
+{% block content %}
+<div class="page-wrapper projects-wrapper light-theme">
+    <!-- Animated animated background elements -->
+    <div class="bg-glow bg-glow-blue"></div>
+    <div class="bg-glow bg-glow-gold"></div>
+
+    <div class="container section relative-z">
+        
+        <div class="page-header premium-header">
+            <h1 class="page-title text-gradient glow-text">State Initiatives</h1>
+            <p class="text-muted subtitle-glow">Transparent tracking of Western Bahr el Ghazal State's transformation</p>
+        </div>
+
+        {% if projects %}
+        <div class="projects-grid premium-grid">
+            {% for project in projects %}
+            <div class="project-card glass-card">
+                <div class="glass-glare"></div>
+                
+                <div class="project-image-container">
+                    {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-image-parallax" loading="lazy">
+                    {% else %}
+                        <div class="placeholder-img-premium">
+                            <div class="placeholder-pattern"></div>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="project-overlay"></div>
+                    
+                    <div class="badges-container">
+                        <span class="badge premium-category-badge">{{ project.category }}</span>
+                        <span class="badge premium-status-badge status-{{ project.status|lower }}">{{ project.status }}</span>
+                    </div>
+                </div>
+                
+                <div class="project-content premium-content">
+                    <h3 class="project-title">{{ project.title }}</h3>
+                    <p class="description">{{ project.description|truncatewords:18 }}</p>
+                    
+                    <div class="progress-wrapper">
+                        <div class="progress-meta">
+                            <span class="progress-label">Completion</span>
+                            <span class="progress-value">{{ project.progress }}%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill glow-fill" style="width: {{ project.progress }}%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state premium-empty">
+            <div class="glass-glare"></div>
+            <div class="empty-icon-pulse">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                  <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+            </div>
+            <h2 class="empty-title text-gradient">Mapping Our Future</h2>
+            <p class="empty-text">Our engineering and administrative teams are currently cataloging the digital records for our active initiatives. We will be continually updating the state portal with real-time project metrics shortly.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
