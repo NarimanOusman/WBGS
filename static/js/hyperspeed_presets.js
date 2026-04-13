@@ -1,5 +1,7 @@
 export const hyperspeedPresets = {
   one: {
+    onSpeedUp: () => {},
+    onSlowDown: () => {},
     distortion: 'turbulentDistortion',
     length: 400,
     roadWidth: 10,
@@ -35,6 +37,8 @@ export const hyperspeedPresets = {
     }
   },
   two: {
+    onSpeedUp: () => {},
+    onSlowDown: () => {},
     distortion: 'mountainDistortion',
     length: 400,
     roadWidth: 9,
@@ -70,6 +74,8 @@ export const hyperspeedPresets = {
     }
   },
   three: {
+    onSpeedUp: () => {},
+    onSlowDown: () => {},
     distortion: 'xyDistortion',
     length: 400,
     roadWidth: 9,
@@ -105,6 +111,8 @@ export const hyperspeedPresets = {
     }
   },
   four: {
+    onSpeedUp: () => {},
+    onSlowDown: () => {},
     distortion: 'LongRaceDistortion',
     length: 400,
     roadWidth: 10,
@@ -140,6 +148,8 @@ export const hyperspeedPresets = {
     }
   },
   five: {
+    onSpeedUp: () => {},
+    onSlowDown: () => {},
     distortion: 'turbulentDistortion',
     length: 400,
     roadWidth: 9,
@@ -175,6 +185,8 @@ export const hyperspeedPresets = {
     }
   },
   six: {
+    onSpeedUp: () => {},
+    onSlowDown: () => {},
     distortion: 'deepDistortion',
     length: 400,
     roadWidth: 18,
@@ -182,7 +194,7 @@ export const hyperspeedPresets = {
     lanesPerRoad: 3,
     fov: 90,
     fovSpeedUp: 150,
-    speedUp: 0.1,
+    speedUp: 2,
     carLightsFade: 0.4,
     totalSideLightSticks: 50,
     lightPairsPerRoadWay: 50,
@@ -191,8 +203,8 @@ export const hyperspeedPresets = {
     brokenLinesLengthPercentage: 0.5,
     lightStickWidth: [0.12, 0.5],
     lightStickHeight: [1.3, 1.7],
-    movingAwaySpeed: [4, 8],
-    movingCloserSpeed: [-8, -12],
+    movingAwaySpeed: [60, 80],
+    movingCloserSpeed: [-120, -160],
     carLightsLength: [400 * 0.05, 400 * 0.15],
     carLightsRadius: [0.05, 0.14],
     carWidthPercentage: [0.3, 0.5],
@@ -201,12 +213,12 @@ export const hyperspeedPresets = {
     colors: {
       roadColor: 0x080808,
       islandColor: 0x0a0a0a,
-      background: 0x05070a,
+      background: 0x000000,
       shoulderLines: 0x131318,
       brokenLines: 0x131318,
-      leftCars: [0x1e40af, 0x3b82f6, 0x60a5fa],
-      rightCars: [0xffffff, 0xe2e8f0, 0xf8fafc],
-      sticks: 0xd97706
+      leftCars: [0xff322f, 0xa33010, 0xa81508],
+      rightCars: [0xfdfdf0, 0xf3dea0, 0xe2bb88],
+      sticks: 0xfdfdf0
     }
   }
 };

@@ -6,8 +6,8 @@
   --bg-card: rgba(10, 10, 10, 0.7);
   --text-main: #ffffff;
   --text-muted: #cbd5e1;
-  --font-hero: 'Outfit', sans-serif;
-  --font-base: 'Inter', sans-serif;
+  --font-hero: 'Poppins', sans-serif;
+  --font-base: 'Poppins', sans-serif;
 }
 
 * {
