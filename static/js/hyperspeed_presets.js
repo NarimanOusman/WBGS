@@ -204,9 +204,9 @@ export const hyperspeedPresets = {
       background: 0x05070a,
       shoulderLines: 0x131318,
       brokenLines: 0x131318,
-      leftCars: [0xff322f, 0xa33010, 0xa81508],
-      rightCars: [0xfdfdf0, 0xf3dea0, 0xe2bb88],
-      sticks: 0xfdfdf0
+      leftCars: [0x1e40af, 0x3b82f6, 0x60a5fa],
+      rightCars: [0xffffff, 0xe2e8f0, 0xf8fafc],
+      sticks: 0xd97706
     }
   }
 };

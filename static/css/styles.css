@@ -1,11 +1,11 @@
 :root {
-  --primary: #03b3c3;
-  --primary-glow: rgba(3, 179, 195, 0.5);
-  --secondary: #8e801c;
+  --primary: #1e40af; /* Deep Navy Blue */
+  --primary-glow: rgba(30, 64, 175, 0.4);
+  --secondary: #d97706; /* Rich Gold/Amber */
   --bg-dark: #05070a;
   --bg-card: rgba(10, 10, 10, 0.7);
   --text-main: #ffffff;
-  --text-muted: #a0a0a0;
+  --text-muted: #cbd5e1;
   --font-hero: 'Outfit', sans-serif;
   --font-base: 'Inter', sans-serif;
 }
@@ -32,6 +32,9 @@ body {
   top: 0;
   left: 0;
   z-index: -1;
+  /* Top mask to prevent animation from running to the absolute top */
+  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
 canvas {
@@ -316,22 +319,27 @@ footer {
 
 /* Color Accents */
 .text-gradient {
-  background: linear-gradient(135deg, #00ecff, #ff00e0);
+  background: linear-gradient(135deg, #ffffff, #d97706);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-weight: 700;
+  font-weight: 800;
   display: inline-block;
+  letter-spacing: -0.02em;
 }
 
-.text-type-primary, .text-type-secondary {
-  color: inherit;
-  text-shadow: none; /* Shadow can break background-clip text */
+.text-type-primary {
+  color: #ffffff;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.text-type-secondary {
+  color: #fbbf24; /* Lighter Amber/Gold */
 }
 
 /* Ensure the wrapper handles the gradient display */
 .text-type__wrapper {
-  background: linear-gradient(135deg, #00ecff, #ff00e0);
+  background: linear-gradient(135deg, #ffffff 30%, #fbbf24 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
