@@ -361,20 +361,20 @@ footer {
   }
 
   .hero h1 {
-    font-size: 2rem;
-    letter-spacing: -0.5px;
-    margin-bottom: 1rem;
+    font-size: 2.8rem;
+    letter-spacing: -0.8px;
+    margin-bottom: 1.25rem;
   }
 
   .hero p {
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     line-height: 1.6;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
   }
 
   .animated-button {
-    padding: 12px 28px;
-    font-size: 0.9rem;
+    padding: 16px 36px;
+    font-size: 1.1rem;
   }
 }
 
