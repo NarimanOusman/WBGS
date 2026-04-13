@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}WAU State | Digital Development Portal{% endblock %}</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Official Digital Development Portal for Western Bahr el Ghazal State. Track progress, achievements, and future projects.">
+    <meta name="keywords" content="Wau, South Sudan, Bahr el Ghazal, Governance, Development, Progress Tracker">
+    <meta name="author" content="WBGS Government">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <!-- Import Map for ES Modules -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://esm.sh/three@0.160.0",
+            "postprocessing": "https://esm.sh/postprocessing@6.33.3"
+        }
+    }
+    </script>
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    <nav id="mainNav">
+        <div class="logo">WBGS PORTAL</div>
+        <div class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="/projects">Projects</a>
+            <a href="/news">News</a>
+            <a href="/archive">Archive</a>
+            <a href="/investment">Investment</a>
+            <a href="/about">About</a>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Western Bahr el Ghazal State Government. All rights reserved.</p>
+        <p style="margin-top: 10px; opacity: 0.5; font-size: 0.8rem;">Digital Excellence in Governance</p>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('mainNav');
+            if (window.scrollY > 50) {
+                nav.classList.add('nav-scrolled');
+            } else {
+                nav.classList.remove('nav-scrolled');
+            }
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
