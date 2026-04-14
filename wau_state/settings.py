@@ -17,7 +17,11 @@ SECRET_KEY = os.environ.get(
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() in ('true', '1', 'yes')
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '.vercel.app,localhost,127.0.0.1').split(',')
-CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
+
+cloudinary_url = os.environ.get('CLOUDINARY_URL', '').strip()
+if cloudinary_url.startswith('CLOUDINARY_URL='):
+    cloudinary_url = cloudinary_url.split('=', 1)[1].strip()
+CLOUDINARY_URL = cloudinary_url or None
 
 # Application definition
 INSTALLED_APPS = [
