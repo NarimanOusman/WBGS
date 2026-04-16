@@ -865,6 +865,112 @@ footer {
   margin-bottom: 1.1rem;
 }
 
+.project-gallery-meta {
+  margin-bottom: 0.7rem;
+}
+
+.gallery-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #0f766e;
+  border-radius: 999px;
+  background: rgba(15, 118, 110, 0.12);
+  border: 1px solid rgba(15, 118, 110, 0.2);
+}
+
+.project-actions {
+  display: flex;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.95rem;
+}
+
+.project-action-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.42rem 0.7rem;
+  border-radius: 10px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(15, 118, 110, 0.22);
+  transition: all 0.25s ease;
+}
+
+.project-action-link:hover {
+  transform: translateY(-1px);
+  background: #ffffff;
+  border-color: rgba(34, 211, 238, 0.55);
+  box-shadow: 0 8px 18px -12px rgba(15, 23, 42, 0.45);
+}
+
+.project-action-link.download-link {
+  color: #0f766e;
+}
+
+.project-detail-summary {
+  padding: 1.3rem;
+  margin-bottom: 1.4rem;
+}
+
+.project-detail-copy p {
+  color: #334155;
+  line-height: 1.7;
+}
+
+.project-detail-actions {
+  margin-top: 0.9rem;
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.gallery-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+  margin-bottom: 1rem;
+  color: #0f172a;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.gallery-card {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.gallery-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-card-body {
+  padding: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+
+.gallery-card-body h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+
 /* Progress Bar Glowing */
 .progress-wrapper {
   margin-top: auto;
@@ -1032,6 +1138,10 @@ footer {
   .premium-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
@@ -1057,6 +1167,14 @@ footer {
   .projects-subtext {
     font-size: 0.96rem;
     padding-inline: 0.6rem;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-image {
+    height: 215px;
   }
 }
 

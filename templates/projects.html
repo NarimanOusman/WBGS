@@ -41,6 +41,19 @@
                 <div class="project-content premium-content">
                     <h3 class="project-title">{{ project.title }}</h3>
                     <p class="description">{{ project.description|truncatewords:18 }}</p>
+
+                    <div class="project-gallery-meta">
+                        <span class="gallery-pill">
+                            Gallery: {{ project.images.count|add:"1" }} image{{ project.images.count|add:"1"|pluralize }}
+                        </span>
+                    </div>
+
+                    <div class="project-actions">
+                        <a class="project-action-link" href="{% url 'project_detail' project.pk %}">View Details</a>
+                        {% if project.image %}
+                        <a class="project-action-link download-link" href="{{ project.image.url }}" download>Download Cover</a>
+                        {% endif %}
+                    </div>
                     
                     <div class="progress-wrapper">
                         <div class="progress-meta">
