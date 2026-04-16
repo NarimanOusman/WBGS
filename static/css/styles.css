@@ -1533,6 +1533,12 @@ body.viewer-open {
 }
 
 @media (min-width: 1024px) and (max-width: 1440px) {
+  .project-overview-panel,
+  .project-description-block,
+  .gallery-section {
+    max-width: 1240px;
+  }
+
   .project-detail-page .projects-subtext {
     font-size: 2.85rem;
     line-height: 1.18;
