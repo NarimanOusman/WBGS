@@ -985,30 +985,40 @@ footer {
   color: #0f766e;
 }
 
-.project-overview-text {
+.project-overview-panel {
+  position: relative;
+  margin: 0 auto 2rem;
   max-width: 1080px;
-  margin: 0 auto 2.2rem;
-  padding: 0.35rem 0.2rem 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.4rem;
+  align-items: start;
+  padding: 0.35rem 0.15rem 0.55rem;
+}
+
+.project-overview-main {
+  position: relative;
+  padding: 0.45rem 0;
 }
 
 .project-overview-kicker {
   display: inline-block;
-  margin: 0 0 1rem;
-  padding: 0;
-  border-radius: 0;
-  font-size: 1rem;
+  margin: 0 0 0.85rem;
+  padding: 0.34rem 0.82rem;
+  border-radius: 999px;
+  font-size: 0.84rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #0f766e;
-  background: transparent;
-  border: none;
+  background: rgba(15, 118, 110, 0.12);
+  border: 1px solid rgba(15, 118, 110, 0.24);
 }
 
 .project-overview-name {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(2.6rem, 5vw, 3.7rem);
+  font-size: clamp(2.35rem, 4.3vw, 3.3rem);
   line-height: 1.1;
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -1019,30 +1029,32 @@ footer {
 }
 
 .project-overview-meta {
-  margin: 0.9rem 0 0;
+  margin: 0.8rem 0 0;
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(1.35rem, 2.8vw, 1.95rem);
+  font-size: clamp(1.34rem, 2.6vw, 1.85rem);
   line-height: 1.4;
   font-weight: 700;
   color: #0f766e;
 }
 
 .project-overview-description {
-  margin: 1.3rem 0 0;
+  margin: 1.15rem 0 0;
   color: #0f172a;
-  line-height: 1.9;
-  font-size: 1.14rem;
+  line-height: 1.82;
+  font-size: 1.12rem;
   font-weight: 500;
-  max-width: 960px;
+  max-width: 900px;
 }
 
 .project-detail-actions {
-  margin-top: 1.35rem;
+  margin-top: 0.35rem;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-end;
+  align-self: start;
   gap: 0.7rem;
   flex-wrap: wrap;
+  min-width: 240px;
 }
 
 .gallery-title {
@@ -1231,8 +1243,8 @@ footer {
 }
 
 .project-detail-page .projects-subtext {
-  font-size: 3rem;
-  line-height: 1.22;
+  font-size: 2.95rem;
+  line-height: 1.2;
   font-weight: 800;
 }
 .light-theme .glass-card {
@@ -1369,9 +1381,19 @@ footer {
     padding: 0.55rem 0.86rem;
   }
 
+  .project-overview-panel {
+    grid-template-columns: 1fr;
+    gap: 0.95rem;
+    padding: 0.2rem 0.35rem;
+    margin-inline: 0.35rem;
+  }
+
+  .project-overview-main {
+    padding: 0.25rem 0;
+  }
+
   .project-overview-kicker {
-    font-size: 0.82rem;
-    letter-spacing: 0.1em;
+    font-size: 0.74rem;
   }
 
   .project-overview-description {
@@ -1382,6 +1404,11 @@ footer {
   .project-overview-meta {
     font-size: 1.18rem;
     line-height: 1.42;
+  }
+
+  .project-detail-actions {
+    justify-content: flex-start;
+    min-width: 0;
   }
 
   .progress-meta {
@@ -1403,9 +1430,18 @@ footer {
 }
 
 @media (min-width: 1024px) {
+  .project-overview-main {
+    min-width: 0;
+  }
+
   .project-detail-actions {
-    margin-top: 1.4rem;
-    justify-content: flex-start;
+    margin-top: 0.35rem;
+    align-items: flex-end;
+    justify-content: center;
+    flex-direction: column;
+    min-width: 260px;
+    border-left: 1px solid rgba(15, 118, 110, 0.16);
+    padding-left: 1.35rem;
   }
 
   .project-detail-actions .project-action-link {
@@ -1415,7 +1451,7 @@ footer {
 
 @media (min-width: 1024px) and (max-width: 1440px) {
   .project-detail-page .projects-subtext {
-    font-size: 3.25rem;
+    font-size: 3.15rem;
     line-height: 1.18;
   }
 
@@ -1424,7 +1460,7 @@ footer {
   }
 
   .project-overview-description {
-    font-size: 1.18rem;
+    font-size: 1.13rem;
   }
 }
 
