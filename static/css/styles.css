@@ -988,7 +988,7 @@ footer {
 .project-overview-panel {
   position: relative;
   margin: 0 auto 2rem;
-  max-width: 1080px;
+  max-width: 1280px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 1.4rem;
@@ -1002,7 +1002,7 @@ footer {
 }
 
 .project-description-block {
-  max-width: 1080px;
+  max-width: 1280px;
   margin: 0 auto 1.85rem;
   padding: 0 0.15rem;
 }
@@ -1522,7 +1522,7 @@ body.viewer-open {
   }
 
   .gallery-section {
-    max-width: 1080px;
+    max-width: 1280px;
     margin: 0 auto;
     padding-inline: 0.15rem;
   }
@@ -1536,7 +1536,11 @@ body.viewer-open {
   .project-overview-panel,
   .project-description-block,
   .gallery-section {
-    max-width: 1240px;
+    max-width: 92vw;
+  }
+
+  .project-overview-panel {
+    padding-inline: 0.05rem;
   }
 
   .project-detail-page .projects-subtext {
