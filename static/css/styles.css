@@ -993,12 +993,18 @@ footer {
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 1.4rem;
   align-items: start;
-  padding: 0.35rem 0.15rem 0.55rem;
+  padding: 0.35rem 0.15rem 0.35rem;
 }
 
 .project-overview-main {
   position: relative;
   padding: 0.45rem 0;
+}
+
+.project-description-block {
+  max-width: 1080px;
+  margin: 0 auto 1.85rem;
+  padding: 0 0.15rem;
 }
 
 .project-overview-kicker {
@@ -1018,7 +1024,7 @@ footer {
 .project-overview-name {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(2.35rem, 4.3vw, 3.3rem);
+  font-size: clamp(2.35rem, 4.1vw, 3.25rem);
   line-height: 1.1;
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -1031,19 +1037,19 @@ footer {
 .project-overview-meta {
   margin: 0.8rem 0 0;
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(1.34rem, 2.6vw, 1.85rem);
+  font-size: clamp(1.34rem, 2.5vw, 1.78rem);
   line-height: 1.4;
   font-weight: 700;
   color: #0f766e;
 }
 
 .project-overview-description {
-  margin: 1.15rem 0 0;
+  margin: 0;
   color: #0f172a;
   line-height: 1.82;
   font-size: 1.12rem;
   font-weight: 500;
-  max-width: 900px;
+  max-width: 1080px;
 }
 
 .project-detail-actions {
@@ -1060,19 +1066,30 @@ footer {
 .gallery-title {
   font-family: 'Poppins', sans-serif;
   font-size: clamp(1.35rem, 2vw, 1.8rem);
-  margin-bottom: 1rem;
+  margin-bottom: 1.15rem;
   color: #0f172a;
 }
 
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 1.35rem;
 }
 
 .gallery-card {
   border-radius: 14px;
   overflow: hidden;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.gallery-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -18px rgba(15, 23, 42, 0.35);
+}
+
+.gallery-image-link {
+  display: block;
+  cursor: zoom-in;
 }
 
 .gallery-image {
@@ -1095,6 +1112,58 @@ footer {
   font-weight: 600;
   color: #0f172a;
   margin: 0;
+}
+
+.image-viewer {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  z-index: 4000;
+}
+
+.image-viewer.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.image-viewer-img {
+  max-width: min(96vw, 1200px);
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.65);
+  object-fit: contain;
+  background: #fff;
+}
+
+.image-viewer-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+}
+
+body.viewer-open {
+  overflow: hidden;
 }
 
 /* Progress Bar Glowing */
@@ -1243,8 +1312,8 @@ footer {
 }
 
 .project-detail-page .projects-subtext {
-  font-size: 2.95rem;
-  line-height: 1.2;
+  font-size: 2.45rem;
+  line-height: 1.22;
   font-weight: 800;
 }
 .light-theme .glass-card {
@@ -1447,20 +1516,54 @@ footer {
   .project-detail-actions .project-action-link {
     min-width: 220px;
   }
+
+  .project-overview-description {
+    font-size: 1.15rem;
+  }
+
+  .gallery-section {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding-inline: 0.15rem;
+  }
+
+  .gallery-grid {
+    gap: 1.5rem;
+  }
 }
 
 @media (min-width: 1024px) and (max-width: 1440px) {
   .project-detail-page .projects-subtext {
-    font-size: 3.15rem;
+    font-size: 2.85rem;
     line-height: 1.18;
   }
 
   .project-overview-meta {
-    font-size: 1.82rem;
+    font-size: 1.62rem;
   }
 
   .project-overview-description {
     font-size: 1.13rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .image-viewer {
+    padding: 0.8rem;
+  }
+
+  .image-viewer-close {
+    top: 0.6rem;
+    right: 0.6rem;
+  }
+
+  .project-description-block {
+    margin-bottom: 1.4rem;
+    padding: 0 0.35rem;
+  }
+
+  .gallery-grid {
+    gap: 1rem;
   }
 }
 

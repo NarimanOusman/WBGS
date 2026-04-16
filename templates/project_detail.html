@@ -13,7 +13,6 @@
                 <p class="project-overview-kicker">Project Overview</p>
                 <h1 class="project-overview-name">{{ project.title }}</h1>
                 <p class="project-overview-meta">{{ project.category }} | {{ project.status }} | {{ project.progress }}% complete</p>
-                <p class="project-overview-description">{{ project.description }}</p>
             </div>
             <div class="project-detail-actions">
                 {% if project.image %}
@@ -23,12 +22,18 @@
             </div>
         </section>
 
+        <section class="project-description-block">
+            <p class="project-overview-description">{{ project.description }}</p>
+        </section>
+
         <section class="gallery-section">
             <h2 class="gallery-title">Project Gallery</h2>
             <div class="gallery-grid">
                 {% if project.image %}
                 <article class="gallery-card glass-card">
-                    <img src="{{ project.image.url }}" alt="{{ project.title }} cover image" class="gallery-image" loading="lazy">
+                    <a href="{{ project.image.url }}" class="gallery-image-link js-gallery-open" data-full-image="{{ project.image.url }}" aria-label="Open cover image full size">
+                        <img src="{{ project.image.url }}" alt="{{ project.title }} cover image" class="gallery-image" loading="lazy">
+                    </a>
                     <div class="gallery-card-body">
                         <h3>Cover Image</h3>
                         <a class="project-action-link download-link" href="{{ project.image.url }}" download>Download</a>
@@ -38,7 +43,9 @@
 
                 {% for item in project.images.all %}
                 <article class="gallery-card glass-card">
-                    <img src="{{ item.image.url }}" alt="{{ project.title }} gallery image {{ forloop.counter }}" class="gallery-image" loading="lazy">
+                    <a href="{{ item.image.url }}" class="gallery-image-link js-gallery-open" data-full-image="{{ item.image.url }}" aria-label="Open gallery image {{ forloop.counter }} full size">
+                        <img src="{{ item.image.url }}" alt="{{ project.title }} gallery image {{ forloop.counter }}" class="gallery-image" loading="lazy">
+                    </a>
                     <div class="gallery-card-body">
                         <h3>{% if item.caption %}{{ item.caption }}{% else %}Gallery Image {{ forloop.counter }}{% endif %}</h3>
                         <a class="project-action-link download-link" href="{{ item.image.url }}" download>Download</a>
@@ -55,5 +62,62 @@
             </div>
         </section>
     </div>
+
+    <div class="image-viewer" id="imageViewer" aria-hidden="true">
+        <button class="image-viewer-close" id="closeImageViewer" type="button" aria-label="Close image viewer">&times;</button>
+        <img src="" alt="Full size project image" id="imageViewerImg" class="image-viewer-img">
+    </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const imageViewer = document.getElementById('imageViewer');
+    const imageViewerImg = document.getElementById('imageViewerImg');
+    const closeImageViewer = document.getElementById('closeImageViewer');
+
+    document.querySelectorAll('.js-gallery-open').forEach((link) => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const fullImage = link.getAttribute('data-full-image') || link.getAttribute('href');
+            if (!fullImage || !imageViewer || !imageViewerImg) {
+                return;
+            }
+
+            imageViewerImg.src = fullImage;
+            imageViewer.classList.add('active');
+            imageViewer.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('viewer-open');
+        });
+    });
+
+    const closeViewer = () => {
+        if (!imageViewer || !imageViewerImg) {
+            return;
+        }
+
+        imageViewer.classList.remove('active');
+        imageViewer.setAttribute('aria-hidden', 'true');
+        imageViewerImg.src = '';
+        document.body.classList.remove('viewer-open');
+    };
+
+    if (closeImageViewer) {
+        closeImageViewer.addEventListener('click', closeViewer);
+    }
+
+    if (imageViewer) {
+        imageViewer.addEventListener('click', (event) => {
+            if (event.target === imageViewer) {
+                closeViewer();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            closeViewer();
+        }
+    });
+</script>
 {% endblock %}
