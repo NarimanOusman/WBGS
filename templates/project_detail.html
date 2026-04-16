@@ -13,8 +13,9 @@
             <p class="text-muted subtitle-glow projects-subtext">{{ project.category }} | {{ project.status }} | {{ project.progress }}% complete</p>
         </div>
 
-        <div class="project-detail-summary glass-card">
+        <section class="project-detail-summary glass-card">
             <div class="project-detail-copy">
+                <p class="project-detail-kicker">Project Overview</p>
                 <p>{{ project.description }}</p>
             </div>
             <div class="project-detail-actions">
@@ -23,7 +24,7 @@
                 {% endif %}
                 <a class="project-action-link" href="{% url 'projects' %}">Back to Projects</a>
             </div>
-        </div>
+        </section>
 
         <section class="gallery-section">
             <h2 class="gallery-title">Project Gallery</h2>
