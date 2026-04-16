@@ -136,12 +136,12 @@ nav {
 .mobile-home-link {
   display: none;
   text-decoration: none;
-  font-size: 0.86rem;
-  font-weight: 700;
   color: #e2e8f0;
-  padding: 0.36rem 0.62rem;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.24);
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 0.32rem 0.65rem;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   background: rgba(255, 255, 255, 0.08);
 }
 
@@ -282,7 +282,11 @@ nav {
   }
 
   .theme-toggle-btn {
-    display: none;
+    display: none !important;
+  }
+
+  .mobile-home-link {
+    display: inline-flex;
   }
 
   .hamburger {
@@ -706,10 +710,10 @@ footer {
   color: #0F766E;
   text-shadow: none;
   letter-spacing: -0.02em;
-  font-size: clamp(2.2rem, 4.4vw, 3.1rem);
+  font-size: clamp(2.35rem, 4.7vw, 3.2rem);
   animation:
-    projectsSlideFromLeft 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.42s both,
-    projectsHeadingGlowPulse 3.2s ease-in-out 2.1s infinite alternate;
+    projectsSlideFromLeft 1.7s cubic-bezier(0.22, 1, 0.36, 1) 0.68s both,
+    projectsHeadingGlowPulse 3.2s ease-in-out 2.5s infinite alternate;
 }
 
 .projects-subtext {
@@ -717,14 +721,14 @@ footer {
   max-width: 760px;
   margin: 0.8rem auto 0;
   font-weight: 700;
-  font-size: 1.34rem;
+  font-size: 1.42rem;
   line-height: 1.6;
   background: linear-gradient(135deg, #0F766E 0%, #22D3EE 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: #0F766E;
-  animation: projectsSlideFromBottom 1.55s cubic-bezier(0.22, 1, 0.36, 1) 0.86s both;
+  animation: projectsSlideFromBottom 1.9s cubic-bezier(0.22, 1, 0.36, 1) 1.28s both;
 }
 
 @keyframes projectsSlideFromLeft {
@@ -773,8 +777,8 @@ footer {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   column-gap: 1.2rem;
-  row-gap: 1.5rem;
-  padding-inline: 0.2rem;
+  row-gap: 1.8rem;
+  padding-inline: 0.85rem;
 }
 
 /* Glass Card Master Styles */
@@ -783,13 +787,13 @@ footer {
   background: linear-gradient(165deg, rgba(255, 255, 255, 0.92), rgba(240, 249, 255, 0.78));
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border: 1.5px solid rgba(37, 99, 235, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 18px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease;
-  box-shadow: 0 12px 24px -14px rgba(15, 23, 42, 0.28), 0 0 12px rgba(37, 99, 235, 0.16), 0 14px 34px -24px rgba(15, 118, 110, 0.34);
+  box-shadow: 0 10px 25px -14px rgba(15, 23, 42, 0.28), 0 14px 34px -24px rgba(15, 118, 110, 0.34);
 }
 
 .glass-card::before {
@@ -806,16 +810,19 @@ footer {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  border: 1px solid rgba(56, 189, 248, 0.32);
-  box-shadow: 0 0 14px rgba(56, 189, 248, 0.2);
+  padding: 1.3px;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.88) 0%, rgba(34, 211, 238, 0.38) 45%, rgba(15, 118, 110, 0.56) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
   pointer-events: none;
-  z-index: 1;
+  z-index: 3;
 }
 
 .glass-card:hover {
   transform: translateY(-10px) scale(1.01);
-  border-color: rgba(56, 189, 248, 0.78);
-  box-shadow: 0 22px 44px -20px rgba(15, 23, 42, 0.35), 0 0 16px rgba(56, 189, 248, 0.28);
+  box-shadow: 0 24px 48px -20px rgba(15, 23, 42, 0.35), 0 0 16px rgba(34, 211, 238, 0.34), 0 0 28px rgba(255, 255, 255, 0.18);
 }
 
 /* Diagonal glare effect on hover */
@@ -1078,15 +1085,14 @@ footer {
   transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Progress color follows project status */
 .progress-wrapper.status-planned .progress-label,
 .progress-wrapper.status-planned .progress-value {
   color: #64748b;
 }
 
-.progress-wrapper.status-planned .progress-fill {
+.progress-wrapper.status-planned .glow-fill {
   background: linear-gradient(90deg, #475569, #94a3b8);
-  box-shadow: 0 0 10px rgba(148, 163, 184, 0.4);
+  box-shadow: 0 0 12px rgba(148, 163, 184, 0.42);
 }
 
 .progress-wrapper.status-ongoing .progress-label,
@@ -1094,9 +1100,9 @@ footer {
   color: #d97706;
 }
 
-.progress-wrapper.status-ongoing .progress-fill {
+.progress-wrapper.status-ongoing .glow-fill {
   background: linear-gradient(90deg, #b45309, #f59e0b);
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.45);
 }
 
 .progress-wrapper.status-completed .progress-label,
@@ -1104,9 +1110,9 @@ footer {
   color: #059669;
 }
 
-.progress-wrapper.status-completed .progress-fill {
-  background: linear-gradient(90deg, #047857, #34d399);
-  box-shadow: 0 0 12px rgba(16, 185, 129, 0.48);
+.progress-wrapper.status-completed .glow-fill {
+  background: linear-gradient(90deg, #0f766e, #22c55e);
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.4);
 }
 
 /* Empty State Premium */
@@ -1173,20 +1179,20 @@ footer {
   color: #0F766E;
 }
 
-.light-theme .premium-header .project-detail-metrics {
-  background: linear-gradient(135deg, #b8860b 0%, #e5e7eb 55%, #b8860b 100%);
+.project-detail-page .projects-heading,
+.project-detail-page .projects-subtext {
+  background: linear-gradient(135deg, #fbbf24 0%, #f8fafc 52%, #94a3b8 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  color: #b8860b;
 }
 .light-theme .glass-card {
   background: linear-gradient(165deg, rgba(255, 255, 255, 0.97), rgba(241, 250, 255, 0.92));
-  border: 1.5px solid rgba(37, 99, 235, 0.55);
-  box-shadow: 0 14px 34px -18px rgba(15, 23, 42, 0.2), 0 0 12px rgba(37, 99, 235, 0.14), 0 8px 24px -20px rgba(34, 211, 238, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 14px 34px -18px rgba(15, 23, 42, 0.2), 0 8px 24px -20px rgba(34, 211, 238, 0.45);
 }
 .light-theme .glass-card:hover {
-  box-shadow: 0 24px 48px -20px rgba(15, 23, 42, 0.28), 0 0 16px rgba(56, 189, 248, 0.26);
+  box-shadow: 0 24px 48px -20px rgba(15, 23, 42, 0.28), 0 0 0 1px rgba(34, 211, 238, 0.28);
 }
 .light-theme .project-title {
   color: #0f172a;
@@ -1234,12 +1240,8 @@ footer {
 }
 
 @media (max-width: 900px) {
-  .mobile-home-link {
-    display: inline-flex;
-  }
-
   .projects-subtext {
-    font-size: 1.16rem;
+    font-size: 1.22rem;
   }
 
   .premium-grid {
@@ -1254,18 +1256,18 @@ footer {
 @media (max-width: 640px) {
   .premium-grid {
     grid-template-columns: 1fr;
-    row-gap: 1.45rem;
-    padding-inline: 0.75rem;
+    gap: 1.5rem;
+    padding-inline: 0.9rem;
   }
 
   .projects-heading {
     animation:
-      projectsSlideFromLeft 1.7s cubic-bezier(0.22, 1, 0.36, 1) 0.48s both,
-      projectsHeadingGlowPulse 3.2s ease-in-out 2.2s infinite alternate;
+      projectsSlideFromLeft 1.95s cubic-bezier(0.22, 1, 0.36, 1) 0.82s both,
+      projectsHeadingGlowPulse 3.2s ease-in-out 2.7s infinite alternate;
   }
 
   .projects-subtext {
-    animation: projectsSlideFromBottom 1.75s cubic-bezier(0.22, 1, 0.36, 1) 0.92s both;
+    animation: projectsSlideFromBottom 2.05s cubic-bezier(0.22, 1, 0.36, 1) 1.38s both;
   }
 
   .projects-heading {
@@ -1273,7 +1275,7 @@ footer {
   }
 
   .projects-subtext {
-    font-size: 1.08rem;
+    font-size: 1.18rem;
     padding-inline: 0.6rem;
   }
 
@@ -1282,8 +1284,7 @@ footer {
   }
 
   .badges-container {
-    top: auto;
-    bottom: 12px;
+    bottom: 14px;
     left: 12px;
     right: 12px;
     justify-content: flex-start;
@@ -1319,7 +1320,8 @@ footer {
   }
 
   .glass-card {
-    margin: 0.2rem 0;
+    margin-inline: 0.05rem;
+    margin-block: 0.2rem;
   }
 
   .gallery-grid {
