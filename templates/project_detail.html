@@ -13,11 +13,11 @@
             <p class="text-muted subtitle-glow projects-subtext">{{ project.category }} | {{ project.status }} | {{ project.progress }}% complete</p>
         </div>
 
-        <section class="project-detail-summary glass-card">
-            <div class="project-detail-copy">
-                <p class="project-detail-kicker">Project Overview</p>
-                <p>{{ project.description }}</p>
-            </div>
+        <section class="project-overview-panel glass-card">
+            <p class="project-overview-kicker">Project Overview</p>
+            <h2 class="project-overview-name">{{ project.title }}</h2>
+            <p class="project-overview-meta">{{ project.category }} | {{ project.status }} | {{ project.progress }}% complete</p>
+            <p class="project-overview-description">{{ project.description }}</p>
             <div class="project-detail-actions">
                 {% if project.image %}
                 <a class="project-action-link download-link" href="{{ project.image.url }}" download>Download Cover Image</a>
