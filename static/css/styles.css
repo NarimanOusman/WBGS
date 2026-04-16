@@ -127,6 +127,34 @@ nav {
   gap: 1.2rem;
 }
 
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.theme-toggle-btn .theme-icon {
+  width: 17px;
+  height: 17px;
+}
+
+.theme-toggle-btn .icon-moon {
+  display: none;
+}
+
 .nav-links a {
   position: relative;
   text-decoration: none;
@@ -240,6 +268,11 @@ nav {
   .nav-links {
     display: none;
   }
+
+  .theme-toggle-btn {
+    display: none;
+  }
+
   .hamburger {
     display: flex;
   }
@@ -661,9 +694,10 @@ footer {
   color: #0F766E;
   text-shadow: none;
   letter-spacing: -0.02em;
+  font-size: clamp(2.2rem, 4.4vw, 3.1rem);
   animation:
-    projectsSlideFromLeft 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both,
-    projectsHeadingGlowPulse 3.2s ease-in-out 1.6s infinite alternate;
+    projectsSlideFromLeft 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.42s both,
+    projectsHeadingGlowPulse 3.2s ease-in-out 2.1s infinite alternate;
 }
 
 .projects-subtext {
@@ -671,14 +705,14 @@ footer {
   max-width: 760px;
   margin: 0.8rem auto 0;
   font-weight: 700;
-  font-size: 1.12rem;
-  line-height: 1.55;
+  font-size: 1.28rem;
+  line-height: 1.6;
   background: linear-gradient(135deg, #0F766E 0%, #22D3EE 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: #0F766E;
-  animation: projectsSlideFromBottom 1.25s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+  animation: projectsSlideFromBottom 1.55s cubic-bezier(0.22, 1, 0.36, 1) 0.86s both;
 }
 
 @keyframes projectsSlideFromLeft {
@@ -726,7 +760,9 @@ footer {
 .premium-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.25rem;
+  column-gap: 1.2rem;
+  row-gap: 1.5rem;
+  padding-inline: 0.2rem;
 }
 
 /* Glass Card Master Styles */
@@ -735,7 +771,7 @@ footer {
   background: linear-gradient(165deg, rgba(255, 255, 255, 0.92), rgba(240, 249, 255, 0.78));
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(15, 118, 110, 0.16);
+  border: 2px solid #1e3a8a;
   border-radius: 18px;
   overflow: hidden;
   display: flex;
@@ -755,7 +791,7 @@ footer {
 
 .glass-card:hover {
   transform: translateY(-10px) scale(1.01);
-  border-color: rgba(34, 211, 238, 0.46);
+  border-color: #1d4ed8;
   box-shadow: 0 22px 44px -20px rgba(15, 23, 42, 0.35), 0 0 0 1px rgba(34, 211, 238, 0.24);
 }
 
@@ -775,7 +811,7 @@ footer {
 }
 
 .project-image-container {
-  height: 182px;
+  height: 230px;
   position: relative;
   overflow: hidden;
 }
@@ -851,7 +887,7 @@ footer {
 }
 
 .project-title {
-  font-size: 1.02rem;
+  font-size: 1.07rem;
   line-height: 1.4;
   margin-bottom: 0.6rem;
   color: #f8fafc;
@@ -860,7 +896,7 @@ footer {
 
 .premium-content .description {
   color: #94a3b8;
-  font-size: 0.84rem;
+  font-size: 0.9rem;
   line-height: 1.5;
   margin-bottom: 1.1rem;
 }
@@ -981,7 +1017,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.6rem;
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -1079,7 +1115,7 @@ footer {
 }
 .light-theme .glass-card {
   background: linear-gradient(165deg, rgba(255, 255, 255, 0.97), rgba(241, 250, 255, 0.92));
-  border: 1px solid rgba(15, 118, 110, 0.14);
+  border: 2px solid #1e3a8a;
   box-shadow: 0 14px 34px -18px rgba(15, 23, 42, 0.2), 0 8px 24px -20px rgba(34, 211, 238, 0.45);
 }
 .light-theme .glass-card:hover {
@@ -1122,7 +1158,7 @@ footer {
 
 @media (max-width: 1200px) {
   .projects-subtext {
-    font-size: 1.3rem;
+    font-size: 1.38rem;
   }
 
   .premium-grid {
@@ -1132,7 +1168,7 @@ footer {
 
 @media (max-width: 900px) {
   .projects-subtext {
-    font-size: 1.08rem;
+    font-size: 1.16rem;
   }
 
   .premium-grid {
@@ -1152,12 +1188,12 @@ footer {
 
   .projects-heading {
     animation:
-      projectsSlideFromLeft 1.35s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both,
-      projectsHeadingGlowPulse 3.2s ease-in-out 1.7s infinite alternate;
+      projectsSlideFromLeft 1.7s cubic-bezier(0.22, 1, 0.36, 1) 0.48s both,
+      projectsHeadingGlowPulse 3.2s ease-in-out 2.2s infinite alternate;
   }
 
   .projects-subtext {
-    animation: projectsSlideFromBottom 1.45s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+    animation: projectsSlideFromBottom 1.75s cubic-bezier(0.22, 1, 0.36, 1) 0.92s both;
   }
 
   .projects-heading {
@@ -1165,8 +1201,49 @@ footer {
   }
 
   .projects-subtext {
-    font-size: 0.96rem;
+    font-size: 1.08rem;
     padding-inline: 0.6rem;
+  }
+
+  .project-image-container {
+    height: 250px;
+  }
+
+  .badges-container {
+    top: auto;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    justify-content: flex-start;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    font-size: 0.76rem;
+    padding: 7px 12px;
+  }
+
+  .project-title {
+    font-size: 1.24rem;
+  }
+
+  .premium-content .description {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .gallery-pill {
+    font-size: 0.88rem;
+  }
+
+  .project-action-link {
+    font-size: 0.92rem;
+    padding: 0.55rem 0.86rem;
+  }
+
+  .progress-meta {
+    font-size: 1rem;
   }
 
   .gallery-grid {
