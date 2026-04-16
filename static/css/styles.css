@@ -1028,9 +1028,13 @@ footer {
 }
 
 .project-detail-page .projects-subtext {
-  font-size: 1.95rem;
-  line-height: 1.45;
+  font-size: 2.2rem;
+  line-height: 1.38;
   font-weight: 800;
+}
+
+.project-detail-page .premium-header {
+  margin-bottom: 2.8rem;
 }
 
 .gallery-title {
@@ -1365,24 +1369,6 @@ footer {
     line-height: 1.72;
   }
 
-
-@media (min-width: 1024px) {
-  .project-detail-summary {
-    grid-template-columns: 1fr auto;
-    padding: 1.6rem 1.7rem;
-  }
-
-  .project-detail-actions {
-    flex-direction: column;
-    align-items: flex-end;
-    margin-top: 0;
-    min-width: 230px;
-  }
-
-  .project-detail-actions .project-action-link {
-    min-width: 210px;
-  }
-}
   .progress-meta {
     font-size: 1rem;
   }
@@ -1398,6 +1384,34 @@ footer {
 
   .gallery-image {
     height: 215px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .project-detail-summary {
+    max-width: 980px;
+    grid-template-columns: 1fr auto;
+    padding: 1.45rem 1.5rem;
+    gap: 1.1rem;
+  }
+
+  .project-detail-actions {
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    margin-top: 0;
+    min-width: 220px;
+  }
+
+  .project-detail-actions .project-action-link {
+    min-width: 200px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1440px) {
+  .project-detail-page .projects-subtext {
+    font-size: 2.35rem;
+    line-height: 1.34;
   }
 }
 
