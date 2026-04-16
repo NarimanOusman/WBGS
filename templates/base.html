@@ -55,7 +55,6 @@
             <a href="/about">About</a>
         </div>
         <div class="nav-controls">
-            <a href="{% url 'home' %}" class="mobile-home-link">Home</a>
             <button id="themeToggleBtn" class="theme-toggle-btn" type="button" aria-label="Switch to dark mode" title="Toggle theme">
                 <svg class="theme-icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <circle cx="12" cy="12" r="4"></circle>
@@ -139,8 +138,12 @@
 
         // Active Link Highlight Logic
         const currentPath = window.location.pathname;
-        const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
+        const useMobileNav = window.matchMedia('(max-width: 900px)').matches;
+        const navSelector = useMobileNav ? '.mobile-nav-links a' : '.nav-links a';
+        const navLinks = document.querySelectorAll(navSelector);
+
         navLinks.forEach(link => {
+            link.classList.remove('active-nav-link');
             const href = link.getAttribute('href');
             if (href === currentPath || (href !== '/' && currentPath.startsWith(href))) {
                 link.classList.add('active-nav-link');
