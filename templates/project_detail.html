@@ -3,21 +3,18 @@
 {% block title %}{{ project.title }} | WAU State{% endblock %}
 
 {% block content %}
-<div class="page-wrapper projects-wrapper light-theme">
+<div class="page-wrapper projects-wrapper light-theme project-detail-page">
     <div class="bg-glow bg-glow-blue"></div>
     <div class="bg-glow bg-glow-gold"></div>
 
     <div class="container section relative-z">
-        <div class="page-header premium-header projects-header-animate">
-            <h1 class="page-title glow-text projects-heading">{{ project.title }}</h1>
-            <p class="text-muted subtitle-glow projects-subtext">{{ project.category }} | {{ project.status }} | {{ project.progress }}% complete</p>
-        </div>
-
         <section class="project-overview-panel glass-card">
-            <p class="project-overview-kicker">Project Overview</p>
-            <h2 class="project-overview-name">{{ project.title }}</h2>
-            <p class="project-overview-meta">{{ project.category }} | {{ project.status }} | {{ project.progress }}% complete</p>
-            <p class="project-overview-description">{{ project.description }}</p>
+            <div class="project-overview-main">
+                <p class="project-overview-kicker">Project Overview</p>
+                <h1 class="project-overview-name">{{ project.title }}</h1>
+                <p class="project-overview-meta">{{ project.category }} | {{ project.status }} | {{ project.progress }}% complete</p>
+                <p class="project-overview-description">{{ project.description }}</p>
+            </div>
             <div class="project-detail-actions">
                 {% if project.image %}
                 <a class="project-action-link download-link" href="{{ project.image.url }}" download>Download Cover Image</a>
