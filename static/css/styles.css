@@ -133,6 +133,18 @@ nav {
   gap: 0.7rem;
 }
 
+.mobile-home-link {
+  display: none;
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  padding: 0.36rem 0.62rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.08);
+}
+
 .theme-toggle-btn {
   display: inline-flex;
   align-items: center;
@@ -705,7 +717,7 @@ footer {
   max-width: 760px;
   margin: 0.8rem auto 0;
   font-weight: 700;
-  font-size: 1.28rem;
+  font-size: 1.34rem;
   line-height: 1.6;
   background: linear-gradient(135deg, #0F766E 0%, #22D3EE 100%);
   -webkit-background-clip: text;
@@ -771,13 +783,13 @@ footer {
   background: linear-gradient(165deg, rgba(255, 255, 255, 0.92), rgba(240, 249, 255, 0.78));
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border: 2px solid #1e3a8a;
+  border: 1.5px solid rgba(37, 99, 235, 0.55);
   border-radius: 18px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease;
-  box-shadow: 0 10px 25px -14px rgba(15, 23, 42, 0.28), 0 14px 34px -24px rgba(15, 118, 110, 0.34);
+  box-shadow: 0 12px 24px -14px rgba(15, 23, 42, 0.28), 0 0 12px rgba(37, 99, 235, 0.16), 0 14px 34px -24px rgba(15, 118, 110, 0.34);
 }
 
 .glass-card::before {
@@ -789,10 +801,21 @@ footer {
   z-index: 0;
 }
 
+.glass-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(56, 189, 248, 0.32);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.2);
+  pointer-events: none;
+  z-index: 1;
+}
+
 .glass-card:hover {
   transform: translateY(-10px) scale(1.01);
-  border-color: #1d4ed8;
-  box-shadow: 0 22px 44px -20px rgba(15, 23, 42, 0.35), 0 0 0 1px rgba(34, 211, 238, 0.24);
+  border-color: rgba(56, 189, 248, 0.78);
+  box-shadow: 0 22px 44px -20px rgba(15, 23, 42, 0.35), 0 0 16px rgba(56, 189, 248, 0.28);
 }
 
 /* Diagonal glare effect on hover */
@@ -850,9 +873,14 @@ footer {
 /* Badges */
 .badges-container {
   position: absolute;
-  top: 15px; left: 15px; right: 15px;
+  top: auto;
+  bottom: 14px;
+  left: 15px;
+  right: 15px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 0.55rem;
+  flex-wrap: wrap;
   z-index: 2;
 }
 
@@ -1050,6 +1078,37 @@ footer {
   transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Progress color follows project status */
+.progress-wrapper.status-planned .progress-label,
+.progress-wrapper.status-planned .progress-value {
+  color: #64748b;
+}
+
+.progress-wrapper.status-planned .progress-fill {
+  background: linear-gradient(90deg, #475569, #94a3b8);
+  box-shadow: 0 0 10px rgba(148, 163, 184, 0.4);
+}
+
+.progress-wrapper.status-ongoing .progress-label,
+.progress-wrapper.status-ongoing .progress-value {
+  color: #d97706;
+}
+
+.progress-wrapper.status-ongoing .progress-fill {
+  background: linear-gradient(90deg, #b45309, #f59e0b);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+}
+
+.progress-wrapper.status-completed .progress-label,
+.progress-wrapper.status-completed .progress-value {
+  color: #059669;
+}
+
+.progress-wrapper.status-completed .progress-fill {
+  background: linear-gradient(90deg, #047857, #34d399);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.48);
+}
+
 /* Empty State Premium */
 .premium-empty {
   position: relative;
@@ -1113,13 +1172,21 @@ footer {
   -webkit-text-fill-color: transparent;
   color: #0F766E;
 }
+
+.light-theme .premium-header .project-detail-metrics {
+  background: linear-gradient(135deg, #b8860b 0%, #e5e7eb 55%, #b8860b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #b8860b;
+}
 .light-theme .glass-card {
   background: linear-gradient(165deg, rgba(255, 255, 255, 0.97), rgba(241, 250, 255, 0.92));
-  border: 2px solid #1e3a8a;
-  box-shadow: 0 14px 34px -18px rgba(15, 23, 42, 0.2), 0 8px 24px -20px rgba(34, 211, 238, 0.45);
+  border: 1.5px solid rgba(37, 99, 235, 0.55);
+  box-shadow: 0 14px 34px -18px rgba(15, 23, 42, 0.2), 0 0 12px rgba(37, 99, 235, 0.14), 0 8px 24px -20px rgba(34, 211, 238, 0.45);
 }
 .light-theme .glass-card:hover {
-  box-shadow: 0 24px 48px -20px rgba(15, 23, 42, 0.28), 0 0 0 1px rgba(34, 211, 238, 0.28);
+  box-shadow: 0 24px 48px -20px rgba(15, 23, 42, 0.28), 0 0 16px rgba(56, 189, 248, 0.26);
 }
 .light-theme .project-title {
   color: #0f172a;
@@ -1158,7 +1225,7 @@ footer {
 
 @media (max-width: 1200px) {
   .projects-subtext {
-    font-size: 1.38rem;
+    font-size: 1.5rem;
   }
 
   .premium-grid {
@@ -1167,6 +1234,10 @@ footer {
 }
 
 @media (max-width: 900px) {
+  .mobile-home-link {
+    display: inline-flex;
+  }
+
   .projects-subtext {
     font-size: 1.16rem;
   }
@@ -1183,7 +1254,8 @@ footer {
 @media (max-width: 640px) {
   .premium-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    row-gap: 1.45rem;
+    padding-inline: 0.75rem;
   }
 
   .projects-heading {
@@ -1244,6 +1316,10 @@ footer {
 
   .progress-meta {
     font-size: 1rem;
+  }
+
+  .glass-card {
+    margin: 0.2rem 0;
   }
 
   .gallery-grid {
