@@ -1016,9 +1016,9 @@ footer {
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #0f766e;
-  background: rgba(15, 118, 110, 0.12);
-  border: 1px solid rgba(15, 118, 110, 0.24);
+  color: #194342;
+  background: rgba(25, 67, 66, 0.12);
+  border: 1px solid rgba(25, 67, 66, 0.24);
 }
 
 .project-overview-name {
@@ -1028,10 +1028,11 @@ footer {
   line-height: 1.1;
   font-weight: 800;
   letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #0F766E 0%, #22D3EE 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #194342;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: initial;
 }
 
 .project-overview-meta {
@@ -1040,12 +1041,12 @@ footer {
   font-size: clamp(1.34rem, 2.5vw, 1.78rem);
   line-height: 1.4;
   font-weight: 700;
-  color: #0f766e;
+  color: #194342;
 }
 
 .project-overview-description {
   margin: 0;
-  color: #0f172a;
+  color: #194342;
   line-height: 1.82;
   font-size: 1.12rem;
   font-weight: 500;
@@ -1287,28 +1288,30 @@ body.viewer-open {
   text-shadow: none;
 }
 .light-theme .premium-header .projects-heading {
-  background: linear-gradient(135deg, #0F766E 0%, #22D3EE 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #194342;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: initial;
 }
 .light-theme .premium-header .subtitle-glow {
   color: #475569;
 }
 .light-theme .premium-header .projects-subtext {
-  background: linear-gradient(135deg, #0F766E 0%, #22D3EE 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: #0F766E;
+  color: #194342;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: initial;
 }
 
 .project-detail-page .projects-heading,
 .project-detail-page .projects-subtext {
-  background: linear-gradient(135deg, #fbbf24 0%, #f8fafc 52%, #94a3b8 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #194342;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: initial;
 }
 
 .project-detail-page .projects-subtext {
@@ -1335,7 +1338,7 @@ body.viewer-open {
 }
 .light-theme .progress-value {
   text-shadow: none;
-  color: #0f766e;
+  color: #194342;
 }
 .light-theme .progress-track {
   background: rgba(15, 23, 42, 0.12);
