@@ -15,38 +15,56 @@
             <p class="text-muted subtitle-glow projects-subtext">Transparent tracking of Western Bahr el Ghazal State's transformation</p>
         </div>
 
-        <section class="projects-controls-shell glass-card">
-            <form method="get" class="projects-controls" aria-label="Search and filter projects">
-                <div class="control-group control-search">
-                    <label for="projectsSearch">Search projects</label>
-                    <input id="projectsSearch" type="search" name="q" value="{{ search_query }}" placeholder="Search projects...">
-                </div>
+        <div class="projects-summary-bar" aria-label="Project summary">
+            <div class="summary-item">
+                <span class="summary-label">Total Projects</span>
+                <strong class="summary-value">{{ project_stats.total }}</strong>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Completed</span>
+                <strong class="summary-value">{{ project_stats.completed }}</strong>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Ongoing</span>
+                <strong class="summary-value">{{ project_stats.ongoing }}</strong>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Average Progress</span>
+                <strong class="summary-value">{{ project_stats.average_progress }}%</strong>
+            </div>
+        </div>
 
-                <div class="status-tabs">
-                    <button type="submit" name="status" value="" class="status-tab {% if not selected_status %}active{% endif %}">
-                        All <span>{{ projects|length }}</span>
-                    </button>
-                    <button type="submit" name="status" value="Planned" class="status-tab {% if selected_status == 'Planned' %}active{% endif %}">
-                        Planned <span>{{ status_counts.Planned }}</span>
-                    </button>
-                    <button type="submit" name="status" value="Ongoing" class="status-tab {% if selected_status == 'Ongoing' %}active{% endif %}">
-                        Ongoing <span>{{ status_counts.Ongoing }}</span>
-                    </button>
-                    <button type="submit" name="status" value="Completed" class="status-tab {% if selected_status == 'Completed' %}active{% endif %}">
-                        Completed <span>{{ status_counts.Completed }}</span>
-                    </button>
-                </div>
+        <div class="projects-tools" aria-label="Filter projects">
+            <label class="projects-search-wrap">
+                <span class="projects-control-label">Search</span>
+                <input id="projectSearch" class="projects-search" type="search" placeholder="Search by project name" aria-label="Search projects by name">
+            </label>
 
-                {% if has_active_filters %}
-                <a href="{% url 'projects' %}" class="projects-reset-link">Reset filters</a>
-                {% endif %}
-            </form>
-        </section>
+            <label class="projects-select-wrap">
+                <span class="projects-control-label">Status</span>
+                <select id="statusFilter" class="projects-select" aria-label="Filter by project status">
+                    <option value="all">All Status</option>
+                    <option value="planned">Planned</option>
+                    <option value="ongoing">Ongoing</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </label>
+
+            <label class="projects-select-wrap">
+                <span class="projects-control-label">Category</span>
+                <select id="categoryFilter" class="projects-select" aria-label="Filter by project category">
+                    <option value="all">All Categories</option>
+                    {% for category in categories %}
+                    <option value="{{ category|lower }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
 
         {% if projects %}
         <div class="projects-grid premium-grid">
             {% for project in projects %}
-            <div class="project-card glass-card">
+            <div class="project-card glass-card" data-title="{{ project.title|lower }}" data-status="{{ project.status|lower }}" data-category="{{ project.category|lower }}">
                 <a class="project-card-link" href="{% url 'project_detail' project.pk %}" aria-label="Open details for {{ project.title }}"></a>
                 <div class="glass-glare"></div>
                 
@@ -94,6 +112,10 @@
             </div>
             {% endfor %}
         </div>
+        <div id="projectsEmptyState" class="projects-empty-message" hidden>
+            <p>No projects match your search or filters.</p>
+            <button type="button" class="projects-reset-btn" id="resetProjectFilters">Clear filters</button>
+        </div>
         {% else %}
         <div class="empty-state premium-empty">
             <div class="glass-glare"></div>
@@ -103,16 +125,67 @@
                   <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
                 </svg>
             </div>
-            {% if has_active_filters %}
-            <h2 class="empty-title text-gradient">No Matching Projects</h2>
-            <p class="empty-text">No project matches your current search or status. Try another keyword or switch to a different tab.</p>
-            <a href="{% url 'projects' %}" class="project-action-link">Clear filters</a>
-            {% else %}
             <h2 class="empty-title text-gradient">Mapping Our Future</h2>
             <p class="empty-text">Our engineering and administrative teams are currently cataloging the digital records for our active initiatives. We will be continually updating the state portal with real-time project metrics shortly.</p>
-            {% endif %}
         </div>
         {% endif %}
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const projectSearch = document.getElementById('projectSearch');
+    const statusFilter = document.getElementById('statusFilter');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const projectCards = Array.from(document.querySelectorAll('.project-card[data-title]'));
+    const projectsEmptyState = document.getElementById('projectsEmptyState');
+    const resetProjectFilters = document.getElementById('resetProjectFilters');
+
+    const applyProjectFilters = () => {
+        const searchValue = (projectSearch?.value || '').trim().toLowerCase();
+        const statusValue = (statusFilter?.value || 'all').toLowerCase();
+        const categoryValue = (categoryFilter?.value || 'all').toLowerCase();
+
+        let visibleCount = 0;
+
+        projectCards.forEach((card) => {
+            const title = card.dataset.title || '';
+            const status = card.dataset.status || '';
+            const category = card.dataset.category || '';
+
+            const matchesSearch = !searchValue || title.includes(searchValue);
+            const matchesStatus = statusValue === 'all' || status === statusValue;
+            const matchesCategory = categoryValue === 'all' || category === categoryValue;
+            const isVisible = matchesSearch && matchesStatus && matchesCategory;
+
+            card.hidden = !isVisible;
+            if (isVisible) {
+                visibleCount += 1;
+            }
+        });
+
+        if (projectsEmptyState) {
+            projectsEmptyState.hidden = visibleCount !== 0;
+        }
+    };
+
+    [projectSearch, statusFilter, categoryFilter].forEach((field) => {
+        if (field) {
+            field.addEventListener('input', applyProjectFilters);
+            field.addEventListener('change', applyProjectFilters);
+        }
+    });
+
+    if (resetProjectFilters) {
+        resetProjectFilters.addEventListener('click', () => {
+            if (projectSearch) projectSearch.value = '';
+            if (statusFilter) statusFilter.value = 'all';
+            if (categoryFilter) categoryFilter.value = 'all';
+            applyProjectFilters();
+        });
+    }
+
+    applyProjectFilters();
+</script>
 {% endblock %}
