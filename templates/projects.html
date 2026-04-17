@@ -50,9 +50,6 @@
 
                     <div class="project-actions">
                         <a class="project-action-link" href="{% url 'project_detail' project.pk %}">View Details</a>
-                        {% if project.image %}
-                        <a class="project-action-link download-link" href="{{ project.image.url }}" download>Download Cover</a>
-                        {% endif %}
                     </div>
                     
                     <div class="progress-wrapper status-{{ project.status|lower }}">
