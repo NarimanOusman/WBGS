@@ -12,6 +12,7 @@ def projects(request):
     total_projects = len(projects)
     completed_projects = sum(1 for project in projects if project.status == 'Completed')
     ongoing_projects = sum(1 for project in projects if project.status == 'Ongoing')
+    planned_projects = sum(1 for project in projects if project.status == 'Planned')
     average_progress = round(sum(project.progress for project in projects) / total_projects) if total_projects else 0
 
     return render(
@@ -24,6 +25,7 @@ def projects(request):
                 'total': total_projects,
                 'completed': completed_projects,
                 'ongoing': ongoing_projects,
+                'planned': planned_projects,
                 'average_progress': average_progress,
             },
         },
