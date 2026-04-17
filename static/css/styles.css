@@ -891,12 +891,12 @@ footer {
   padding: 1rem 1.05rem;
   border-radius: 20px;
   background:
-    linear-gradient(160deg, rgba(112, 79, 18, 0.62), rgba(163, 123, 35, 0.52) 46%, rgba(203, 203, 203, 0.5) 100%),
-    linear-gradient(145deg, rgba(95, 67, 14, 0.52), rgba(206, 206, 206, 0.34));
-  border: 1px solid rgba(172, 132, 45, 0.52);
+    linear-gradient(155deg, rgba(126, 79, 13, 0.68), rgba(179, 126, 28, 0.58) 42%, rgba(231, 197, 99, 0.54) 100%),
+    linear-gradient(140deg, rgba(92, 61, 9, 0.58), rgba(168, 121, 20, 0.52));
+  border: 1px solid rgba(186, 143, 43, 0.52);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 16px 34px -20px rgba(20, 16, 7, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 -10px 18px -14px rgba(137, 104, 29, 0.45);
+  box-shadow: 0 16px 34px -20px rgba(54, 38, 4, 0.46), inset 0 1px 0 rgba(255, 236, 181, 0.44), inset 0 -10px 18px -14px rgba(126, 79, 13, 0.42);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   overflow: hidden;
   display: flex;
@@ -954,8 +954,10 @@ footer {
 .summary-completed,
 .summary-ongoing,
 .summary-average {
-  background: linear-gradient(155deg, rgba(126, 90, 23, 0.58), rgba(201, 201, 201, 0.44));
-  border-color: rgba(161, 123, 38, 0.5);
+  background:
+    linear-gradient(160deg, rgba(121, 74, 10, 0.72), rgba(175, 124, 23, 0.66) 45%, rgba(229, 196, 96, 0.58) 100%),
+    linear-gradient(145deg, rgba(88, 55, 7, 0.62), rgba(160, 114, 19, 0.54));
+  border-color: rgba(180, 135, 34, 0.6);
 }
 
 .summary-total .summary-label,
