@@ -15,30 +15,22 @@
             <p class="text-muted subtitle-glow projects-subtext">Transparent tracking of Western Bahr el Ghazal State's transformation</p>
         </div>
 
-        <div class="projects-summary-bar{% if project_stats.planned %} has-planned{% endif %}" aria-label="Project summary">
+        <div class="projects-summary-bar" aria-label="Project summary">
             <div class="summary-item summary-total">
                 <span class="summary-label">Total Projects</span>
                 <strong class="summary-value">{{ project_stats.total }}</strong>
             </div>
-            <div class="summary-item summary-status summary-completed">
+            <div class="summary-item summary-completed">
                 <span class="summary-label">Completed</span>
                 <strong class="summary-value">{{ project_stats.completed }}</strong>
             </div>
-            <div class="summary-item summary-status summary-ongoing">
+            <div class="summary-item summary-ongoing">
                 <span class="summary-label">Ongoing</span>
                 <strong class="summary-value">{{ project_stats.ongoing }}</strong>
             </div>
-            {% if project_stats.planned %}
-            <div class="summary-item summary-status summary-planned">
-                <span class="summary-label">Planned</span>
-                <strong class="summary-value">{{ project_stats.planned }}</strong>
-            </div>
-            {% endif %}
             <div class="summary-item summary-average">
-                <div class="summary-inline">
-                    <span class="summary-label">Average Progress</span>
-                    <strong class="summary-value">{{ project_stats.average_progress }}%</strong>
-                </div>
+                <span class="summary-label">Average Progress</span>
+                <strong class="summary-value">{{ project_stats.average_progress }}%</strong>
             </div>
         </div>
 
