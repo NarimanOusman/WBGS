@@ -889,12 +889,12 @@ footer {
 .summary-item {
   position: relative;
   padding: 1rem 1.05rem;
-  border-radius: 20px;
-  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-  border: 1px solid rgba(191, 219, 254, 0.5);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 12px 24px -16px rgba(15, 23, 42, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.46);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 10px 24px -16px rgba(15, 23, 42, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.55);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   overflow: hidden;
   display: flex;
@@ -914,7 +914,7 @@ footer {
   left: -30%;
   border-radius: 24px;
   transform: rotate(24deg);
-  background: linear-gradient(120deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.12) 42%, rgba(255, 255, 255, 0) 68%);
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.16) 42%, rgba(255, 255, 255, 0) 68%);
   pointer-events: none;
 }
 
@@ -923,13 +923,14 @@ footer {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   pointer-events: none;
 }
 
 .summary-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 18px 30px -18px rgba(15, 23, 42, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+  border-color: rgba(148, 163, 184, 0.38);
+  box-shadow: 0 16px 30px -18px rgba(15, 23, 42, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.62);
 }
 
 .summary-label {
@@ -952,8 +953,8 @@ footer {
 .summary-completed,
 .summary-ongoing,
 .summary-average {
-  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-  border-color: rgba(191, 219, 254, 0.5);
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 0.46);
 }
 
 .summary-total .summary-label,
