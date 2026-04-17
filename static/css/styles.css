@@ -891,12 +891,12 @@ footer {
   padding: 1rem 1.05rem;
   border-radius: 20px;
   background:
-    linear-gradient(160deg, rgba(30, 58, 138, 0.42), rgba(30, 64, 175, 0.34) 45%, rgba(14, 116, 144, 0.28) 100%),
-    linear-gradient(145deg, rgba(30, 58, 138, 0.32), rgba(15, 23, 42, 0.24));
-  border: 1px solid rgba(191, 219, 254, 0.44);
+    linear-gradient(145deg, rgba(212, 175, 55, 0.48), rgba(230, 232, 236, 0.56) 52%, rgba(192, 192, 192, 0.46) 100%),
+    linear-gradient(160deg, rgba(255, 248, 220, 0.3), rgba(224, 224, 224, 0.28));
+  border: 1px solid rgba(161, 161, 170, 0.35);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 16px 34px -20px rgba(15, 23, 42, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.34), inset 0 -10px 18px -14px rgba(14, 116, 144, 0.3);
+  box-shadow: 0 16px 34px -20px rgba(39, 39, 42, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.42), inset 0 -10px 18px -14px rgba(161, 161, 170, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   overflow: hidden;
   display: flex;
@@ -941,35 +941,35 @@ footer {
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #e2e8f0;
+  color: #121313;
 }
 
 .summary-value {
   font-size: 1.16rem;
   font-weight: 800;
-  color: #f8fafc;
+  color: #121313;
 }
 
 .summary-total,
 .summary-completed,
 .summary-ongoing,
 .summary-average {
-  background: linear-gradient(155deg, rgba(37, 99, 235, 0.34), rgba(30, 64, 175, 0.26));
-  border-color: rgba(191, 219, 254, 0.42);
+  background: linear-gradient(145deg, rgba(212, 175, 55, 0.42), rgba(229, 231, 235, 0.58) 52%, rgba(192, 192, 192, 0.42));
+  border-color: rgba(161, 161, 170, 0.34);
 }
 
 .summary-total .summary-label,
 .summary-completed .summary-label,
 .summary-ongoing .summary-label,
 .summary-average .summary-label {
-  color: #dbeafe;
+  color: #121313;
 }
 
 .summary-total .summary-value,
 .summary-completed .summary-value,
 .summary-ongoing .summary-value,
 .summary-average .summary-value {
-  color: #ffffff;
+  color: #121313;
 }
 
 .summary-average {
