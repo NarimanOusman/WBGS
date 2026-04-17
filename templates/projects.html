@@ -3,25 +3,23 @@
 {% block title %}Projects Dashboard | WAU State{% endblock %}
 
 {% block content %}
-<div class="page-wrapper projects-wrapper light-theme">
-    <!-- Animated animated background elements -->
-    <div class="bg-glow bg-glow-blue"></div>
-    <div class="bg-glow bg-glow-gold"></div>
+<section class="projects-classic-page light-theme">
+    <div class="projects-classic-shell">
+        <header class="projects-classic-header">
+            <p class="projects-classic-kicker">State Portfolio</p>
+            <h1>State Initiatives</h1>
+            <p class="projects-classic-lead">A clearer view of projects shaping Western Bahr el Ghazal through transparent milestones and measurable delivery.</p>
+        </header>
 
-    <div class="container section relative-z">
-        
-        <div class="page-header premium-header projects-header-animate">
-            <h1 class="page-title glow-text projects-heading">State Initiatives</h1>
-            <p class="text-muted subtitle-glow projects-subtext">Transparent tracking of Western Bahr el Ghazal State's transformation</p>
-        </div>
-
-        <section class="projects-controls-shell glass-card">
-            <form method="get" class="projects-controls" aria-label="Filter and sort projects">
-                <div class="control-group control-search">
-                    <input id="projectsSearch" type="search" name="q" value="{{ filters.q }}" placeholder="Search projects...">
+        <section class="projects-classic-controls" aria-label="Filter and sort projects">
+            <form method="get" class="projects-classic-form">
+                <div class="projects-classic-field projects-classic-search">
+                    <label for="projectsSearch">Search</label>
+                    <input id="projectsSearch" type="search" name="q" value="{{ filters.q }}" placeholder="Search title, category, description">
                 </div>
 
-                <div class="control-group">
+                <div class="projects-classic-field">
+                    <label for="projectsStatus">Status</label>
                     <select id="projectsStatus" name="status">
                         <option value="">All statuses</option>
                         {% for status in status_choices %}
@@ -30,116 +28,107 @@
                     </select>
                 </div>
 
-                <div class="control-group">
-                    <select id="projectsSort" name="sort">
-                        <option value="newest" {% if filters.sort == 'newest' %}selected{% endif %}>Sort: Newest</option>
-                        <option value="oldest" {% if filters.sort == 'oldest' %}selected{% endif %}>Sort: Oldest</option>
-                        <option value="progress_desc" {% if filters.sort == 'progress_desc' %}selected{% endif %}>Sort: Progress High-Low</option>
-                        <option value="progress_asc" {% if filters.sort == 'progress_asc' %}selected{% endif %}>Sort: Progress Low-High</option>
-                        <option value="title_asc" {% if filters.sort == 'title_asc' %}selected{% endif %}>Sort: Title A-Z</option>
-                        <option value="title_desc" {% if filters.sort == 'title_desc' %}selected{% endif %}>Sort: Title Z-A</option>
-                        <option value="status" {% if filters.sort == 'status' %}selected{% endif %}>Sort: Status</option>
+                <div class="projects-classic-field">
+                    <label for="projectsCategory">Category</label>
+                    <select id="projectsCategory" name="category">
+                        <option value="">All categories</option>
+                        {% for category in category_choices %}
+                        <option value="{{ category }}" {% if filters.category == category %}selected{% endif %}>{{ category }}</option>
+                        {% endfor %}
                     </select>
                 </div>
 
-                <div class="control-actions">
-                    <button type="submit" class="projects-apply-btn">Apply</button>
+                <div class="projects-classic-field">
+                    <label for="projectsSort">Sort</label>
+                    <select id="projectsSort" name="sort">
+                        <option value="newest" {% if filters.sort == 'newest' %}selected{% endif %}>Newest first</option>
+                        <option value="oldest" {% if filters.sort == 'oldest' %}selected{% endif %}>Oldest first</option>
+                        <option value="progress_desc" {% if filters.sort == 'progress_desc' %}selected{% endif %}>Progress high to low</option>
+                        <option value="progress_asc" {% if filters.sort == 'progress_asc' %}selected{% endif %}>Progress low to high</option>
+                        <option value="title_asc" {% if filters.sort == 'title_asc' %}selected{% endif %}>Title A-Z</option>
+                        <option value="title_desc" {% if filters.sort == 'title_desc' %}selected{% endif %}>Title Z-A</option>
+                        <option value="status" {% if filters.sort == 'status' %}selected{% endif %}>Status</option>
+                    </select>
+                </div>
+
+                <div class="projects-classic-actions">
+                    <button type="submit">Apply</button>
                     {% if has_active_filters or filters.sort != 'newest' %}
-                    <a href="{% url 'projects' %}" class="projects-reset-link">Reset</a>
+                    <a href="{% url 'projects' %}">Reset</a>
                     {% endif %}
                 </div>
             </form>
         </section>
 
-        <section class="projects-stats" aria-label="Projects summary">
-            <article class="stat-card glass-card">
-                <p class="stat-label">Total Projects</p>
-                <p class="stat-value">{{ stats.total }}</p>
+        <section class="projects-classic-stats" aria-label="Projects summary">
+            <article>
+                <p>Total Projects</p>
+                <h3>{{ stats.total }}</h3>
             </article>
-            <article class="stat-card glass-card">
-                <p class="stat-label">Completed</p>
-                <p class="stat-value">{{ stats.completed }}</p>
+            <article>
+                <p>Completed</p>
+                <h3>{{ stats.completed }}</h3>
             </article>
-            <article class="stat-card glass-card">
-                <p class="stat-label">Ongoing</p>
-                <p class="stat-value">{{ stats.ongoing }}</p>
+            <article>
+                <p>Ongoing</p>
+                <h3>{{ stats.ongoing }}</h3>
             </article>
-            <article class="stat-card glass-card">
-                <p class="stat-label">Average Completion</p>
-                <p class="stat-value">{{ stats.avg_progress }}%</p>
+            <article>
+                <p>Average Completion</p>
+                <h3>{{ stats.avg_progress }}%</h3>
             </article>
         </section>
 
         {% if projects %}
-        <div class="projects-grid premium-grid">
+        <section class="projects-classic-grid">
             {% for project in projects %}
-            <div class="project-card glass-card">
-                <a class="project-card-link" href="{% url 'project_detail' project.pk %}" aria-label="Open details for {{ project.title }}"></a>
-                <div class="glass-glare"></div>
-                
-                <div class="project-image-container">
+            <article class="projects-classic-card">
+                <a class="projects-classic-link" href="{% url 'project_detail' project.pk %}" aria-label="Open details for {{ project.title }}"></a>
+
+                <div class="projects-classic-media">
                     {% if project.image %}
-                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-image-parallax" loading="lazy">
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy">
                     {% else %}
-                        <div class="placeholder-img-premium">
-                            <div class="placeholder-pattern"></div>
-                        </div>
+                    <div class="projects-classic-placeholder"></div>
                     {% endif %}
-                    
-                    <div class="project-overlay"></div>
-                    
-                    <div class="badges-container">
-                        <span class="badge premium-category-badge">{{ project.category }}</span>
-                        <span class="badge premium-status-badge status-{{ project.status|lower }}">{{ project.status }}</span>
-                    </div>
+                    <span class="projects-classic-status status-{{ project.status|lower }}">{{ project.status }}</span>
                 </div>
-                
-                <div class="project-content premium-content">
-                    <h3 class="project-title">{{ project.title }}</h3>
-                    <p class="description">{{ project.description|truncatewords:18 }}</p>
 
-                    <div class="project-gallery-meta">
-                        <span class="gallery-pill">
-                            Gallery: {{ project.images.count|add:"1" }} image{{ project.images.count|add:"1"|pluralize }}
-                        </span>
+                <div class="projects-classic-content">
+                    <p class="projects-classic-category">{{ project.category }}</p>
+                    <h3>{{ project.title }}</h3>
+                    <p class="projects-classic-description">{{ project.description|truncatewords:18 }}</p>
+
+                    <div class="projects-classic-meta">
+                        <span>Gallery: {{ project.images.count|add:"1" }} image{{ project.images.count|add:"1"|pluralize }}</span>
+                        <span class="projects-classic-open">View details</span>
                     </div>
 
-                    <div class="project-actions">
-                        <span class="project-action-hint">View Details</span>
-                    </div>
-                    
-                    <div class="progress-wrapper status-{{ project.status|lower }}">
-                        <div class="progress-meta">
-                            <span class="progress-label">Completion</span>
-                            <span class="progress-value">{{ project.progress }}%</span>
+                    <div class="projects-classic-progress status-{{ project.status|lower }}">
+                        <div class="projects-classic-progress-head">
+                            <span>Completion</span>
+                            <strong>{{ project.progress }}%</strong>
                         </div>
-                        <div class="progress-track">
-                            <div class="progress-fill glow-fill" style="width: {{ project.progress }}%;"></div>
+                        <div class="projects-classic-progress-track">
+                            <span style="width: {{ project.progress }}%;"></span>
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
             {% endfor %}
-        </div>
+        </section>
         {% else %}
-        <div class="empty-state premium-empty">
-            <div class="glass-glare"></div>
-            <div class="empty-icon-pulse">
-                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
-                  <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-                </svg>
-            </div>
+        <section class="projects-classic-empty">
             {% if has_active_filters %}
-            <h2 class="empty-title text-gradient">No Matching Projects</h2>
-            <p class="empty-text">No project matches your current filters. Try changing your search, status, or category selection.</p>
-            <a href="{% url 'projects' %}" class="project-action-link">Clear filters</a>
+            <h2>No Matching Projects</h2>
+            <p>No project matches your current filters. Try changing your search, status, or category selection.</p>
+            <a href="{% url 'projects' %}">Clear filters</a>
             {% else %}
-            <h2 class="empty-title text-gradient">Mapping Our Future</h2>
-            <p class="empty-text">Our engineering and administrative teams are currently cataloging the digital records for our active initiatives. We will be continually updating the state portal with real-time project metrics shortly.</p>
+            <h2>Mapping Our Future</h2>
+            <p>Our engineering and administrative teams are currently cataloging active initiatives. Project metrics and progress updates will appear here as records are finalized.</p>
             {% endif %}
-        </div>
+        </section>
         {% endif %}
     </div>
-</div>
+</section>
 {% endblock %}
