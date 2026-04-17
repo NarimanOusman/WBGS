@@ -37,7 +37,7 @@
         <div class="projects-tools" aria-label="Filter projects">
             <label class="projects-search-wrap">
                 <span class="projects-control-label">Search</span>
-                <input id="projectSearch" class="projects-search" type="search" placeholder="Search by project name" aria-label="Search projects by name">
+                <input id="projectSearch" class="projects-search" type="search" placeholder="Search by project name" aria-label="Search projects by name" list="projectNameSuggestions" autocomplete="off">
             </label>
 
             <label class="projects-select-wrap">
@@ -60,6 +60,12 @@
                 </select>
             </label>
         </div>
+
+        <datalist id="projectNameSuggestions">
+            {% for project in projects %}
+            <option value="{{ project.title }}"></option>
+            {% endfor %}
+        </datalist>
 
         {% if projects %}
         <div class="projects-grid premium-grid">

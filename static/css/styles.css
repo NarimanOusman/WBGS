@@ -1079,6 +1079,11 @@ footer {
   padding-inline: 0.85rem;
 }
 
+/* Ensure client-side filtering hides cards even though cards use display:flex */
+.project-card[hidden] {
+  display: none !important;
+}
+
 /* Glass Card Master Styles */
 .glass-card {
   position: relative;
