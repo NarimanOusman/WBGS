@@ -1377,34 +1377,45 @@ body.viewer-open {
 /* Progress Bar Glowing */
 .progress-wrapper {
   margin-top: auto;
+  padding: 0.55rem 0.6rem 0.62rem;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.24) 0%, rgba(15, 23, 42, 0.12) 100%);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .progress-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.6rem;
-  font-size: 0.92rem;
+  margin-bottom: 0.52rem;
+  font-size: 0.78rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.08em;
 }
 
 .progress-label {
   color: #94a3b8;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .progress-value {
-  color: var(--secondary);
+  color: #0f766e;
+  background: rgba(15, 118, 110, 0.16);
+  border: 1px solid rgba(15, 118, 110, 0.25);
+  border-radius: 999px;
+  padding: 0.08rem 0.45rem;
+  min-width: 56px;
+  text-align: center;
   font-weight: 700;
-  text-shadow: 0 0 8px rgba(217, 119, 6, 0.4);
+  text-shadow: none;
 }
 
 .progress-track {
   width: 100%;
-  height: 5px;
+  height: 7px;
   background: rgba(15, 23, 42, 0.14);
-  border-radius: 4px;
+  border-radius: 999px;
   overflow: hidden;
   box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.24);
 }
@@ -1412,9 +1423,14 @@ body.viewer-open {
 .glow-fill {
   height: 100%;
   background: linear-gradient(90deg, #0F766E, #22D3EE);
-  border-radius: 4px;
+  border-radius: 999px;
   box-shadow: 0 0 12px rgba(34, 211, 238, 0.45);
   transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.progress-wrapper.status-planned {
+  background: linear-gradient(180deg, rgba(71, 85, 105, 0.18) 0%, rgba(71, 85, 105, 0.08) 100%);
+  border-color: rgba(100, 116, 139, 0.26);
 }
 
 .progress-wrapper.status-planned .progress-label,
@@ -1422,9 +1438,19 @@ body.viewer-open {
   color: #64748b;
 }
 
+.progress-wrapper.status-planned .progress-value {
+  background: rgba(100, 116, 139, 0.14);
+  border-color: rgba(100, 116, 139, 0.3);
+}
+
 .progress-wrapper.status-planned .glow-fill {
   background: linear-gradient(90deg, #475569, #94a3b8);
   box-shadow: 0 0 12px rgba(148, 163, 184, 0.42);
+}
+
+.progress-wrapper.status-ongoing {
+  background: linear-gradient(180deg, rgba(180, 83, 9, 0.14) 0%, rgba(180, 83, 9, 0.06) 100%);
+  border-color: rgba(217, 119, 6, 0.24);
 }
 
 .progress-wrapper.status-ongoing .progress-label,
@@ -1432,14 +1458,29 @@ body.viewer-open {
   color: #d97706;
 }
 
+.progress-wrapper.status-ongoing .progress-value {
+  background: rgba(217, 119, 6, 0.16);
+  border-color: rgba(217, 119, 6, 0.28);
+}
+
 .progress-wrapper.status-ongoing .glow-fill {
   background: linear-gradient(90deg, #b45309, #f59e0b);
   box-shadow: 0 0 12px rgba(245, 158, 11, 0.45);
 }
 
+.progress-wrapper.status-completed {
+  background: linear-gradient(180deg, rgba(5, 150, 105, 0.16) 0%, rgba(5, 150, 105, 0.06) 100%);
+  border-color: rgba(5, 150, 105, 0.24);
+}
+
 .progress-wrapper.status-completed .progress-label,
 .progress-wrapper.status-completed .progress-value {
   color: #059669;
+}
+
+.progress-wrapper.status-completed .progress-value {
+  background: rgba(5, 150, 105, 0.16);
+  border-color: rgba(5, 150, 105, 0.28);
 }
 
 .progress-wrapper.status-completed .glow-fill {
@@ -1544,9 +1585,28 @@ body.viewer-open {
 .light-theme .progress-value {
   text-shadow: none;
   color: #0f766e;
+  background: rgba(15, 118, 110, 0.14);
+  border-color: rgba(15, 118, 110, 0.25);
 }
 .light-theme .progress-track {
-  background: rgba(15, 23, 42, 0.12);
+  background: rgba(15, 23, 42, 0.1);
+}
+.light-theme .progress-wrapper {
+  background: linear-gradient(180deg, #ecf6ff 0%, #e6f1fb 100%);
+  border-color: rgba(147, 197, 253, 0.32);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+.light-theme .progress-wrapper.status-planned {
+  background: linear-gradient(180deg, #f1f5f9 0%, #e9eef5 100%);
+  border-color: rgba(148, 163, 184, 0.35);
+}
+.light-theme .progress-wrapper.status-ongoing {
+  background: linear-gradient(180deg, #fff7ed 0%, #ffedd5 100%);
+  border-color: rgba(245, 158, 11, 0.35);
+}
+.light-theme .progress-wrapper.status-completed {
+  background: linear-gradient(180deg, #ecfdf5 0%, #dcfce7 100%);
+  border-color: rgba(34, 197, 94, 0.32);
 }
 .light-theme .premium-empty {
   background: rgba(255, 255, 255, 0.8);
