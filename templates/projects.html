@@ -16,51 +16,30 @@
         </div>
 
         <section class="projects-controls-shell glass-card">
-            <form method="get" class="projects-controls" aria-label="Filter and sort projects">
+            <form method="get" class="projects-controls" aria-label="Search and filter projects">
                 <div class="control-group control-search">
-                    <label for="projectsSearch">Search</label>
-                    <input id="projectsSearch" type="search" name="q" value="{{ filters.q }}" placeholder="Search title, category, description">
+                    <label for="projectsSearch">Search projects</label>
+                    <input id="projectsSearch" type="search" name="q" value="{{ search_query }}" placeholder="Search projects...">
                 </div>
 
-                <div class="control-group">
-                    <label for="projectsStatus">Status</label>
-                    <select id="projectsStatus" name="status">
-                        <option value="">All statuses</option>
-                        {% for status in status_choices %}
-                        <option value="{{ status }}" {% if filters.status == status %}selected{% endif %}>{{ status }}</option>
-                        {% endfor %}
-                    </select>
+                <div class="status-tabs">
+                    <button type="submit" name="status" value="" class="status-tab {% if not selected_status %}active{% endif %}">
+                        All <span>{{ projects|length }}</span>
+                    </button>
+                    <button type="submit" name="status" value="Planned" class="status-tab {% if selected_status == 'Planned' %}active{% endif %}">
+                        Planned <span>{{ status_counts.Planned }}</span>
+                    </button>
+                    <button type="submit" name="status" value="Ongoing" class="status-tab {% if selected_status == 'Ongoing' %}active{% endif %}">
+                        Ongoing <span>{{ status_counts.Ongoing }}</span>
+                    </button>
+                    <button type="submit" name="status" value="Completed" class="status-tab {% if selected_status == 'Completed' %}active{% endif %}">
+                        Completed <span>{{ status_counts.Completed }}</span>
+                    </button>
                 </div>
 
-                <div class="control-group">
-                    <label for="projectsCategory">Category</label>
-                    <select id="projectsCategory" name="category">
-                        <option value="">All categories</option>
-                        {% for category in category_choices %}
-                        <option value="{{ category }}" {% if filters.category == category %}selected{% endif %}>{{ category }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <div class="control-group">
-                    <label for="projectsSort">Sort by</label>
-                    <select id="projectsSort" name="sort">
-                        <option value="newest" {% if filters.sort == 'newest' %}selected{% endif %}>Newest first</option>
-                        <option value="oldest" {% if filters.sort == 'oldest' %}selected{% endif %}>Oldest first</option>
-                        <option value="progress_desc" {% if filters.sort == 'progress_desc' %}selected{% endif %}>Progress high to low</option>
-                        <option value="progress_asc" {% if filters.sort == 'progress_asc' %}selected{% endif %}>Progress low to high</option>
-                        <option value="title_asc" {% if filters.sort == 'title_asc' %}selected{% endif %}>Title A-Z</option>
-                        <option value="title_desc" {% if filters.sort == 'title_desc' %}selected{% endif %}>Title Z-A</option>
-                        <option value="status" {% if filters.sort == 'status' %}selected{% endif %}>Status</option>
-                    </select>
-                </div>
-
-                <div class="control-actions">
-                    <button type="submit" class="projects-apply-btn">Apply</button>
-                    {% if has_active_filters or filters.sort != 'newest' %}
-                    <a href="{% url 'projects' %}" class="projects-reset-link">Reset</a>
-                    {% endif %}
-                </div>
+                {% if has_active_filters %}
+                <a href="{% url 'projects' %}" class="projects-reset-link">Reset filters</a>
+                {% endif %}
             </form>
         </section>
 
@@ -91,6 +70,16 @@
                 <div class="project-content premium-content">
                     <h3 class="project-title">{{ project.title }}</h3>
                     <p class="description">{{ project.description|truncatewords:18 }}</p>
+
+                    <div class="project-gallery-meta">
+                        <span class="gallery-pill">
+                            Gallery: {{ project.images.count|add:"1" }} image{{ project.images.count|add:"1"|pluralize }}
+                        </span>
+                    </div>
+
+                    <div class="project-actions">
+                        <span class="project-action-hint">View Details</span>
+                    </div>
                     
                     <div class="progress-wrapper status-{{ project.status|lower }}">
                         <div class="progress-meta">
@@ -116,7 +105,7 @@
             </div>
             {% if has_active_filters %}
             <h2 class="empty-title text-gradient">No Matching Projects</h2>
-            <p class="empty-text">No project matches your current filters. Try changing your search, status, or category selection.</p>
+            <p class="empty-text">No project matches your current search or status. Try another keyword or switch to a different tab.</p>
             <a href="{% url 'projects' %}" class="project-action-link">Clear filters</a>
             {% else %}
             <h2 class="empty-title text-gradient">Mapping Our Future</h2>
