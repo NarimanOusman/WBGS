@@ -15,6 +15,74 @@
             <p class="text-muted subtitle-glow projects-subtext">Transparent tracking of Western Bahr el Ghazal State's transformation</p>
         </div>
 
+        <section class="projects-controls-shell glass-card">
+            <form method="get" class="projects-controls" aria-label="Filter and sort projects">
+                <div class="control-group control-search">
+                    <label for="projectsSearch">Search</label>
+                    <input id="projectsSearch" type="search" name="q" value="{{ filters.q }}" placeholder="Search title, category, description">
+                </div>
+
+                <div class="control-group">
+                    <label for="projectsStatus">Status</label>
+                    <select id="projectsStatus" name="status">
+                        <option value="">All statuses</option>
+                        {% for status in status_choices %}
+                        <option value="{{ status }}" {% if filters.status == status %}selected{% endif %}>{{ status }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="projectsCategory">Category</label>
+                    <select id="projectsCategory" name="category">
+                        <option value="">All categories</option>
+                        {% for category in category_choices %}
+                        <option value="{{ category }}" {% if filters.category == category %}selected{% endif %}>{{ category }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="projectsSort">Sort by</label>
+                    <select id="projectsSort" name="sort">
+                        <option value="newest" {% if filters.sort == 'newest' %}selected{% endif %}>Newest first</option>
+                        <option value="oldest" {% if filters.sort == 'oldest' %}selected{% endif %}>Oldest first</option>
+                        <option value="progress_desc" {% if filters.sort == 'progress_desc' %}selected{% endif %}>Progress high to low</option>
+                        <option value="progress_asc" {% if filters.sort == 'progress_asc' %}selected{% endif %}>Progress low to high</option>
+                        <option value="title_asc" {% if filters.sort == 'title_asc' %}selected{% endif %}>Title A-Z</option>
+                        <option value="title_desc" {% if filters.sort == 'title_desc' %}selected{% endif %}>Title Z-A</option>
+                        <option value="status" {% if filters.sort == 'status' %}selected{% endif %}>Status</option>
+                    </select>
+                </div>
+
+                <div class="control-actions">
+                    <button type="submit" class="projects-apply-btn">Apply</button>
+                    {% if has_active_filters or filters.sort != 'newest' %}
+                    <a href="{% url 'projects' %}" class="projects-reset-link">Reset</a>
+                    {% endif %}
+                </div>
+            </form>
+        </section>
+
+        <section class="projects-stats" aria-label="Projects summary">
+            <article class="stat-card glass-card">
+                <p class="stat-label">Total Projects</p>
+                <p class="stat-value">{{ stats.total }}</p>
+            </article>
+            <article class="stat-card glass-card">
+                <p class="stat-label">Completed</p>
+                <p class="stat-value">{{ stats.completed }}</p>
+            </article>
+            <article class="stat-card glass-card">
+                <p class="stat-label">Ongoing</p>
+                <p class="stat-value">{{ stats.ongoing }}</p>
+            </article>
+            <article class="stat-card glass-card">
+                <p class="stat-label">Average Completion</p>
+                <p class="stat-value">{{ stats.avg_progress }}%</p>
+            </article>
+        </section>
+
         {% if projects %}
         <div class="projects-grid premium-grid">
             {% for project in projects %}
@@ -75,8 +143,14 @@
                   <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
                 </svg>
             </div>
+            {% if has_active_filters %}
+            <h2 class="empty-title text-gradient">No Matching Projects</h2>
+            <p class="empty-text">No project matches your current filters. Try changing your search, status, or category selection.</p>
+            <a href="{% url 'projects' %}" class="project-action-link">Clear filters</a>
+            {% else %}
             <h2 class="empty-title text-gradient">Mapping Our Future</h2>
             <p class="empty-text">Our engineering and administrative teams are currently cataloging the digital records for our active initiatives. We will be continually updating the state portal with real-time project metrics shortly.</p>
+            {% endif %}
         </div>
         {% endif %}
     </div>
