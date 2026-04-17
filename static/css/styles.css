@@ -1956,6 +1956,88 @@ body.viewer-open {
   .gallery-image {
     height: 215px;
   }
+
+  /* Mobile-optimized summary bar: Total (full), Completed/Ongoing (squares), Average (full) */
+  .projects-summary-bar {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+    padding: 0 0.6rem;
+    margin: 0 auto 1.1rem;
+  }
+
+  .summary-item {
+    border-radius: 14px;
+    padding: 0.85rem 0.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .summary-item:nth-child(1),
+  .summary-item:nth-child(4) {
+    grid-column: 1 / -1;
+    min-height: 68px;
+  }
+
+  .summary-item:nth-child(2),
+  .summary-item:nth-child(3) {
+    aspect-ratio: 1;
+    text-align: center;
+    align-items: center;
+  }
+
+  .summary-label {
+    font-size: 0.70rem;
+    margin-bottom: 0.22rem;
+    letter-spacing: 0.035em;
+  }
+
+  .summary-value {
+    font-size: 1.08rem;
+    font-weight: 800;
+  }
+
+  /* Mobile-optimized filter controls: stacked vertically with improved spacing */
+  .projects-tools {
+    grid-template-columns: 1fr;
+    gap: 0.58rem;
+    padding: 0 0.6rem;
+    margin: 0 auto 1.2rem;
+  }
+
+  .projects-search-wrap,
+  .projects-select-wrap {
+    width: 100%;
+  }
+
+  .projects-control-label {
+    font-size: 0.71rem;
+    margin-bottom: 0.35rem;
+    font-weight: 700;
+    letter-spacing: 0.035em;
+  }
+
+  .projects-search,
+  .projects-select {
+    min-height: 44px;
+    border-radius: 12px;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.96rem;
+    width: 100%;
+  }
+
+  .projects-empty-message {
+    padding: 0.7rem 0.6rem 0;
+    font-size: 0.9rem;
+    margin: 0 auto;
+  }
+
+  .projects-reset-btn {
+    margin-top: 0.6rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 999px;
+  }
 }
 
 @media (min-width: 1024px) {
