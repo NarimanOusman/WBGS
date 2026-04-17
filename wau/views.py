@@ -33,3 +33,31 @@ def projects(request):
 def project_detail(request, pk):
     project = get_object_or_404(Project.objects.prefetch_related('images'), pk=pk)
     return render(request, 'project_detail.html', {'project': project})
+
+
+def about(request):
+    return render(request, 'about.html')
+
+
+def news(request):
+    return render(request, 'news.html')
+
+
+def archive(request):
+    return render(request, 'archive.html')
+
+
+def investment(request):
+    return render(request, 'investment.html')
+
+
+def feedback(request):
+    return render(request, 'feedback.html')
+
+
+def contact(request):
+    return render(request, 'contact.html')
+
+
+def admin_page(request):
+    return render(request, 'admin.html')

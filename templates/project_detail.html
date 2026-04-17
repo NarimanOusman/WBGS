@@ -43,12 +43,23 @@
 
                 {% for item in project.images.all %}
                 <article class="gallery-card glass-card">
+                    {% if item.video %}
+                    <video class="gallery-video" controls preload="metadata">
+                        <source src="{{ item.video.url }}">
+                        Your browser does not support the video tag.
+                    </video>
+                    {% elif item.image %}
                     <a href="{{ item.image.url }}" class="gallery-image-link js-gallery-open" data-full-image="{{ item.image.url }}" aria-label="Open gallery image {{ forloop.counter }} full size">
                         <img src="{{ item.image.url }}" alt="{{ project.title }} gallery image {{ forloop.counter }}" class="gallery-image" loading="lazy">
                     </a>
+                    {% endif %}
                     <div class="gallery-card-body">
-                        <h3>{% if item.caption %}{{ item.caption }}{% else %}Gallery Image {{ forloop.counter }}{% endif %}</h3>
+                        <h3>{% if item.caption %}{{ item.caption }}{% elif item.video %}Gallery Video {{ forloop.counter }}{% else %}Gallery Image {{ forloop.counter }}{% endif %}</h3>
+                        {% if item.video %}
+                        <a class="project-action-link download-link" href="{{ item.video.url }}" download>Download</a>
+                        {% elif item.image %}
                         <a class="project-action-link download-link" href="{{ item.image.url }}" download>Download</a>
+                        {% endif %}
                     </div>
                 </article>
                 {% empty %}
