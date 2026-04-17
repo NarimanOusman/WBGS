@@ -19,6 +19,7 @@
         <div class="projects-grid premium-grid">
             {% for project in projects %}
             <div class="project-card glass-card">
+                <a class="project-card-link" href="{% url 'project_detail' project.pk %}" aria-label="Open details for {{ project.title }}"></a>
                 <div class="glass-glare"></div>
                 
                 <div class="project-image-container">
@@ -49,7 +50,7 @@
                     </div>
 
                     <div class="project-actions">
-                        <a class="project-action-link" href="{% url 'project_detail' project.pk %}">View Details</a>
+                        <span class="project-action-hint">View Details</span>
                     </div>
                     
                     <div class="progress-wrapper status-{{ project.status|lower }}">
