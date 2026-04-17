@@ -890,12 +890,11 @@ footer {
   position: relative;
   padding: 1rem 1.05rem;
   border-radius: 20px;
-  background:
-    linear-gradient(135deg, rgba(15, 118, 110, 0.86), rgba(20, 184, 166, 0.82));
-  border: 1px solid rgba(13, 148, 136, 0.34);
+  background: linear-gradient(135deg, #1f2937, #4b5563);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 12px 26px -18px rgba(15, 23, 42, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  box-shadow: 0 10px 24px -14px rgba(15, 23, 42, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.14);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   overflow: hidden;
   display: flex;
@@ -929,9 +928,9 @@ footer {
 }
 
 .summary-item:hover {
-  transform: translateY(-3px);
-  border-color: rgba(15, 118, 110, 0.55);
-  box-shadow: 0 20px 36px -22px rgba(15, 23, 42, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.36);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px -16px rgba(15, 23, 42, 0.42), 0 4px 16px -12px rgba(31, 41, 55, 0.5);
+  border-color: rgba(255, 255, 255, 0.34);
 }
 
 .summary-label {
@@ -954,8 +953,8 @@ footer {
 .summary-completed,
 .summary-ongoing,
 .summary-average {
-  background: linear-gradient(135deg, #0f766e, #14b8a6);
-  border-color: rgba(13, 148, 136, 0.36);
+  background: linear-gradient(135deg, #1f2937, #4b5563);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .summary-total .summary-label,
