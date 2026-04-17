@@ -147,6 +147,8 @@
         const statusValue = (statusFilter?.value || 'all').toLowerCase();
         const categoryValue = (categoryFilter?.value || 'all').toLowerCase();
 
+        console.log('Filter Debug:', { searchValue, statusValue, categoryValue, totalCards: projectCards.length });
+
         let visibleCount = 0;
 
         projectCards.forEach((card) => {
@@ -154,16 +156,22 @@
             const status = card.dataset.status || '';
             const category = card.dataset.category || '';
 
+            console.log('Card Data:', { title: title.substring(0, 20), status, category });
+
             const matchesSearch = !searchValue || title.includes(searchValue);
             const matchesStatus = statusValue === 'all' || status === statusValue;
             const matchesCategory = categoryValue === 'all' || category === categoryValue;
             const isVisible = matchesSearch && matchesStatus && matchesCategory;
+
+            console.log('Card Match:', { matchesSearch, matchesStatus, matchesCategory, isVisible });
 
             card.hidden = !isVisible;
             if (isVisible) {
                 visibleCount += 1;
             }
         });
+
+        console.log('Visible cards:', visibleCount);
 
         if (projectsEmptyState) {
             projectsEmptyState.hidden = visibleCount !== 0;
