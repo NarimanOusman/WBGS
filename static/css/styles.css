@@ -890,12 +890,10 @@ footer {
   position: relative;
   padding: 1rem 1.05rem;
   border-radius: 20px;
-  background: linear-gradient(135deg, #1f2937, #4b5563);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 10px 24px -14px rgba(15, 23, 42, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.14);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  background: linear-gradient(135deg, #e0f2fe, #7dd3fc);
+  border: 1px solid rgba(125, 211, 252, 0.55);
+  box-shadow: 0 12px 24px -16px rgba(15, 23, 42, 0.28), 0 4px 10px -8px rgba(14, 116, 144, 0.28);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -908,13 +906,13 @@ footer {
 .summary-item::before {
   content: "";
   position: absolute;
-  width: 145%;
-  height: 120%;
-  top: -54%;
-  left: -30%;
+  width: 140%;
+  height: 110%;
+  top: -48%;
+  left: -24%;
   border-radius: 24px;
-  transform: rotate(24deg);
-  background: linear-gradient(120deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.12) 42%, rgba(255, 255, 255, 0) 68%);
+  transform: rotate(22deg);
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.18) 40%, rgba(255, 255, 255, 0) 68%);
   pointer-events: none;
 }
 
@@ -923,14 +921,14 @@ footer {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.32);
   pointer-events: none;
 }
 
 .summary-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 16px 30px -16px rgba(15, 23, 42, 0.42), 0 4px 16px -12px rgba(31, 41, 55, 0.5);
-  border-color: rgba(255, 255, 255, 0.34);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 30px -16px rgba(15, 23, 42, 0.34), 0 8px 20px -14px rgba(14, 116, 144, 0.34);
+  filter: saturate(1.06);
 }
 
 .summary-label {
@@ -940,35 +938,35 @@ footer {
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #121313;
+  color: #0f172a;
 }
 
 .summary-value {
   font-size: 1.16rem;
   font-weight: 800;
-  color: #121313;
+  color: #0f172a;
 }
 
 .summary-total,
 .summary-completed,
 .summary-ongoing,
 .summary-average {
-  background: linear-gradient(135deg, #1f2937, #4b5563);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #e0f2fe, #7dd3fc);
+  border-color: rgba(125, 211, 252, 0.55);
 }
 
 .summary-total .summary-label,
 .summary-completed .summary-label,
 .summary-ongoing .summary-label,
 .summary-average .summary-label {
-  color: #121313;
+  color: #0f172a;
 }
 
 .summary-total .summary-value,
 .summary-completed .summary-value,
 .summary-ongoing .summary-value,
 .summary-average .summary-value {
-  color: #121313;
+  color: #0f172a;
 }
 
 .summary-average {
