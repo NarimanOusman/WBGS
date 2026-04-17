@@ -952,22 +952,22 @@ footer {
 .summary-completed,
 .summary-ongoing,
 .summary-average {
-  background: linear-gradient(155deg, rgba(37, 99, 235, 0.2), rgba(30, 64, 175, 0.12));
-  border-color: rgba(30, 64, 175, 0.3);
+  background: linear-gradient(145deg, rgba(14, 116, 144, 0.36), rgba(6, 182, 212, 0.2) 52%, rgba(99, 102, 241, 0.2));
+  border-color: rgba(125, 211, 252, 0.42);
 }
 
 .summary-total .summary-label,
 .summary-completed .summary-label,
 .summary-ongoing .summary-label,
 .summary-average .summary-label {
-  color: #1e3a8a;
+  color: #e0f2fe;
 }
 
 .summary-total .summary-value,
 .summary-completed .summary-value,
 .summary-ongoing .summary-value,
 .summary-average .summary-value {
-  color: #1e40af;
+  color: #f8fafc;
 }
 
 .summary-average {
@@ -1144,8 +1144,15 @@ footer {
 
 @media (min-width: 1024px) and (max-width: 1440px) {
   .projects-subtext {
-    font-size: 1.92rem;
-    line-height: 1.64;
+    font-size: 2.15rem;
+    line-height: 1.5;
+  }
+}
+
+@media (min-width: 1441px) {
+  .projects-subtext {
+    font-size: 2.35rem;
+    line-height: 1.45;
   }
 }
 
