@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.contrib import messages
+from django.shortcuts import redirect
 from .models import Project, ProjectImage
 
 
@@ -18,3 +20,19 @@ class ProjectAdmin(admin.ModelAdmin):
         if obj is None:
             return []
         return super().get_inline_instances(request, obj)
+
+    def changeform_view(self, request, object_id=None, form_url='', extra_context=None):
+        try:
+            return super().changeform_view(request, object_id, form_url, extra_context)
+        except Exception as exc:
+            messages.error(
+                request,
+                (
+                    'Project save failed. Please use a smaller image (recommended under 4MB) '
+                    f'or verify Cloudinary credentials. Technical detail: {exc}'
+                ),
+            )
+            return redirect(request.path)
+
+    class Media:
+        js = ('js/admin_project_upload_guard.js',)
