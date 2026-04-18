@@ -4,7 +4,7 @@ from .models import Project, ProjectImage
 
 class ProjectImageInline(admin.TabularInline):
     model = ProjectImage
-    extra = 3
+    extra = 1
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
@@ -12,3 +12,9 @@ class ProjectAdmin(admin.ModelAdmin):
     list_filter = ('status', 'category')
     search_fields = ('title', 'description')
     inlines = [ProjectImageInline]
+
+    def get_inline_instances(self, request, obj=None):
+        # On add form, skip gallery inlines to keep payload small and avoid serverless upload failures.
+        if obj is None:
+            return []
+        return super().get_inline_instances(request, obj)

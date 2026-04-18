@@ -142,6 +142,11 @@ WHITENOISE_AUTOREFRESH = True
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Keep admin uploads within practical serverless request limits.
+# Note: Vercel can still enforce tighter limits before Django receives the request.
+DATA_UPLOAD_MAX_MEMORY_SIZE = int(os.environ.get('DATA_UPLOAD_MAX_MEMORY_SIZE', 4 * 1024 * 1024))
+FILE_UPLOAD_MAX_MEMORY_SIZE = int(os.environ.get('FILE_UPLOAD_MAX_MEMORY_SIZE', 2 * 1024 * 1024))
+
 # Serverless filesystems (e.g., Vercel) are read-only except /tmp.
 # Keep app alive even without Cloudinary by writing to /tmp in production.
 if not USE_CLOUDINARY and not DEBUG:

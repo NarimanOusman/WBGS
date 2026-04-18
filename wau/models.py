@@ -16,7 +16,7 @@ class Project(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(100)]
     )
     description = models.TextField()
-    image = models.ImageField(upload_to='projects/')
+    image = models.ImageField(upload_to='projects/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
