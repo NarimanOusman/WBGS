@@ -96,7 +96,7 @@ class ProjectAdmin(admin.ModelAdmin):
                 request,
                 (
                     'Project save failed. Production database schema is out of sync with code '
-                    '(missing cover_* columns or unapplied migration). '
+                    '(missing columns like projectimage.image_type or unapplied migration). '
                     f'Technical detail: {exc}'
                 ),
             )
