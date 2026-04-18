@@ -9,20 +9,34 @@ class MultiFileInput(forms.ClearableFileInput):
     allow_multiple_selected = True
 
 
+class MultiFileField(forms.FileField):
+    def clean(self, data, initial=None):
+        if not data:
+            return []
+
+        files = data if isinstance(data, (list, tuple)) else [data]
+        cleaned_files = []
+
+        for uploaded in files:
+            cleaned_files.append(super().clean(uploaded, initial))
+
+        return cleaned_files
+
+
 class ProjectAdminForm(forms.ModelForm):
-    gallery_images = forms.FileField(
+    gallery_images = MultiFileField(
         required=False,
         widget=MultiFileInput(attrs={'accept': 'image/*'}),
         help_text='Optional: select multiple gallery images.',
         label='Gallery images',
     )
-    before_images = forms.FileField(
+    before_images = MultiFileField(
         required=False,
         widget=MultiFileInput(attrs={'accept': 'image/*'}),
         help_text='Optional: select multiple before images.',
         label='Before images',
     )
-    after_images = forms.FileField(
+    after_images = MultiFileField(
         required=False,
         widget=MultiFileInput(attrs={'accept': 'image/*'}),
         help_text='Optional: select multiple after images.',
@@ -32,6 +46,11 @@ class ProjectAdminForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'image' in self.fields:
+            self.fields['image'].label = 'Cover image'
 
 
 class ProjectImageInline(admin.TabularInline):
