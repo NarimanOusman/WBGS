@@ -33,6 +33,7 @@ class Project(models.Model):
 
 class ProjectImage(models.Model):
     IMAGE_TYPE_CHOICES = [
+        ('image', 'Image'),
         ('gallery', 'Gallery'),
         ('before', 'Before'),
         ('after', 'After'),
@@ -40,7 +41,12 @@ class ProjectImage(models.Model):
 
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='projects/gallery/')
-    image_type = models.CharField(max_length=20, choices=IMAGE_TYPE_CHOICES, default='gallery')
+    image_type = models.CharField(
+        max_length=20,
+        choices=IMAGE_TYPE_CHOICES,
+        default='image',
+        db_column='media_type',
+    )
     caption = models.CharField(max_length=200, blank=True)
     order = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)

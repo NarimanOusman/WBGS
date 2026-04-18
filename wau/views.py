@@ -61,7 +61,7 @@ def projects(request):
 def project_detail(request, pk):
     project = get_object_or_404(Project.objects.prefetch_related('images'), pk=pk)
     project_images = list(project.images.all())
-    gallery_images = [item for item in project_images if item.image_type == 'gallery']
+    gallery_images = [item for item in project_images if item.image_type in {'gallery', 'image'}]
     before_images = [item for item in project_images if item.image_type == 'before']
     after_images = [item for item in project_images if item.image_type == 'after']
 
