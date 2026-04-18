@@ -27,6 +27,67 @@
         </section>
 
         <section class="gallery-section">
+            <div class="projects-summary-bar" style="grid-template-columns: 1fr; margin-bottom: 1.2rem;">
+                <div class="summary-item" style="text-align: left; align-items: flex-start; gap: 0.45rem;">
+                    <span class="summary-label">Create New Project (Serverless Safe)</span>
+                    <strong class="summary-value" style="font-size: 0.98rem; line-height: 1.5; display: block; width: 100%;">
+                        This form uploads media directly to Cloudinary first, then saves only metadata to the database.
+                    </strong>
+                </div>
+            </div>
+
+            <div class="projects-tools" style="margin-bottom: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr));">
+                <label class="projects-search-wrap">
+                    <span class="projects-control-label">Project Title</span>
+                    <input id="newProjectTitle" class="projects-search" type="text" placeholder="Enter project title">
+                </label>
+
+                <label class="projects-search-wrap">
+                    <span class="projects-control-label">Category</span>
+                    <input id="newProjectCategory" class="projects-search" type="text" placeholder="E.g. Infrastructure">
+                </label>
+            </div>
+
+            <div class="projects-tools" style="margin-bottom: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr));">
+                <label class="projects-select-wrap">
+                    <span class="projects-control-label">Status</span>
+                    <select id="newProjectStatus" class="projects-select">
+                        <option value="Planned">Planned</option>
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </label>
+
+                <label class="projects-search-wrap">
+                    <span class="projects-control-label">Progress %</span>
+                    <input id="newProjectProgress" class="projects-search" type="number" min="0" max="100" value="0" placeholder="0 - 100">
+                </label>
+            </div>
+
+            <div class="projects-tools" style="margin-bottom: 1rem; grid-template-columns: 1fr;">
+                <label class="projects-search-wrap">
+                    <span class="projects-control-label">Description</span>
+                    <textarea id="newProjectDescription" class="projects-search" rows="4" placeholder="Project description" style="resize: vertical; min-height: 110px;"></textarea>
+                </label>
+            </div>
+
+            <div class="projects-tools" style="margin-bottom: 1.4rem; grid-template-columns: repeat(2, minmax(0, 1fr));">
+                <label class="projects-select-wrap">
+                    <span class="projects-control-label">Cover image (required)</span>
+                    <input id="newProjectCoverFile" class="projects-search" type="file" accept="image/*">
+                </label>
+
+                <label class="projects-select-wrap">
+                    <span class="projects-control-label">Gallery images (optional)</span>
+                    <input id="newProjectGalleryFiles" class="projects-search" type="file" accept="image/*" multiple>
+                </label>
+            </div>
+
+            <div class="project-detail-actions" style="margin-bottom: 1.7rem;">
+                <button id="createProjectBtn" class="project-action-link download-link" type="button">Create Project</button>
+                <span class="project-action-hint">Use this button instead of Django admin file upload on Vercel.</span>
+            </div>
+
             <div class="projects-tools" style="margin-bottom: 1.2rem;">
                 <label class="projects-select-wrap">
                     <span class="projects-control-label">Project</span>

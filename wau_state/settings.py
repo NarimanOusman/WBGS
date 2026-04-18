@@ -23,6 +23,17 @@ if cloudinary_url.startswith('CLOUDINARY_URL='):
     cloudinary_url = cloudinary_url.split('=', 1)[1].strip()
 CLOUDINARY_URL = cloudinary_url or None
 
+# Also support explicit Cloudinary credentials when CLOUDINARY_URL is not provided.
+CLOUDINARY_CLOUD_NAME = os.environ.get('CLOUDINARY_CLOUD_NAME', '').strip()
+CLOUDINARY_API_KEY = os.environ.get('CLOUDINARY_API_KEY', '').strip()
+CLOUDINARY_API_SECRET = os.environ.get('CLOUDINARY_API_SECRET', '').strip()
+CLOUDINARY_UPLOAD_PRESET = os.environ.get('CLOUDINARY_UPLOAD_PRESET', '').strip()
+
+USE_CLOUDINARY = bool(
+    CLOUDINARY_URL
+    or (CLOUDINARY_CLOUD_NAME and CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET)
+)
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -36,7 +47,7 @@ INSTALLED_APPS = [
     'wau',
 ]
 
-if CLOUDINARY_URL:
+if USE_CLOUDINARY:
     INSTALLED_APPS += [
         'cloudinary',
         'cloudinary_storage',
@@ -109,12 +120,20 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STORAGES = {
     "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage" if CLOUDINARY_URL else "django.core.files.storage.FileSystemStorage",
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage" if USE_CLOUDINARY else "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
+
+if USE_CLOUDINARY and not CLOUDINARY_URL:
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': CLOUDINARY_CLOUD_NAME,
+        'API_KEY': CLOUDINARY_API_KEY,
+        'API_SECRET': CLOUDINARY_API_SECRET,
+        'SECURE': True,
+    }
 
 WHITENOISE_USE_FINDERS = True
 WHITENOISE_AUTOREFRESH = True
@@ -122,6 +141,12 @@ WHITENOISE_AUTOREFRESH = True
 # Media files (user uploads)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Serverless filesystems (e.g., Vercel) are read-only except /tmp.
+# Keep app alive even without Cloudinary by writing to /tmp in production.
+if not USE_CLOUDINARY and not DEBUG:
+    MEDIA_ROOT = Path('/tmp/wau_media')
+    MEDIA_ROOT.mkdir(parents=True, exist_ok=True)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
