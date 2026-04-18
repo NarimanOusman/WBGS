@@ -847,34 +847,59 @@ footer {
   min-height: 100vh;
 }
 
+.projects-page .projects-wrapper {
+  padding-top: 0;
+}
+
 .projects-page #lights {
-  height: 52vh;
+  height: 100vh;
   bottom: auto;
   top: 0;
   z-index: 0;
-  opacity: 0.9;
-  mask-image: linear-gradient(to bottom, black 0%, black 58%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 58%, transparent 100%);
+  opacity: 1;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 86%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 86%, transparent 100%);
 }
 
 .projects-hero {
-  min-height: clamp(260px, 38vh, 420px);
-  height: auto;
-  padding: 0.4rem 0 1.2rem;
+  min-height: 100vh;
+  height: 100vh;
+  padding-top: 86px;
+  padding-bottom: 2.6rem;
 }
 
 .projects-hero-content {
-  max-width: 980px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
 .projects-page .projects-heading {
-  margin-bottom: 0.8rem;
+  margin-bottom: 2rem;
+  display: inline-block;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: initial;
+  color: inherit;
+  text-shadow: none;
+  letter-spacing: -1.5px;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  animation: revealUp 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
 }
 
 .projects-page .projects-subtext {
   margin: 0 auto;
-  max-width: 760px;
+  max-width: 700px;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: initial;
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  font-size: 1.1rem;
+  line-height: 1.8;
 }
 
 .bg-glow {
@@ -2077,12 +2102,14 @@ body.viewer-open {
   }
 
   .projects-hero {
-    min-height: 240px;
-    padding: 0.2rem 0 1rem;
+    min-height: 100vh;
+    height: auto;
+    padding-top: 92px;
+    padding-bottom: 1.8rem;
   }
 
   .projects-page #lights {
-    height: 46vh;
+    height: 100vh;
   }
 
   .project-image-container {
