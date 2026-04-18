@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
-from django.db.models import Avg
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
+from django.views.decorators.http import require_POST
 
 def home(request):
     return render(request, 'index.html')
@@ -60,4 +61,22 @@ def contact(request):
 
 
 def admin_page(request):
-    return render(request, 'admin.html')
+    return render(
+        request,
+        'admin.html',
+        {
+            'projects': Project.objects.all().order_by('-created_at'),
+        },
+    )
+
+
+@require_POST
+def upload_media(request):
+    # Placeholder endpoint so admin page upload action doesn't crash with NoReverseMatch.
+    return JsonResponse(
+        {
+            'ok': False,
+            'message': 'Upload endpoint is not configured yet.',
+        },
+        status=501,
+    )

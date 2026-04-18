@@ -10,7 +10,7 @@ class Project(models.Model):
 
     title = models.CharField(max_length=200)
     category = models.CharField(max_length=100)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Upcoming')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Planned')
     progress = models.IntegerField(
         default=0,
         validators=[MinValueValidator(0), MaxValueValidator(100)]
