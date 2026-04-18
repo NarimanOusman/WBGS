@@ -847,6 +847,36 @@ footer {
   min-height: 100vh;
 }
 
+.projects-page #lights {
+  height: 52vh;
+  bottom: auto;
+  top: 0;
+  z-index: 0;
+  opacity: 0.9;
+  mask-image: linear-gradient(to bottom, black 0%, black 58%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 58%, transparent 100%);
+}
+
+.projects-hero {
+  min-height: clamp(260px, 38vh, 420px);
+  height: auto;
+  padding: 0.4rem 0 1.2rem;
+}
+
+.projects-hero-content {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.projects-page .projects-heading {
+  margin-bottom: 0.8rem;
+}
+
+.projects-page .projects-subtext {
+  margin: 0 auto;
+  max-width: 760px;
+}
+
 .bg-glow {
   position: absolute;
   width: 600px;
@@ -2044,6 +2074,15 @@ body.viewer-open {
   .projects-subtext {
     font-size: 1.18rem;
     padding-inline: 0.6rem;
+  }
+
+  .projects-hero {
+    min-height: 240px;
+    padding: 0.2rem 0 1rem;
+  }
+
+  .projects-page #lights {
+    height: 46vh;
   }
 
   .project-image-container {
