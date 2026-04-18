@@ -17,8 +17,6 @@ class Project(models.Model):
     )
     description = models.TextField()
     image = models.ImageField(upload_to='projects/', blank=True, null=True)
-    cover_public_id = models.CharField(max_length=255, blank=True, default='')
-    cover_secure_url = models.URLField(blank=True, default='')
     cover_media_type = models.CharField(max_length=20, default='image')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -26,19 +24,6 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         if not self.cover_media_type:
             self.cover_media_type = 'image'
-
-        if self.image:
-            image_name = str(self.image.name or '')
-
-            if image_name and not self.cover_public_id:
-                filename = image_name.rsplit('/', 1)[-1]
-                self.cover_public_id = filename.rsplit('.', 1)[0]
-
-            if not self.cover_secure_url:
-                try:
-                    self.cover_secure_url = self.image.url or ''
-                except Exception:
-                    self.cover_secure_url = self.cover_secure_url or ''
 
         super().save(*args, **kwargs)
 
