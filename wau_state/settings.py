@@ -127,6 +127,10 @@ STORAGES = {
     },
 }
 
+# Compatibility for packages/environments that still read DEFAULT_FILE_STORAGE.
+if USE_CLOUDINARY:
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 if USE_CLOUDINARY and not CLOUDINARY_URL:
     CLOUDINARY_STORAGE = {
         'CLOUD_NAME': CLOUDINARY_CLOUD_NAME,
@@ -146,6 +150,14 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Note: Vercel can still enforce tighter limits before Django receives the request.
 DATA_UPLOAD_MAX_MEMORY_SIZE = int(os.environ.get('DATA_UPLOAD_MAX_MEMORY_SIZE', 4 * 1024 * 1024))
 FILE_UPLOAD_MAX_MEMORY_SIZE = int(os.environ.get('FILE_UPLOAD_MAX_MEMORY_SIZE', 2 * 1024 * 1024))
+
+# Force temp-file upload handling in production serverless environments to reduce memory pressure.
+if not DEBUG:
+    FILE_UPLOAD_MAX_MEMORY_SIZE = 0
+    FILE_UPLOAD_HANDLERS = [
+        'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+    ]
+    FILE_UPLOAD_TEMP_DIR = '/tmp'
 
 # Serverless filesystems (e.g., Vercel) are read-only except /tmp.
 # Keep app alive even without Cloudinary by writing to /tmp in production.
