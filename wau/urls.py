@@ -12,4 +12,5 @@ urlpatterns = [
     path('feedback/', views.feedback, name='feedback'),
     path('contact/', views.contact, name='contact'),
     path('portal-admin/', views.admin_page, name='admin_page'),
+    path('portal-admin/upload-media/', views.upload_media, name='upload_media'),
 ]

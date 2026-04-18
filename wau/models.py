@@ -17,9 +17,33 @@ class Project(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(100)]
     )
     description = models.TextField()
-    image = models.ImageField(upload_to='projects/')
+    image = models.ImageField(upload_to='projects/', blank=True, null=True)
+    video = models.FileField(upload_to='projects/videos/', blank=True, null=True)
+    cover_media_url = models.URLField(blank=True, null=True)
+    cover_media_type = models.CharField(max_length=10, blank=True, default='image')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def clean(self):
+        super().clean()
+        if not any([self.image, self.video, self.cover_media_url]):
+            raise ValidationError('Add a cover image, cover video, or cover media URL for each project.')
+
+    @property
+    def cover_is_video(self):
+        if self.cover_media_url:
+            return self.cover_media_type == 'video'
+        return bool(self.video)
+
+    @property
+    def cover_media_source(self):
+        if self.cover_media_url:
+            return self.cover_media_url
+        if self.video:
+            return self.video.url
+        if self.image:
+            return self.image.url
+        return ''
 
     def __str__(self):
         return self.title
@@ -29,6 +53,8 @@ class ProjectImage(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='projects/gallery/', blank=True, null=True)
     video = models.FileField(upload_to='projects/gallery/videos/', blank=True, null=True)
+    media_url = models.URLField(blank=True, null=True)
+    media_type = models.CharField(max_length=10, blank=True, default='image')
     caption = models.CharField(max_length=200, blank=True)
     order = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -38,15 +64,24 @@ class ProjectImage(models.Model):
 
     def clean(self):
         super().clean()
-        has_image = bool(self.image)
-        has_video = bool(self.video)
-
-        if has_image == has_video:
-            raise ValidationError('Add either one image or one video for each gallery item.')
+        if not any([self.image, self.video, self.media_url]):
+            raise ValidationError('Add an image, video, or media URL for each gallery item.')
 
     @property
     def is_video(self):
+        if self.media_url:
+            return self.media_type == 'video'
         return bool(self.video)
+
+    @property
+    def media_source(self):
+        if self.media_url:
+            return self.media_url
+        if self.video:
+            return self.video.url
+        if self.image:
+            return self.image.url
+        return ''
 
     def __str__(self):
         media_type = 'video' if self.is_video else 'image'

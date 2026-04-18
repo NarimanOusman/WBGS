@@ -1287,6 +1287,11 @@ footer {
   transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s ease;
 }
 
+.project-video-parallax {
+  display: block;
+  background: #020617;
+}
+
 .glass-card:hover .project-image-parallax {
   transform: scale(1.11);
   filter: saturate(1.08);

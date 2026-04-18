@@ -15,7 +15,13 @@
                 <p class="project-overview-meta">{{ project.category }} | {{ project.status }} | {{ project.progress }}% complete</p>
             </div>
             <div class="project-detail-actions">
-                {% if project.image %}
+                {% if project.cover_media_url and project.cover_media_type == 'video' %}
+                <a class="project-action-link download-link" href="{{ project.cover_media_url }}" download>Download Cover Video</a>
+                {% elif project.cover_media_url %}
+                <a class="project-action-link download-link" href="{{ project.cover_media_url }}" download>Download Cover Image</a>
+                {% elif project.video %}
+                <a class="project-action-link download-link" href="{{ project.video.url }}" download>Download Cover Video</a>
+                {% elif project.image %}
                 <a class="project-action-link download-link" href="{{ project.image.url }}" download>Download Cover Image</a>
                 {% endif %}
                 <a class="project-action-link" href="{% url 'projects' %}">Back to Projects</a>
@@ -29,7 +35,17 @@
         <section class="gallery-section">
             <h2 class="gallery-title">Project Gallery</h2>
             <div class="gallery-grid">
-                {% if project.image %}
+                {% if project.cover_media_url and project.cover_media_type == 'image' %}
+                <article class="gallery-card glass-card">
+                    <a href="{{ project.cover_media_url }}" class="gallery-image-link js-gallery-open" data-full-image="{{ project.cover_media_url }}" aria-label="Open cover image full size">
+                        <img src="{{ project.cover_media_url }}" alt="{{ project.title }} cover image" class="gallery-image" loading="lazy">
+                    </a>
+                    <div class="gallery-card-body">
+                        <h3>Cover Image</h3>
+                        <a class="project-action-link download-link" href="{{ project.cover_media_url }}" download>Download</a>
+                    </div>
+                </article>
+                {% elif project.image %}
                 <article class="gallery-card glass-card">
                     <a href="{{ project.image.url }}" class="gallery-image-link js-gallery-open" data-full-image="{{ project.image.url }}" aria-label="Open cover image full size">
                         <img src="{{ project.image.url }}" alt="{{ project.title }} cover image" class="gallery-image" loading="lazy">
@@ -41,9 +57,42 @@
                 </article>
                 {% endif %}
 
+                {% if project.cover_media_url and project.cover_media_type == 'video' %}
+                <article class="gallery-card glass-card">
+                    <video class="gallery-video" controls preload="metadata">
+                        <source src="{{ project.cover_media_url }}">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="gallery-card-body">
+                        <h3>Cover Video</h3>
+                        <a class="project-action-link download-link" href="{{ project.cover_media_url }}" download>Download</a>
+                    </div>
+                </article>
+                {% elif project.video %}
+                <article class="gallery-card glass-card">
+                    <video class="gallery-video" controls preload="metadata">
+                        <source src="{{ project.video.url }}">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="gallery-card-body">
+                        <h3>Cover Video</h3>
+                        <a class="project-action-link download-link" href="{{ project.video.url }}" download>Download</a>
+                    </div>
+                </article>
+                {% endif %}
+
                 {% for item in project.images.all %}
                 <article class="gallery-card glass-card">
-                    {% if item.video %}
+                    {% if item.media_url and item.media_type == 'video' %}
+                    <video class="gallery-video" controls preload="metadata">
+                        <source src="{{ item.media_url }}">
+                        Your browser does not support the video tag.
+                    </video>
+                    {% elif item.media_url %}
+                    <a href="{{ item.media_url }}" class="gallery-image-link js-gallery-open" data-full-image="{{ item.media_url }}" aria-label="Open gallery media {{ forloop.counter }} full size">
+                        <img src="{{ item.media_url }}" alt="{{ project.title }} gallery media {{ forloop.counter }}" class="gallery-image" loading="lazy">
+                    </a>
+                    {% elif item.video %}
                     <video class="gallery-video" controls preload="metadata">
                         <source src="{{ item.video.url }}">
                         Your browser does not support the video tag.
@@ -54,8 +103,10 @@
                     </a>
                     {% endif %}
                     <div class="gallery-card-body">
-                        <h3>{% if item.caption %}{{ item.caption }}{% elif item.video %}Gallery Video {{ forloop.counter }}{% else %}Gallery Image {{ forloop.counter }}{% endif %}</h3>
-                        {% if item.video %}
+                        <h3>{% if item.caption %}{{ item.caption }}{% elif item.media_url and item.media_type == 'video' %}Gallery Video {{ forloop.counter }}{% elif item.media_url %}Gallery Media {{ forloop.counter }}{% elif item.video %}Gallery Video {{ forloop.counter }}{% else %}Gallery Image {{ forloop.counter }}{% endif %}</h3>
+                        {% if item.media_url %}
+                        <a class="project-action-link download-link" href="{{ item.media_url }}" download>Download</a>
+                        {% elif item.video %}
                         <a class="project-action-link download-link" href="{{ item.video.url }}" download>Download</a>
                         {% elif item.image %}
                         <a class="project-action-link download-link" href="{{ item.image.url }}" download>Download</a>
@@ -63,10 +114,10 @@
                     </div>
                 </article>
                 {% empty %}
-                {% if not project.image %}
+                {% if not project.image and not project.video and not project.cover_media_url %}
                 <div class="empty-state premium-empty">
-                    <h2 class="empty-title text-gradient">No Gallery Images Yet</h2>
-                    <p class="empty-text">Upload multiple project photos in the admin panel to showcase progress and completion stages.</p>
+                    <h2 class="empty-title text-gradient">No Gallery Media Yet</h2>
+                    <p class="empty-text">Upload project images or videos in the admin panel to showcase progress and completion stages.</p>
                 </div>
                 {% endif %}
                 {% endfor %}

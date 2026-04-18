@@ -5,6 +5,7 @@ Western Bahr el Ghazal State Portal.
 
 import os
 from pathlib import Path
+from urllib.parse import urlparse
 import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,6 +23,18 @@ cloudinary_url = os.environ.get('CLOUDINARY_URL', '').strip()
 if cloudinary_url.startswith('CLOUDINARY_URL='):
     cloudinary_url = cloudinary_url.split('=', 1)[1].strip()
 CLOUDINARY_URL = cloudinary_url or None
+
+if CLOUDINARY_URL:
+    parsed_cloudinary_url = urlparse(CLOUDINARY_URL)
+    CLOUDINARY_CLOUD_NAME = parsed_cloudinary_url.netloc.split('@')[-1] or None
+else:
+    CLOUDINARY_CLOUD_NAME = os.environ.get('CLOUDINARY_CLOUD_NAME', '').strip() or None
+
+CLOUDINARY_UPLOAD_PRESET = os.environ.get('CLOUDINARY_UPLOAD_PRESET', '').strip() or None
+
+# Vercel serverless uploads can still hit payload limits if files are uploaded
+# through Django forms. Use direct-to-Cloudinary uploads for large video files in production.
+USE_DIRECT_CLOUDINARY_UPLOADS = os.environ.get('USE_DIRECT_CLOUDINARY_UPLOADS', 'False').lower() in ('true', '1', 'yes')
 
 # Application definition
 INSTALLED_APPS = [
