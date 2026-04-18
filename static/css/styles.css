@@ -843,32 +843,45 @@ footer {
 .projects-wrapper {
   position: relative;
   overflow: hidden;
-  padding-top: 120px;
+  padding-top: 92px;
   min-height: 100vh;
 }
 
 .projects-page #lights {
   position: absolute;
-  width: 100%;
-  height: 52vh;
-  left: 0;
-  bottom: auto;
-  top: 0;
+  inset: 0;
+  height: 100%;
   z-index: 0;
-  opacity: 0.9;
-  mask-image: linear-gradient(to bottom, black 0%, black 58%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 58%, transparent 100%);
+  opacity: 1;
+  mask-image: none;
+  -webkit-mask-image: none;
 }
 
 .projects-hero {
-  min-height: clamp(260px, 38vh, 420px);
+  min-height: clamp(460px, 80vh, 760px);
   height: auto;
-  padding: 0.4rem 0 1.2rem;
+  margin-top: -22px;
+  margin-inline: -0.75rem;
+  padding: 0 0.75rem;
+  background: #05070a;
+  border-radius: 0 0 24px 24px;
+  box-shadow: 0 20px 40px -25px rgba(2, 6, 23, 0.7);
+  position: relative;
+  overflow: hidden;
 }
 
 .projects-hero-content {
   max-width: 980px;
   margin: 0 auto;
+  min-height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  padding: 1.5rem 1rem 2rem;
 }
 
 .projects-typed-title {
@@ -880,18 +893,18 @@ footer {
   letter-spacing: -1.5px;
 }
 
-.projects-intro-block {
-  margin: 0 auto 2.1rem;
-  max-width: 980px;
+.projects-dashboard-intro {
+  margin: 1.9rem auto 0.95rem;
+  text-align: center;
 }
 
 .projects-page .projects-heading {
-  margin-bottom: 0.55rem;
+  margin-bottom: 0.8rem;
 }
 
 .projects-page .projects-subtext {
   margin: 0 auto;
-  max-width: 780px;
+  max-width: 760px;
 }
 
 .bg-glow {
@@ -2094,8 +2107,15 @@ body.viewer-open {
   }
 
   .projects-hero {
-    min-height: 240px;
-    padding: 0.2rem 0 1rem;
+    min-height: 420px;
+    margin-inline: -0.25rem;
+    padding: 0 0.25rem;
+    border-radius: 0 0 20px 20px;
+    margin-top: -14px;
+  }
+
+  .projects-hero-content {
+    padding: 1.3rem 0.85rem 1.8rem;
   }
 
   .projects-typed-title {
@@ -2105,13 +2125,8 @@ body.viewer-open {
     padding-inline: 0.45rem;
   }
 
-  .projects-page #lights {
-    height: 46vh;
-  }
-
-  .projects-intro-block {
-    margin-bottom: 1.6rem;
-    padding-inline: 0.45rem;
+  .projects-dashboard-intro {
+    margin-top: 1.35rem;
   }
 
   .project-image-container {
