@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 from django.db.models import Avg
 
 def home(request):
@@ -60,4 +60,4 @@ def contact(request):
 
 
 def admin_page(request):
-    return redirect('/admin/')
+    return render(request, 'admin.html')

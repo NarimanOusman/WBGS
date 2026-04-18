@@ -75,17 +75,7 @@
                 <div class="glass-glare"></div>
                 
                 <div class="project-image-container">
-                    {% if project.cover_media_url and project.cover_media_type == 'video' %}
-                        <video class="project-image-parallax project-video-parallax" autoplay muted loop playsinline preload="metadata">
-                            <source src="{{ project.cover_media_url }}">
-                        </video>
-                    {% elif project.cover_media_url %}
-                        <img src="{{ project.cover_media_url }}" alt="{{ project.title }}" class="project-image-parallax" loading="lazy">
-                    {% elif project.video %}
-                        <video class="project-image-parallax project-video-parallax" autoplay muted loop playsinline preload="metadata">
-                            <source src="{{ project.video.url }}">
-                        </video>
-                    {% elif project.image %}
+                    {% if project.image %}
                         <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-image-parallax" loading="lazy">
                     {% else %}
                         <div class="placeholder-img-premium">
@@ -107,13 +97,7 @@
 
                     <div class="project-gallery-meta">
                         <span class="gallery-pill">
-                            Gallery:
-                            {% if project.image or project.video or project.cover_media_url %}
-                            {{ project.images.count|add:"1" }}
-                            {% else %}
-                            {{ project.images.count }}
-                            {% endif %}
-                            media item{% if project.image or project.video or project.cover_media_url %}{{ project.images.count|add:"1"|pluralize }}{% else %}{{ project.images.count|pluralize }}{% endif %}
+                            Gallery: {{ project.images.count|add:"1" }} image{{ project.images.count|add:"1"|pluralize }}
                         </span>
                     </div>
 

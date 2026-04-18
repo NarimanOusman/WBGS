@@ -1287,11 +1287,6 @@ footer {
   transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s ease;
 }
 
-.project-video-parallax {
-  display: block;
-  background: #020617;
-}
-
 .glass-card:hover .project-image-parallax {
   transform: scale(1.11);
   filter: saturate(1.08);
@@ -1622,14 +1617,6 @@ footer {
   height: 200px;
   object-fit: cover;
   display: block;
-}
-
-.gallery-video {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  display: block;
-  background: #020617;
 }
 
 .gallery-card-body {
