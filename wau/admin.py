@@ -29,8 +29,9 @@ class ProjectAdmin(admin.ModelAdmin):
             messages.error(
                 request,
                 (
-                    'Project save failed. Please use a smaller image (recommended under 4MB) '
-                    f'or verify Cloudinary credentials. Technical detail: {exc}'
+                    'Project save failed. Production database schema is out of sync with code '
+                    '(missing cover_* columns or unapplied migration). '
+                    f'Technical detail: {exc}'
                 ),
             )
             return redirect(request.path)
