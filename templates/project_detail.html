@@ -41,7 +41,7 @@
                 </article>
                 {% endif %}
 
-                {% for item in project.images.all %}
+                {% for item in gallery_images %}
                 <article class="gallery-card glass-card">
                     <a href="{{ item.image.url }}" class="gallery-image-link js-gallery-open" data-full-image="{{ item.image.url }}" aria-label="Open gallery image {{ forloop.counter }} full size">
                         <img src="{{ item.image.url }}" alt="{{ project.title }} gallery image {{ forloop.counter }}" class="gallery-image" loading="lazy">
@@ -61,6 +61,44 @@
                 {% endfor %}
             </div>
         </section>
+
+        {% if before_images %}
+        <section class="gallery-section">
+            <h2 class="gallery-title">Before Images</h2>
+            <div class="gallery-grid">
+                {% for item in before_images %}
+                <article class="gallery-card glass-card">
+                    <a href="{{ item.image.url }}" class="gallery-image-link js-gallery-open" data-full-image="{{ item.image.url }}" aria-label="Open before image {{ forloop.counter }} full size">
+                        <img src="{{ item.image.url }}" alt="{{ project.title }} before image {{ forloop.counter }}" class="gallery-image" loading="lazy">
+                    </a>
+                    <div class="gallery-card-body">
+                        <h3>{% if item.caption %}{{ item.caption }}{% else %}Before Image {{ forloop.counter }}{% endif %}</h3>
+                        <a class="project-action-link download-link" href="{{ item.image.url }}" download>Download</a>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if after_images %}
+        <section class="gallery-section">
+            <h2 class="gallery-title">After Images</h2>
+            <div class="gallery-grid">
+                {% for item in after_images %}
+                <article class="gallery-card glass-card">
+                    <a href="{{ item.image.url }}" class="gallery-image-link js-gallery-open" data-full-image="{{ item.image.url }}" aria-label="Open after image {{ forloop.counter }} full size">
+                        <img src="{{ item.image.url }}" alt="{{ project.title }} after image {{ forloop.counter }}" class="gallery-image" loading="lazy">
+                    </a>
+                    <div class="gallery-card-body">
+                        <h3>{% if item.caption %}{{ item.caption }}{% else %}After Image {{ forloop.counter }}{% endif %}</h3>
+                        <a class="project-action-link download-link" href="{{ item.image.url }}" download>Download</a>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
     </div>
 
     <div class="image-viewer" id="imageViewer" aria-hidden="true">

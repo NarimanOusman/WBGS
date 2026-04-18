@@ -32,8 +32,15 @@ class Project(models.Model):
 
 
 class ProjectImage(models.Model):
+    IMAGE_TYPE_CHOICES = [
+        ('gallery', 'Gallery'),
+        ('before', 'Before'),
+        ('after', 'After'),
+    ]
+
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='projects/gallery/')
+    image_type = models.CharField(max_length=20, choices=IMAGE_TYPE_CHOICES, default='gallery')
     caption = models.CharField(max_length=200, blank=True)
     order = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -42,4 +49,4 @@ class ProjectImage(models.Model):
         ordering = ['order', '-created_at']
 
     def __str__(self):
-        return f'{self.project.title} image {self.order}'
+        return f'{self.project.title} {self.image_type} image {self.order}'

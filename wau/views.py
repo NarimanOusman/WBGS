@@ -60,7 +60,21 @@ def projects(request):
 
 def project_detail(request, pk):
     project = get_object_or_404(Project.objects.prefetch_related('images'), pk=pk)
-    return render(request, 'project_detail.html', {'project': project})
+    project_images = list(project.images.all())
+    gallery_images = [item for item in project_images if item.image_type == 'gallery']
+    before_images = [item for item in project_images if item.image_type == 'before']
+    after_images = [item for item in project_images if item.image_type == 'after']
+
+    return render(
+        request,
+        'project_detail.html',
+        {
+            'project': project,
+            'gallery_images': gallery_images,
+            'before_images': before_images,
+            'after_images': after_images,
+        },
+    )
 
 
 def about(request):
@@ -197,6 +211,7 @@ def upload_media(request):
         ProjectImage.objects.create(
             project=project,
             image=asset_name,
+            image_type='after' if slot == 'after' else ('before' if slot == 'before' else 'gallery'),
             caption=caption,
             order=max(0, order),
         )
