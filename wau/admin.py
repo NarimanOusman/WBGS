@@ -14,6 +14,7 @@ class ProjectAdmin(admin.ModelAdmin):
     list_filter = ('status', 'category')
     search_fields = ('title', 'description')
     inlines = [ProjectImageInline]
+    exclude = ('cover_public_id', 'cover_secure_url', 'cover_media_type')
 
     def get_inline_instances(self, request, obj=None):
         # On add form, skip gallery inlines to keep payload small and avoid serverless upload failures.
