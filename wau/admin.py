@@ -163,3 +163,16 @@ class NewsPostAdmin(admin.ModelAdmin):
             'fields': ('created_at', 'updated_at')
         }),
     )
+
+    def changeform_view(self, request, object_id=None, form_url='', extra_context=None):
+        try:
+            return super().changeform_view(request, object_id, form_url, extra_context)
+        except Exception as exc:
+            messages.error(
+                request,
+                (
+                    'News save failed. This is usually caused by production storage or database '
+                    f'configuration issues. Technical detail: {exc}'
+                ),
+            )
+            return redirect(request.path)
