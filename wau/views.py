@@ -1,4 +1,5 @@
 import json
+import logging
 
 from django.conf import settings
 from django.db import DatabaseError
@@ -7,6 +8,9 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_POST
 from django.utils import timezone
+
+
+logger = logging.getLogger(__name__)
 
 def home(request):
     return render(request, 'index.html')
@@ -94,20 +98,32 @@ def about(request):
 
 
 def news(request):
-    published_posts = list(_published_news_queryset())
+    try:
+        published_posts = list(_published_news_queryset())
 
-    featured_post = published_posts[0] if published_posts else None
-    other_posts = published_posts[1:] if len(published_posts) > 1 else []
+        featured_post = published_posts[0] if published_posts else None
+        other_posts = published_posts[1:] if len(published_posts) > 1 else []
 
-    return render(
-        request,
-        'news.html',
-        {
-            'featured_post': featured_post,
-            'news_posts': other_posts,
-            'news_count': len(published_posts),
-        },
-    )
+        return render(
+            request,
+            'news.html',
+            {
+                'featured_post': featured_post,
+                'news_posts': other_posts,
+                'news_count': len(published_posts),
+            },
+        )
+    except Exception:
+        logger.exception('News page failed to render')
+        return render(
+            request,
+            'news.html',
+            {
+                'featured_post': None,
+                'news_posts': [],
+                'news_count': 0,
+            },
+        )
 
 
 def news_detail(request, slug):
@@ -121,6 +137,9 @@ def news_detail(request, slug):
         related_posts = _published_news_queryset().exclude(pk=post.pk)[:3]
     except DatabaseError as exc:
         raise Http404('News article unavailable.') from exc
+    except Exception:
+        logger.exception('News detail failed to render for slug=%s', slug)
+        raise Http404('News article unavailable.')
 
     return render(
         request,
