@@ -895,7 +895,7 @@ footer {
 }
 
 .projects-dashboard-intro {
-  margin: 1.9rem auto 0.95rem;
+  margin: 2.1rem auto 1.15rem;
   text-align: center;
 }
 
@@ -2113,11 +2113,16 @@ body.viewer-open {
     padding: 0 0.25rem;
     border-radius: 0 0 20px 20px;
     margin-top: -14px;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
   }
 
   .projects-hero-content {
     padding: 0 0.85rem;
+  }
+
+  .projects-dashboard-intro {
+    margin: 1.4rem auto 1rem;
+    padding-inline: 0.5rem;
   }
 
   .projects-typed-title {
