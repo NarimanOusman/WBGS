@@ -858,11 +858,11 @@ footer {
 }
 
 .projects-hero {
-  min-height: 78vh;
+  min-height: 72vh;
   height: auto;
   margin-top: -22px;
   margin-inline: -0.75rem;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.9rem;
   padding: 0 0.75rem;
   background-color: #000000;
   border-radius: 0 0 24px 24px;
@@ -882,7 +882,7 @@ footer {
   text-align: center;
   position: relative;
   z-index: 1;
-  padding: 1rem 1rem 1.4rem;
+  padding: 0 1rem;
 }
 
 .projects-typed-title {
@@ -890,12 +890,12 @@ footer {
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 900;
   line-height: 1.1;
-  margin-bottom: 0.9rem;
+  margin-bottom: 1.1rem;
   letter-spacing: -1.5px;
 }
 
 .projects-dashboard-intro {
-  margin: 1.15rem auto 0.9rem;
+  margin: 1.9rem auto 0.95rem;
   text-align: center;
 }
 
@@ -2117,7 +2117,7 @@ body.viewer-open {
   }
 
   .projects-hero-content {
-    padding: 1.3rem 0.85rem 1.8rem;
+    padding: 0 0.85rem;
   }
 
   .projects-typed-title {
