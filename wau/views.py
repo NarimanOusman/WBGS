@@ -1,6 +1,8 @@
 import json
 
 from django.conf import settings
+from django.db import DatabaseError
+from django.http import Http404
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_POST
@@ -33,6 +35,16 @@ def _asset_name(asset):
     if asset_format:
         return f'{public_id}.{asset_format}'
     return public_id
+
+
+def _published_news_queryset():
+    try:
+        return NewsPost.objects.filter(
+            status='published',
+            published_at__lte=timezone.now(),
+        ).order_by('-published_at', '-created_at')
+    except DatabaseError:
+        return NewsPost.objects.none()
 
 def projects(request):
     projects = list(Project.objects.all().prefetch_related('images').order_by('-created_at'))
@@ -82,10 +94,7 @@ def about(request):
 
 
 def news(request):
-    published_posts = NewsPost.objects.filter(
-        status='published',
-        published_at__lte=timezone.now(),
-    ).order_by('-published_at', '-created_at')
+    published_posts = list(_published_news_queryset())
 
     featured_post = published_posts[0] if published_posts else None
     other_posts = published_posts[1:] if len(published_posts) > 1 else []
@@ -102,17 +111,16 @@ def news(request):
 
 
 def news_detail(request, slug):
-    post = get_object_or_404(
-        NewsPost,
-        slug=slug,
-        status='published',
-        published_at__lte=timezone.now(),
-    )
-
-    related_posts = NewsPost.objects.filter(
-        status='published',
-        published_at__lte=timezone.now(),
-    ).exclude(pk=post.pk).order_by('-published_at', '-created_at')[:3]
+    try:
+        post = get_object_or_404(
+            NewsPost,
+            slug=slug,
+            status='published',
+            published_at__lte=timezone.now(),
+        )
+        related_posts = _published_news_queryset().exclude(pk=post.pk)[:3]
+    except DatabaseError as exc:
+        raise Http404('News article unavailable.') from exc
 
     return render(
         request,
