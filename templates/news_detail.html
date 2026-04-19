@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }} | News | WAU State{% endblock %}
+
+{% block content %}
+<div class="page-wrapper projects-wrapper light-theme news-page">
+    <div class="bg-glow bg-glow-blue"></div>
+    <div class="bg-glow bg-glow-gold"></div>
+
+    <div class="container section relative-z">
+        <article class="news-detail glass-card">
+            <p class="news-meta">Published {{ post.published_at|date:"M d, Y" }}</p>
+            <h1>{{ post.title }}</h1>
+
+            {% if post.cover_image %}
+            <img class="news-detail-cover" src="{{ post.cover_image.url }}" alt="{{ post.title }}" loading="lazy">
+            {% endif %}
+
+            <p class="news-detail-summary">{{ post.summary }}</p>
+            <div class="news-detail-content">
+                {{ post.content|linebreaks }}
+            </div>
+
+            <div class="news-detail-actions">
+                <a class="project-action-link" href="{% url 'news' %}">Back to News</a>
+            </div>
+        </article>
+
+        {% if related_posts %}
+        <section class="news-related">
+            <h2 class="gallery-title">Related Updates</h2>
+            <div class="news-grid">
+                {% for item in related_posts %}
+                <article class="news-card glass-card">
+                    {% if item.cover_image %}
+                    <a href="{% url 'news_detail' item.slug %}" class="news-card-media">
+                        <img src="{{ item.cover_image.url }}" alt="{{ item.title }}" loading="lazy">
+                    </a>
+                    {% endif %}
+                    <div class="news-card-body">
+                        <p class="news-meta">{{ item.published_at|date:"M d, Y" }}</p>
+                        <h3><a href="{% url 'news_detail' item.slug %}">{{ item.title }}</a></h3>
+                        <p>{{ item.summary }}</p>
+                        <a class="project-action-link" href="{% url 'news_detail' item.slug %}">View Update</a>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

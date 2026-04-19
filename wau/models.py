@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Project(models.Model):
@@ -56,3 +57,31 @@ class ProjectImage(models.Model):
 
     def __str__(self):
         return f'{self.project.title} {self.image_type} image {self.order}'
+
+
+class NewsPost(models.Model):
+    STATUS_CHOICES = [
+        ('draft', 'Draft'),
+        ('published', 'Published'),
+    ]
+
+    title = models.CharField(max_length=220)
+    slug = models.SlugField(max_length=240, unique=True)
+    summary = models.TextField(max_length=320)
+    content = models.TextField()
+    cover_image = models.ImageField(upload_to='news/', blank=True, null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
+    published_at = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-published_at', '-created_at']
+
+    def save(self, *args, **kwargs):
+        if self.status == 'published' and self.published_at is None:
+            self.published_at = timezone.now()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title

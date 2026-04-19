@@ -2,7 +2,7 @@ from django import forms
 from django.contrib import admin
 from django.contrib import messages
 from django.shortcuts import redirect
-from .models import Project, ProjectImage
+from .models import NewsPost, Project, ProjectImage
 
 
 class MultiFileInput(forms.ClearableFileInput):
@@ -143,3 +143,23 @@ class ProjectAdmin(admin.ModelAdmin):
 
     class Media:
         js = ('js/admin_project_upload_guard.js',)
+
+
+@admin.register(NewsPost)
+class NewsPostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'status', 'published_at', 'updated_at')
+    list_filter = ('status', 'published_at')
+    search_fields = ('title', 'summary', 'content')
+    prepopulated_fields = {'slug': ('title',)}
+    readonly_fields = ('created_at', 'updated_at')
+    fieldsets = (
+        ('Content', {
+            'fields': ('title', 'slug', 'summary', 'content', 'cover_image')
+        }),
+        ('Publishing', {
+            'fields': ('status', 'published_at')
+        }),
+        ('Audit', {
+            'fields': ('created_at', 'updated_at')
+        }),
+    )

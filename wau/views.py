@@ -4,12 +4,12 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_POST
+from django.utils import timezone
 
 def home(request):
     return render(request, 'index.html')
 
-from .models import Project
-from .models import ProjectImage
+from .models import NewsPost, Project, ProjectImage
 
 
 def _cloud_name_from_settings():
@@ -82,7 +82,46 @@ def about(request):
 
 
 def news(request):
-    return render(request, 'news.html')
+    published_posts = NewsPost.objects.filter(
+        status='published',
+        published_at__lte=timezone.now(),
+    ).order_by('-published_at', '-created_at')
+
+    featured_post = published_posts[0] if published_posts else None
+    other_posts = published_posts[1:] if len(published_posts) > 1 else []
+
+    return render(
+        request,
+        'news.html',
+        {
+            'featured_post': featured_post,
+            'news_posts': other_posts,
+            'news_count': len(published_posts),
+        },
+    )
+
+
+def news_detail(request, slug):
+    post = get_object_or_404(
+        NewsPost,
+        slug=slug,
+        status='published',
+        published_at__lte=timezone.now(),
+    )
+
+    related_posts = NewsPost.objects.filter(
+        status='published',
+        published_at__lte=timezone.now(),
+    ).exclude(pk=post.pk).order_by('-published_at', '-created_at')[:3]
+
+    return render(
+        request,
+        'news_detail.html',
+        {
+            'post': post,
+            'related_posts': related_posts,
+        },
+    )
 
 
 def archive(request):
