@@ -5,18 +5,42 @@ from django.conf import settings
 from django.db import DatabaseError
 from django.http import Http404
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 
 
 logger = logging.getLogger(__name__)
 
-def home(request):
-    # Use the projects dashboard as the main landing page.
-    return projects(request)
-
 from .models import NewsPost, Project, ProjectImage
+
+
+def _render_projects_dashboard(request):
+    projects = list(Project.objects.all().prefetch_related('images').order_by('-created_at'))
+    categories = sorted({project.category for project in projects if project.category})
+    total_projects = len(projects)
+    completed_projects = sum(1 for project in projects if project.status == 'Completed')
+    ongoing_projects = sum(1 for project in projects if project.status == 'Ongoing')
+    average_progress = round(sum(project.progress for project in projects) / total_projects) if total_projects else 0
+
+    return render(
+        request,
+        'projects.html',
+        {
+            'projects': projects,
+            'categories': categories,
+            'project_stats': {
+                'total': total_projects,
+                'completed': completed_projects,
+                'ongoing': ongoing_projects,
+                'average_progress': average_progress,
+            },
+        },
+    )
+
+
+def home(request):
+    return _render_projects_dashboard(request)
 
 
 def _cloud_name_from_settings():
@@ -67,27 +91,7 @@ def _run_news_archiver():
         return 0
 
 def projects(request):
-    projects = list(Project.objects.all().prefetch_related('images').order_by('-created_at'))
-    categories = sorted({project.category for project in projects if project.category})
-    total_projects = len(projects)
-    completed_projects = sum(1 for project in projects if project.status == 'Completed')
-    ongoing_projects = sum(1 for project in projects if project.status == 'Ongoing')
-    average_progress = round(sum(project.progress for project in projects) / total_projects) if total_projects else 0
-
-    return render(
-        request,
-        'projects.html',
-        {
-            'projects': projects,
-            'categories': categories,
-            'project_stats': {
-                'total': total_projects,
-                'completed': completed_projects,
-                'ongoing': ongoing_projects,
-                'average_progress': average_progress,
-            },
-        },
-    )
+    return redirect('home', permanent=True)
 
 
 def project_detail(request, pk):
