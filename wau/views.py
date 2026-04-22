@@ -13,7 +13,8 @@ from django.utils import timezone
 logger = logging.getLogger(__name__)
 
 def home(request):
-    return render(request, 'index.html')
+    # Use the projects dashboard as the main landing page.
+    return projects(request)
 
 from .models import NewsPost, Project, ProjectImage
 
