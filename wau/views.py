@@ -201,6 +201,33 @@ def archive(request):
         encoded = urlencode(params, doseq=True)
         return f'?{encoded}' if encoded else ''
 
+    def build_page_links(page_obj, page_key, sibling_key, sibling_page):
+        if not page_obj or page_obj.paginator.num_pages <= 1:
+            return []
+
+        total = page_obj.paginator.num_pages
+        current = page_obj.number
+        visible_pages = {1, total, current - 1, current, current + 1}
+        visible_pages = sorted(page for page in visible_pages if 1 <= page <= total)
+
+        links = []
+        previous_page = None
+        for page_number in visible_pages:
+            if previous_page is not None and page_number - previous_page > 1:
+                links.append({'is_ellipsis': True, 'label': '...'} )
+
+            links.append(
+                {
+                    'is_ellipsis': False,
+                    'number': page_number,
+                    'is_current': page_number == current,
+                    'url': build_query(**{page_key: page_number, sibling_key: sibling_page}),
+                }
+            )
+            previous_page = page_number
+
+        return links
+
     try:
         _run_news_archiver()
         archived_posts_qs = _archived_news_queryset()
@@ -250,6 +277,19 @@ def archive(request):
         completed_projects_page = projects_paginator.get_page(projects_page_number)
         archived_news_page = news_paginator.get_page(news_page_number)
 
+        projects_page_links = build_page_links(
+            completed_projects_page,
+            page_key='projects_page',
+            sibling_key='news_page',
+            sibling_page=archived_news_page.number,
+        )
+        news_page_links = build_page_links(
+            archived_news_page,
+            page_key='news_page',
+            sibling_key='projects_page',
+            sibling_page=completed_projects_page.number,
+        )
+
         completed_projects = list(completed_projects_page.object_list)
         archived_posts = list(archived_news_page.object_list)
     except Exception:
@@ -261,6 +301,8 @@ def archive(request):
         completed_count = 0
         completed_projects_page = None
         archived_news_page = None
+        projects_page_links = []
+        news_page_links = []
 
     return render(
         request,
@@ -282,6 +324,8 @@ def archive(request):
             'projects_next_link': build_query(projects_page=completed_projects_page.next_page_number(), news_page=archived_news_page.number) if completed_projects_page and completed_projects_page.has_next() and archived_news_page else '',
             'news_prev_link': build_query(news_page=archived_news_page.previous_page_number(), projects_page=completed_projects_page.number) if archived_news_page and archived_news_page.has_previous() and completed_projects_page else '',
             'news_next_link': build_query(news_page=archived_news_page.next_page_number(), projects_page=completed_projects_page.number) if archived_news_page and archived_news_page.has_next() and completed_projects_page else '',
+            'projects_page_links': projects_page_links,
+            'news_page_links': news_page_links,
         },
     )
 

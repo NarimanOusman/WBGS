@@ -2332,6 +2332,7 @@ body.viewer-open {
   align-items: center;
   justify-content: center;
   min-height: 40px;
+  min-width: 40px;
   padding: 0.48rem 0.9rem;
   border-radius: 10px;
   text-decoration: none;
@@ -2339,6 +2340,22 @@ body.viewer-open {
   color: #0f172a;
   border: 1px solid rgba(15, 118, 110, 0.22);
   background: rgba(255, 255, 255, 0.84);
+}
+
+.archive-page-link.is-current {
+  background: linear-gradient(135deg, #0f766e, #22d3ee);
+  color: #ffffff;
+  border-color: rgba(15, 118, 110, 0.5);
+}
+
+.archive-page-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  min-width: 28px;
+  color: #64748b;
+  font-weight: 700;
 }
 
 .archive-page-status {

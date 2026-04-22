@@ -93,6 +93,15 @@
 			{% if completed_projects_page and completed_projects_page.paginator.num_pages > 1 %}
 			<div class="archive-pagination" aria-label="Completed projects pages">
 				{% if projects_prev_link %}<a class="archive-page-link" href="{{ projects_prev_link }}">Previous</a>{% endif %}
+				{% for page_link in projects_page_links %}
+					{% if page_link.is_ellipsis %}
+						<span class="archive-page-ellipsis">{{ page_link.label }}</span>
+					{% elif page_link.is_current %}
+						<span class="archive-page-link is-current" aria-current="page">{{ page_link.number }}</span>
+					{% else %}
+						<a class="archive-page-link" href="{{ page_link.url }}">{{ page_link.number }}</a>
+					{% endif %}
+				{% endfor %}
 				<span class="archive-page-status">Page {{ completed_projects_page.number }} of {{ completed_projects_page.paginator.num_pages }}</span>
 				{% if projects_next_link %}<a class="archive-page-link" href="{{ projects_next_link }}">Next</a>{% endif %}
 			</div>
@@ -126,6 +135,15 @@
 			{% if archived_news_page and archived_news_page.paginator.num_pages > 1 %}
 			<div class="archive-pagination" aria-label="Archived news pages">
 				{% if news_prev_link %}<a class="archive-page-link" href="{{ news_prev_link }}">Previous</a>{% endif %}
+				{% for page_link in news_page_links %}
+					{% if page_link.is_ellipsis %}
+						<span class="archive-page-ellipsis">{{ page_link.label }}</span>
+					{% elif page_link.is_current %}
+						<span class="archive-page-link is-current" aria-current="page">{{ page_link.number }}</span>
+					{% else %}
+						<a class="archive-page-link" href="{{ page_link.url }}">{{ page_link.number }}</a>
+					{% endif %}
+				{% endfor %}
 				<span class="archive-page-status">Page {{ archived_news_page.number }} of {{ archived_news_page.paginator.num_pages }}</span>
 				{% if news_next_link %}<a class="archive-page-link" href="{{ news_next_link }}">Next</a>{% endif %}
 			</div>
