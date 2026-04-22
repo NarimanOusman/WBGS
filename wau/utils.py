@@ -2,17 +2,18 @@
 
 from io import BytesIO
 from django.http import FileResponse
-from reportlab.lib.pagesizes import letter
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.units import inch
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle
-from reportlab.lib import colors
-from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_JUSTIFY
 from datetime import datetime
 
 
 def generate_investment_brief_pdf():
     """Generate investment brief PDF with sectors, opportunities, and incentives."""
+    # Import reportlab lazily so missing dependency does not break unrelated pages.
+    from reportlab.lib.pagesizes import letter
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.units import inch
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle
+    from reportlab.lib import colors
+    from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY
     
     buffer = BytesIO()
     doc = SimpleDocTemplate(
