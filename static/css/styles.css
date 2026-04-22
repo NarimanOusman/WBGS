@@ -2187,6 +2187,11 @@ body.viewer-open {
 }
 
 .archive-summary-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   padding: 1rem 1.2rem;
   min-height: 120px;
 }
@@ -2204,6 +2209,7 @@ body.viewer-open {
   margin-top: 0.4rem;
   font-size: 1.8rem;
   font-weight: 700;
+  line-height: 1;
 }
 
 .archive-summary-card .summary-note {
@@ -2364,17 +2370,11 @@ body.viewer-open {
   }
 
   .archive-summary-card {
-    padding: 0.75rem 0.85rem;
-    min-height: auto;
-  }
-
-  .archive-summary-card .summary-value {
-    margin-top: 0.25rem;
-    font-size: 1.55rem;
+    padding: 0.72rem 0.8rem;
+    min-height: 102px;
   }
 
   .archive-summary-card .summary-note {
-    margin-top: 0.25rem;
     font-size: 0.78rem;
   }
 
