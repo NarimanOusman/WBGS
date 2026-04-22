@@ -2,7 +2,7 @@ from django import forms
 from django.contrib import admin
 from django.contrib import messages
 from django.shortcuts import redirect
-from .models import NewsPost, Project, ProjectImage
+from .models import NewsPost, Project, ProjectImage, InvestmentOpportunity, InvestmentInquiry
 
 
 class MultiFileInput(forms.ClearableFileInput):
@@ -187,3 +187,95 @@ class NewsPostAdmin(admin.ModelAdmin):
     def restore_selected_posts(self, request, queryset):
         restored_count = queryset.filter(status='archived').update(status='published')
         self.message_user(request, f'{restored_count} news post(s) restored to published.')
+
+
+class InvestmentInquiryInline(admin.TabularInline):
+    model = InvestmentInquiry
+    extra = 0
+    readonly_fields = ('created_at', 'updated_at', 'name', 'email', 'organization', 'message')
+    fields = ('name', 'email', 'organization', 'status', 'created_at')
+    can_delete = False
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(InvestmentOpportunity)
+class InvestmentOpportunityAdmin(admin.ModelAdmin):
+    list_display = ('title', 'sector', 'status', 'expected_roi', 'featured', 'published_at')
+    list_filter = ('status', 'sector', 'featured', 'published_at')
+    search_fields = ('title', 'description', 'key_benefits')
+    readonly_fields = ('created_at', 'updated_at', 'published_at')
+    inlines = [InvestmentInquiryInline]
+    
+    fieldsets = (
+        ('Opportunity Overview', {
+            'fields': ('title', 'sector', 'status', 'featured', 'description')
+        }),
+        ('Investment Terms', {
+            'fields': ('capex_min', 'capex_max', 'expected_roi', 'timeline_months')
+        }),
+        ('Opportunity Details', {
+            'fields': ('target_sectors', 'key_benefits', 'risk_assessment'),
+            'classes': ('collapse',),
+        }),
+        ('Publishing', {
+            'fields': ('published_at',)
+        }),
+        ('Audit', {
+            'fields': ('created_at', 'updated_at')
+        }),
+    )
+
+    def changeform_view(self, request, object_id=None, form_url='', extra_context=None):
+        try:
+            return super().changeform_view(request, object_id, form_url, extra_context)
+        except Exception as exc:
+            messages.error(
+                request,
+                (
+                    'Investment opportunity save failed. '
+                    f'Technical detail: {exc}'
+                ),
+            )
+            return redirect(request.path)
+
+
+@admin.register(InvestmentInquiry)
+class InvestmentInquiryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'opportunity', 'status', 'email', 'organization', 'created_at')
+    list_filter = ('status', 'opportunity', 'created_at')
+    search_fields = ('name', 'email', 'organization', 'message')
+    readonly_fields = ('created_at', 'updated_at')
+    actions = ('mark_contacted', 'mark_interested', 'mark_rejected')
+    date_hierarchy = 'created_at'
+    
+    fieldsets = (
+        ('Inquiry Details', {
+            'fields': ('opportunity', 'name', 'email', 'phone', 'organization')
+        }),
+        ('Investment Interest', {
+            'fields': ('investment_range', 'message')
+        }),
+        ('Status', {
+            'fields': ('status',)
+        }),
+        ('Audit', {
+            'fields': ('created_at', 'updated_at')
+        }),
+    )
+    
+    @admin.action(description='Mark selected inquiries as contacted')
+    def mark_contacted(self, request, queryset):
+        updated_count = queryset.update(status='contacted')
+        self.message_user(request, f'{updated_count} inquiry(ies) marked as contacted.')
+    
+    @admin.action(description='Mark selected inquiries as interested')
+    def mark_interested(self, request, queryset):
+        updated_count = queryset.update(status='interested')
+        self.message_user(request, f'{updated_count} inquiry(ies) marked as interested.')
+    
+    @admin.action(description='Mark selected inquiries as rejected')
+    def mark_rejected(self, request, queryset):
+        updated_count = queryset.update(status='rejected')
+        self.message_user(request, f'{updated_count} inquiry(ies) marked as rejected.')

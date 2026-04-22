@@ -10,6 +10,7 @@ urlpatterns = [
     path('news/<slug:slug>/', views.news_detail, name='news_detail'),
     path('archive/', views.archive, name='archive'),
     path('investment/', views.investment, name='investment'),
+    path('investment/brief/', views.download_investment_brief, name='download_investment_brief'),
     path('feedback/', views.feedback, name='feedback'),
     path('contact/', views.contact, name='contact'),
     path('portal-admin/', views.admin_page, name='admin_page'),

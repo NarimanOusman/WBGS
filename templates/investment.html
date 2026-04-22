@@ -1,0 +1,396 @@
+{% extends 'base.html' %}
+
+{% block title %}Investment Opportunities | WAU State{% endblock %}
+
+{% block content %}
+<div class="page-wrapper investment-wrapper light-theme">
+	<div class="bg-glow bg-glow-blue"></div>
+	<div class="bg-glow bg-glow-gold"></div>
+
+	<!-- Hero Section -->
+	<section class="investment-hero">
+		<div class="container section relative-z">
+			<div class="hero-content">
+				<h1 class="hero-title glow-text">Investment Opportunities</h1>
+				<p class="hero-subtitle">Transform Western Bahr el Ghazal State's future. Partner with us in strategic economic development initiatives.</p>
+				<div class="hero-cta">
+					<a href="#opportunities" class="cta-button primary-button">Explore Opportunities</a>
+					<a href="#inquiry-form" class="cta-button secondary-button">Submit Inquiry</a>
+				</div>
+			</div>
+
+			{% if featured_opportunities %}
+			<div class="featured-section">
+				<h2 class="featured-title">Featured Opportunities</h2>
+				<div class="featured-grid">
+					{% for opportunity in featured_opportunities %}
+					<div class="featured-card glass-card">
+						<div class="featured-header">
+							<span class="sector-badge" data-sector="{{ opportunity.sector }}">
+								{{ opportunity.get_sector_display }}
+							</span>
+							<span class="roi-badge">{{ opportunity.expected_roi }}% ROI</span>
+						</div>
+						<h3 class="featured-title-card">{{ opportunity.title }}</h3>
+						<p class="featured-description">{{ opportunity.description|truncatewords:20 }}</p>
+						<div class="featured-stats">
+							<div class="stat-item">
+								<span class="stat-label">Capital Required</span>
+								<span class="stat-value">${{ opportunity.capex_min|floatformat:0 }}M - ${{ opportunity.capex_max|floatformat:0 }}M</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Timeline</span>
+								<span class="stat-value">{{ opportunity.timeline_months }} months</span>
+							</div>
+						</div>
+						<a href="#opportunity-{{ opportunity.id }}" class="card-link">Learn More</a>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</section>
+
+	<!-- Why Invest Section -->
+	<section class="why-invest-section">
+		<div class="container section relative-z">
+			<h2 class="section-title glow-text">Why Invest in WAU State?</h2>
+			<div class="benefits-grid">
+				<div class="benefit-card glass-card">
+					<div class="benefit-icon">🎯</div>
+					<h3>Strategic Location</h3>
+					<p>Gateway to Central Africa with emerging market opportunities and untapped potential.</p>
+				</div>
+				<div class="benefit-card glass-card">
+					<div class="benefit-icon">📈</div>
+					<h3>Growth Potential</h3>
+					<p>High-return opportunities in agriculture, energy, and infrastructure sectors.</p>
+				</div>
+				<div class="benefit-card glass-card">
+					<div class="benefit-icon">🤝</div>
+					<h3>Government Support</h3>
+					<p>Full backing from WAU State government with transparent policies and incentives.</p>
+				</div>
+				<div class="benefit-card glass-card">
+					<div class="benefit-icon">📊</div>
+					<h3>Market Ready</h3>
+					<p>Established infrastructure and networks ready for rapid project deployment.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Sector Overview -->
+	<section class="sectors-section">
+		<div class="container section relative-z">
+			<h2 class="section-title glow-text">Investment Sectors</h2>
+			<div class="sectors-grid">
+				<div class="sector-card glass-card" data-sector="agriculture">
+					<h3>🌾 Agriculture</h3>
+					<p>Modern farming techniques, equipment, and market access initiatives.</p>
+				</div>
+				<div class="sector-card glass-card" data-sector="renewable_energy">
+					<h3>⚡ Renewable Energy</h3>
+					<p>Solar, wind, and hydroelectric power projects with long-term contracts.</p>
+				</div>
+				<div class="sector-card glass-card" data-sector="infrastructure">
+					<h3>🏗️ Infrastructure</h3>
+					<p>Roads, water systems, and connectivity projects with government guarantees.</p>
+				</div>
+				<div class="sector-card glass-card" data-sector="technology">
+					<h3>💻 Technology</h3>
+					<p>Digital transformation, telecom, and fintech opportunities.</p>
+				</div>
+				<div class="sector-card glass-card" data-sector="manufacturing">
+					<h3>🏭 Manufacturing</h3>
+					<p>Processing facilities and light manufacturing with local supply chains.</p>
+				</div>
+				<div class="sector-card glass-card" data-sector="healthcare">
+					<h3>🏥 Healthcare</h3>
+					<p>Medical facilities and pharmaceutical distribution networks.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Opportunities Listing -->
+	<section class="opportunities-section" id="opportunities">
+		<div class="container section relative-z">
+			<h2 class="section-title glow-text">Available Opportunities</h2>
+
+			<form class="investment-filters" method="get" action="{% url 'investment' %}">
+				<div class="filter-group">
+					<label class="filter-label">Search</label>
+					<input 
+						type="search" 
+						name="q" 
+						value="{{ search_query }}" 
+						placeholder="Search opportunities"
+						class="filter-input"
+						aria-label="Search opportunities"
+					>
+				</div>
+
+				<div class="filter-group">
+					<label class="filter-label" for="sector-select">Sector</label>
+					<select name="sector" id="sector-select" class="filter-select">
+						<option value="">All sectors</option>
+						{% for value, label in sectors %}
+						<option value="{{ value }}" {% if selected_sector == value %}selected{% endif %}>
+							{{ label }}
+						</option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="filter-actions">
+					<button type="submit" class="filter-btn">Apply Filters</button>
+					<a href="{% url 'investment' %}" class="filter-reset">Reset</a>
+				</div>
+			</form>
+
+			{% if page_obj.object_list %}
+			<div class="opportunities-grid">
+				{% for opportunity in page_obj.object_list %}
+				<article class="opportunity-card glass-card" id="opportunity-{{ opportunity.id }}">
+					<div class="opportunity-header">
+						<span class="sector-badge" data-sector="{{ opportunity.sector }}">
+							{{ opportunity.get_sector_display }}
+						</span>
+						{% if opportunity.featured %}
+						<span class="featured-badge">Featured</span>
+						{% endif %}
+					</div>
+					
+					<h3 class="opportunity-title">{{ opportunity.title }}</h3>
+					<p class="opportunity-summary">{{ opportunity.description|truncatewords:25 }}</p>
+
+					<div class="opportunity-details">
+						<div class="detail-row">
+							<span class="detail-label">Capital Required:</span>
+							<span class="detail-value">${{ opportunity.capex_min|floatformat:0 }}M - ${{ opportunity.capex_max|floatformat:0 }}M</span>
+						</div>
+						<div class="detail-row">
+							<span class="detail-label">Expected ROI:</span>
+							<span class="detail-value">{{ opportunity.expected_roi }}%</span>
+						</div>
+						<div class="detail-row">
+							<span class="detail-label">Timeline:</span>
+							<span class="detail-value">{{ opportunity.timeline_months }} months</span>
+						</div>
+					</div>
+
+					{% if opportunity.key_benefits %}
+					<div class="opportunity-benefits">
+						<p class="benefits-label">Key Benefits:</p>
+						<p class="benefits-text">{{ opportunity.key_benefits|truncatewords:20 }}</p>
+					</div>
+					{% endif %}
+
+					<a href="#inquiry-form" class="inquiry-btn">Express Interest</a>
+				</article>
+				{% endfor %}
+			</div>
+
+			{% if page_obj.paginator.num_pages > 1 %}
+			<div class="pagination">
+				{% if page_obj.has_previous %}
+				<a href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sector %}&sector={{ selected_sector }}{% endif %}" class="page-link">First</a>
+				<a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sector %}&sector={{ selected_sector }}{% endif %}" class="page-link">Previous</a>
+				{% endif %}
+
+				{% for num in page_obj.paginator.page_range %}
+					{% if page_obj.number == num %}
+					<span class="page-number is-current">{{ num }}</span>
+					{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+					<a href="?page={{ num }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sector %}&sector={{ selected_sector }}{% endif %}" class="page-link">{{ num }}</a>
+					{% endif %}
+				{% endfor %}
+
+				{% if page_obj.has_next %}
+				<a href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sector %}&sector={{ selected_sector }}{% endif %}" class="page-link">Next</a>
+				<a href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_sector %}&sector={{ selected_sector }}{% endif %}" class="page-link">Last</a>
+				{% endif %}
+			</div>
+			{% endif %}
+
+			{% else %}
+			<div class="empty-state premium-empty">
+				<h3 class="empty-title">No opportunities found</h3>
+				<p class="empty-text">Try adjusting your search filters or check back soon for new opportunities.</p>
+				<a href="{% url 'investment' %}" class="empty-action">Clear filters</a>
+			</div>
+			{% endif %}
+		</div>
+	</section>
+
+	<!-- Inquiry Form Section -->
+	<section class="inquiry-section" id="inquiry-form">
+		<div class="container section relative-z">
+			<div class="inquiry-wrapper">
+				<div class="inquiry-content">
+					<h2 class="section-title glow-text">Ready to Invest?</h2>
+					<p class="inquiry-intro">Submit your inquiry and our investment team will connect with you within 24-48 hours.</p>
+
+					<form class="inquiry-form" method="post" action="{% url 'investment' %}">
+						{% csrf_token %}
+						
+						<div class="form-group">
+							<label for="opportunity-select" class="form-label">Select Opportunity *</label>
+							<select name="opportunity_id" id="opportunity-select" class="form-input" required>
+								<option value="">-- Choose an opportunity --</option>
+								{% for opp in page_obj.object_list %}
+								<option value="{{ opp.id }}">{{ opp.title }} ({{ opp.get_sector_display }})</option>
+								{% endfor %}
+								{% if featured_opportunities %}
+									{% for opp in featured_opportunities %}
+									<option value="{{ opp.id }}">{{ opp.title }} ({{ opp.get_sector_display }}) - Featured</option>
+									{% endfor %}
+								{% endif %}
+							</select>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group">
+								<label for="name" class="form-label">Full Name *</label>
+								<input type="text" name="name" id="name" class="form-input" required>
+							</div>
+							<div class="form-group">
+								<label for="email" class="form-label">Email Address *</label>
+								<input type="email" name="email" id="email" class="form-input" required>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group">
+								<label for="phone" class="form-label">Phone Number</label>
+								<input type="tel" name="phone" id="phone" class="form-input">
+							</div>
+							<div class="form-group">
+								<label for="organization" class="form-label">Organization</label>
+								<input type="text" name="organization" id="organization" class="form-input">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="investment-range" class="form-label">Investment Range</label>
+							<input 
+								type="text" 
+								name="investment_range" 
+								id="investment-range" 
+								class="form-input"
+								placeholder="e.g., 1M-5M USD"
+							>
+						</div>
+
+						<div class="form-group">
+							<label for="message" class="form-label">Message *</label>
+							<textarea 
+								name="message" 
+								id="message" 
+								class="form-input form-textarea"
+								rows="5"
+								placeholder="Tell us about your investment interest and experience..."
+								required
+							></textarea>
+						</div>
+
+						<button type="submit" class="submit-btn primary-button">Submit Inquiry</button>
+					</form>
+
+					{% if form_message %}
+					<div class="form-message {% if form_success %}success{% else %}error{% endif %}">
+						{{ form_message }}
+					</div>
+					{% endif %}
+				</div>
+
+				<div class="inquiry-sidebar">
+					<h3 class="sidebar-title">Investment Process</h3>
+					<ol class="process-steps">
+						<li class="step">
+							<span class="step-number">1</span>
+							<div class="step-content">
+								<h4>Submit Inquiry</h4>
+								<p>Tell us about your interest</p>
+							</div>
+						</li>
+						<li class="step">
+							<span class="step-number">2</span>
+							<div class="step-content">
+								<h4>Initial Review</h4>
+								<p>Our team evaluates fit</p>
+							</div>
+						</li>
+						<li class="step">
+							<span class="step-number">3</span>
+							<div class="step-content">
+								<h4>Detailed Discussion</h4>
+								<p>Deep dive into opportunity</p>
+							</div>
+						</li>
+						<li class="step">
+							<span class="step-number">4</span>
+							<div class="step-content">
+								<h4>Due Diligence</h4>
+								<p>Comprehensive project review</p>
+							</div>
+						</li>
+						<li class="step">
+							<span class="step-number">5</span>
+							<div class="step-content">
+								<h4>Partnership</h4>
+								<p>Execute investment agreement</p>
+							</div>
+						</li>
+					</ol>
+
+					<div class="investment-brief glass-card">
+						<h4 class="brief-title">📄 Investment Brief</h4>
+						<p class="brief-description">Download our comprehensive investment brief covering sectors, incentives, and policy framework.</p>
+						<a href="{% url 'download_investment_brief' %}" class="download-link">Download PDF</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Trust & Credibility Section -->
+	<section class="trust-section">
+		<div class="container section relative-z">
+			<h2 class="section-title glow-text">Transparent & Secure</h2>
+			<div class="trust-grid">
+				<div class="trust-card glass-card">
+					<h3>✓ Government Backed</h3>
+					<p>All opportunities have official backing from WAU State government with transparent policies and frameworks.</p>
+				</div>
+				<div class="trust-card glass-card">
+					<h3>✓ Full Transparency</h3>
+					<p>Complete due diligence reports, financial projections, and risk assessments available for all opportunities.</p>
+				</div>
+				<div class="trust-card glass-card">
+					<h3>✓ Legal Framework</h3>
+					<p>Robust legal and regulatory framework protecting investor rights with established dispute resolution mechanisms.</p>
+				</div>
+				<div class="trust-card glass-card">
+					<h3>✓ Support Network</h3>
+					<p>Dedicated investment support team providing ongoing guidance through every phase of your partnership.</p>
+				</div>
+			</div>
+
+			<div class="incentives-box glass-card">
+				<h3 class="incentives-title">Government Incentives</h3>
+				<ul class="incentives-list">
+					<li>Tax holidays for priority sectors</li>
+					<li>Priority access Government tenders for infrastructure</li>
+					<li>Facilitated land and resource access</li>
+					<li>Infrastructure support and guarantees</li>
+					<li>Training and capacity building programs</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+</div>
+
+{% endblock %}

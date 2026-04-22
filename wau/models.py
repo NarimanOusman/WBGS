@@ -95,3 +95,122 @@ class NewsPost(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class InvestmentOpportunity(models.Model):
+    STATUS_CHOICES = [
+        ('draft', 'Draft'),
+        ('published', 'Published'),
+        ('closed', 'Closed'),
+    ]
+
+    SECTOR_CHOICES = [
+        ('agriculture', 'Agriculture'),
+        ('renewable_energy', 'Renewable Energy'),
+        ('infrastructure', 'Infrastructure'),
+        ('technology', 'Technology'),
+        ('manufacturing', 'Manufacturing'),
+        ('tourism', 'Tourism'),
+        ('healthcare', 'Healthcare'),
+        ('education', 'Education'),
+        ('financial_services', 'Financial Services'),
+        ('other', 'Other'),
+    ]
+
+    title = models.CharField(max_length=200)
+    sector = models.CharField(max_length=30, choices=SECTOR_CHOICES)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
+    
+    # Investment details
+    description = models.TextField(help_text='Detailed description of the investment opportunity')
+    capex_min = models.DecimalField(
+        max_digits=15,
+        decimal_places=2,
+        help_text='Minimum capital required (USD)'
+    )
+    capex_max = models.DecimalField(
+        max_digits=15,
+        decimal_places=2,
+        help_text='Maximum capital sought (USD)'
+    )
+    expected_roi = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        help_text='Expected ROI percentage'
+    )
+    timeline_months = models.IntegerField(
+        help_text='Expected project timeline in months'
+    )
+    
+    # Opportunity details
+    target_sectors = models.CharField(
+        max_length=500,
+        blank=True,
+        help_text='Comma-separated target sectors or industries'
+    )
+    key_benefits = models.TextField(
+        blank=True,
+        help_text='Key benefits and highlights'
+    )
+    risk_assessment = models.TextField(
+        blank=True,
+        help_text='Risk factors and mitigation strategies'
+    )
+    featured = models.BooleanField(
+        default=False,
+        help_text='Show on investment page hero section'
+    )
+    
+    # Timestamps
+    published_at = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-featured', '-published_at', '-created_at']
+
+    def save(self, *args, **kwargs):
+        if self.status == 'published' and self.published_at is None:
+            self.published_at = timezone.now()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
+
+
+class InvestmentInquiry(models.Model):
+    STATUS_CHOICES = [
+        ('new', 'New'),
+        ('contacted', 'Contacted'),
+        ('interested', 'Interested'),
+        ('rejected', 'Rejected'),
+    ]
+
+    opportunity = models.ForeignKey(
+        InvestmentOpportunity,
+        on_delete=models.CASCADE,
+        related_name='inquiries'
+    )
+    
+    # Inquiry details
+    name = models.CharField(max_length=200)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20, blank=True)
+    organization = models.CharField(max_length=200, blank=True)
+    investment_range = models.CharField(
+        max_length=50,
+        blank=True,
+        help_text='Indicated capital range (e.g., "1M-5M")'
+    )
+    message = models.TextField(help_text='Inquiry message or additional questions')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new')
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.name} - {self.opportunity.title}'
