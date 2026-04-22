@@ -1,8 +1,11 @@
 import json
 import logging
+from urllib.parse import urlencode
 
 from django.conf import settings
+from django.core.paginator import Paginator
 from django.db import DatabaseError
+from django.db.models import Q
 from django.http import Http404
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -175,14 +178,89 @@ def news_detail(request, slug):
 
 
 def archive(request):
+    query = str(request.GET.get('q') or '').strip()
+    scope = str(request.GET.get('scope') or 'all').strip().lower()
+    if scope not in {'all', 'projects', 'news'}:
+        scope = 'all'
+
+    selected_category = str(request.GET.get('category') or 'all').strip()
+    sort = str(request.GET.get('sort') or 'newest').strip().lower()
+    if sort not in {'newest', 'oldest'}:
+        sort = 'newest'
+
+    projects_page_number = request.GET.get('projects_page', 1)
+    news_page_number = request.GET.get('news_page', 1)
+
+    def build_query(**updates):
+        params = request.GET.copy()
+        for key, value in updates.items():
+            if value is None:
+                params.pop(key, None)
+            else:
+                params[key] = str(value)
+        encoded = urlencode(params, doseq=True)
+        return f'?{encoded}' if encoded else ''
+
     try:
         _run_news_archiver()
-        archived_posts = list(_archived_news_queryset())
-        completed_projects = list(Project.objects.filter(status='Completed').order_by('-updated_at'))
+        archived_posts_qs = _archived_news_queryset()
+        completed_projects_qs = Project.objects.filter(status='Completed')
+
+        project_categories = sorted(
+            {
+                category
+                for category in Project.objects.filter(status='Completed').values_list('category', flat=True)
+                if category
+            }
+        )
+
+        if selected_category.lower() != 'all':
+            completed_projects_qs = completed_projects_qs.filter(category__iexact=selected_category)
+
+        if query:
+            archived_posts_qs = archived_posts_qs.filter(
+                Q(title__icontains=query)
+                | Q(summary__icontains=query)
+                | Q(content__icontains=query)
+            )
+            completed_projects_qs = completed_projects_qs.filter(
+                Q(title__icontains=query)
+                | Q(category__icontains=query)
+                | Q(description__icontains=query)
+            )
+
+        if sort == 'oldest':
+            archived_posts_qs = archived_posts_qs.order_by('published_at', 'updated_at')
+            completed_projects_qs = completed_projects_qs.order_by('updated_at', 'created_at')
+        else:
+            archived_posts_qs = archived_posts_qs.order_by('-published_at', '-updated_at')
+            completed_projects_qs = completed_projects_qs.order_by('-updated_at', '-created_at')
+
+        if scope == 'projects':
+            archived_posts_qs = archived_posts_qs.none()
+        elif scope == 'news':
+            completed_projects_qs = completed_projects_qs.none()
+
+        archive_count = archived_posts_qs.count()
+        completed_count = completed_projects_qs.count()
+
+        projects_paginator = Paginator(completed_projects_qs, 6)
+        news_paginator = Paginator(archived_posts_qs, 6)
+
+        completed_projects_page = projects_paginator.get_page(projects_page_number)
+        archived_news_page = news_paginator.get_page(news_page_number)
+
+        completed_projects = list(completed_projects_page.object_list)
+        archived_posts = list(archived_news_page.object_list)
     except Exception:
         logger.exception('Archive page failed to render')
         archived_posts = []
         completed_projects = []
+        project_categories = []
+        archive_count = 0
+        completed_count = 0
+        completed_projects_page = None
+        archived_news_page = None
 
     return render(
         request,
@@ -190,9 +268,20 @@ def archive(request):
         {
             'archived_posts': archived_posts,
             'completed_projects': completed_projects,
-            'archive_count': len(archived_posts),
-            'completed_count': len(completed_projects),
+            'archive_count': archive_count,
+            'completed_count': completed_count,
             'archive_days': getattr(settings, 'NEWS_ARCHIVE_AFTER_DAYS', 90),
+            'archive_query': query,
+            'archive_scope': scope,
+            'archive_category': selected_category,
+            'archive_sort': sort,
+            'project_categories': project_categories,
+            'completed_projects_page': completed_projects_page,
+            'archived_news_page': archived_news_page,
+            'projects_prev_link': build_query(projects_page=completed_projects_page.previous_page_number(), news_page=archived_news_page.number) if completed_projects_page and completed_projects_page.has_previous() and archived_news_page else '',
+            'projects_next_link': build_query(projects_page=completed_projects_page.next_page_number(), news_page=archived_news_page.number) if completed_projects_page and completed_projects_page.has_next() and archived_news_page else '',
+            'news_prev_link': build_query(news_page=archived_news_page.previous_page_number(), projects_page=completed_projects_page.number) if archived_news_page and archived_news_page.has_previous() and completed_projects_page else '',
+            'news_next_link': build_query(news_page=archived_news_page.next_page_number(), projects_page=completed_projects_page.number) if archived_news_page and archived_news_page.has_next() and completed_projects_page else '',
         },
     )
 

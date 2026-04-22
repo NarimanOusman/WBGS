@@ -13,6 +13,45 @@
 			<p class="text-muted subtitle-glow projects-subtext">Completed projects and archived news from Western Bahr el Ghazal State.</p>
 		</div>
 
+		<form class="archive-tools" method="get" action="{% url 'archive' %}" aria-label="Filter archive content">
+			<label class="archive-search-wrap">
+				<span class="archive-control-label">Search archive</span>
+				<input class="archive-search" type="search" name="q" value="{{ archive_query }}" placeholder="Search projects and archived news" aria-label="Search archive">
+			</label>
+
+			<label class="archive-select-wrap">
+				<span class="archive-control-label">Show</span>
+				<select class="archive-select" name="scope" aria-label="Filter by content type">
+					<option value="all" {% if archive_scope == 'all' %}selected{% endif %}>All content</option>
+					<option value="projects" {% if archive_scope == 'projects' %}selected{% endif %}>Completed projects only</option>
+					<option value="news" {% if archive_scope == 'news' %}selected{% endif %}>Archived news only</option>
+				</select>
+			</label>
+
+			<label class="archive-select-wrap">
+				<span class="archive-control-label">Project category</span>
+				<select class="archive-select" name="category" aria-label="Filter projects by category">
+					<option value="all" {% if archive_category|lower == 'all' %}selected{% endif %}>All categories</option>
+					{% for category in project_categories %}
+					<option value="{{ category }}" {% if archive_category == category %}selected{% endif %}>{{ category }}</option>
+					{% endfor %}
+				</select>
+			</label>
+
+			<label class="archive-select-wrap">
+				<span class="archive-control-label">Sort by</span>
+				<select class="archive-select" name="sort" aria-label="Sort archive results">
+					<option value="newest" {% if archive_sort == 'newest' %}selected{% endif %}>Newest first</option>
+					<option value="oldest" {% if archive_sort == 'oldest' %}selected{% endif %}>Oldest first</option>
+				</select>
+			</label>
+
+			<div class="archive-tool-actions">
+				<button type="submit" class="archive-filter-btn">Apply</button>
+				<a class="archive-reset-link" href="{% url 'archive' %}">Reset</a>
+			</div>
+		</form>
+
 		<div class="archive-summary">
 			<div class="glass-card archive-summary-card">
 				<span class="summary-label">Completed Projects</span>
@@ -51,6 +90,13 @@
 				</div>
 				{% endfor %}
 			</div>
+			{% if completed_projects_page and completed_projects_page.paginator.num_pages > 1 %}
+			<div class="archive-pagination" aria-label="Completed projects pages">
+				{% if projects_prev_link %}<a class="archive-page-link" href="{{ projects_prev_link }}">Previous</a>{% endif %}
+				<span class="archive-page-status">Page {{ completed_projects_page.number }} of {{ completed_projects_page.paginator.num_pages }}</span>
+				{% if projects_next_link %}<a class="archive-page-link" href="{{ projects_next_link }}">Next</a>{% endif %}
+			</div>
+			{% endif %}
 		</section>
 		{% endif %}
 
@@ -77,6 +123,13 @@
 				</article>
 				{% endfor %}
 			</div>
+			{% if archived_news_page and archived_news_page.paginator.num_pages > 1 %}
+			<div class="archive-pagination" aria-label="Archived news pages">
+				{% if news_prev_link %}<a class="archive-page-link" href="{{ news_prev_link }}">Previous</a>{% endif %}
+				<span class="archive-page-status">Page {{ archived_news_page.number }} of {{ archived_news_page.paginator.num_pages }}</span>
+				{% if news_next_link %}<a class="archive-page-link" href="{{ news_next_link }}">Next</a>{% endif %}
+			</div>
+			{% endif %}
 		</section>
 		{% endif %}
 
