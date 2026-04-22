@@ -149,7 +149,7 @@ def news_detail(request, slug):
         post = get_object_or_404(
             NewsPost,
             slug=slug,
-            status='published',
+            status__in=['published', 'archived'],
             published_at__lte=timezone.now(),
         )
         related_posts = _published_news_queryset().exclude(pk=post.pk)[:3]
@@ -173,16 +173,20 @@ def archive(request):
     try:
         _run_news_archiver()
         archived_posts = list(_archived_news_queryset())
+        completed_projects = list(Project.objects.filter(status='Completed').order_by('-updated_at'))
     except Exception:
         logger.exception('Archive page failed to render')
         archived_posts = []
+        completed_projects = []
 
     return render(
         request,
         'archive.html',
         {
             'archived_posts': archived_posts,
+            'completed_projects': completed_projects,
             'archive_count': len(archived_posts),
+            'completed_count': len(completed_projects),
             'archive_days': getattr(settings, 'NEWS_ARCHIVE_AFTER_DAYS', 90),
         },
     )

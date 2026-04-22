@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Archive | WAU State{% endblock %}
+{% block title %}Archive | Completed & Archived | WAU State{% endblock %}
 
 {% block content %}
 <div class="page-wrapper projects-wrapper light-theme archive-page news-page">
@@ -9,11 +9,15 @@
 
 	<div class="container section relative-z">
 		<div class="page-header premium-header">
-			<h1 class="page-title glow-text projects-heading">News Archive</h1>
-			<p class="text-muted subtitle-glow projects-subtext">Archived updates stay available here after they age out of the main newsroom.</p>
+			<h1 class="page-title glow-text projects-heading">Archive</h1>
+			<p class="text-muted subtitle-glow projects-subtext">Completed projects and archived news from Western Bahr el Ghazal State.</p>
 		</div>
 
 		<div class="archive-summary">
+			<div class="glass-card archive-summary-card">
+				<span class="summary-label">Completed projects</span>
+				<span class="summary-value">{{ completed_count }}</span>
+			</div>
 			<div class="glass-card archive-summary-card">
 				<span class="summary-label">Archived posts</span>
 				<span class="summary-value">{{ archive_count }}</span>
@@ -24,31 +28,59 @@
 			</div>
 		</div>
 
-		{% if archived_posts %}
-		<section class="news-grid" aria-label="Archived news">
-			{% for post in archived_posts %}
-			<article class="news-card archive-card glass-card">
-				{% if post.cover_image %}
-				<a href="{% url 'news_detail' post.slug %}" class="news-card-media">
-					<img src="{{ post.cover_image.url }}" alt="{{ post.title }}" loading="lazy">
-				</a>
-				{% endif %}
-				<div class="news-card-body">
-					<p class="news-meta">
-						<span class="archive-badge">Archived</span>
-						<span>Published {{ post.published_at|date:"M d, Y" }}</span>
-					</p>
-					<h3><a href="{% url 'news_detail' post.slug %}">{{ post.title }}</a></h3>
-					<p>{{ post.summary }}</p>
-					<a class="project-action-link" href="{% url 'news_detail' post.slug %}">Open Story</a>
+		{% if completed_projects %}
+		<section class="archive-section">
+			<h2 class="archive-section-title">Completed Projects</h2>
+			<div class="premium-grid">
+				{% for project in completed_projects %}
+				<div class="project-card glass-card">
+					{% if project.image %}
+					<a href="{% url 'project_detail' project.id %}" class="project-image-link">
+						<img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy">
+					</a>
+					{% endif %}
+					<div class="project-card-body">
+						<h3><a href="{% url 'project_detail' project.id %}">{{ project.title }}</a></h3>
+						<p class="project-category">{{ project.category }}</p>
+						<p class="project-description">{{ project.description|truncatewords:15 }}</p>
+						<a class="project-action-link" href="{% url 'project_detail' project.id %}">View Project</a>
+					</div>
 				</div>
-			</article>
-			{% endfor %}
+				{% endfor %}
+			</div>
 		</section>
-		{% else %}
+		{% endif %}
+
+		{% if archived_posts %}
+		<section class="archive-section">
+			<h2 class="archive-section-title">Archived News</h2>
+			<div class="news-grid" aria-label="Archived news">
+				{% for post in archived_posts %}
+				<article class="news-card archive-card glass-card">
+					{% if post.cover_image %}
+					<a href="{% url 'news_detail' post.slug %}" class="news-card-media">
+						<img src="{{ post.cover_image.url }}" alt="{{ post.title }}" loading="lazy">
+					</a>
+					{% endif %}
+					<div class="news-card-body">
+						<p class="news-meta">
+							<span class="archive-badge">Archived</span>
+							<span>Published {{ post.published_at|date:"M d, Y" }}</span>
+						</p>
+						<h3><a href="{% url 'news_detail' post.slug %}">{{ post.title }}</a></h3>
+						<p>{{ post.summary }}</p>
+						<a class="project-action-link" href="{% url 'news_detail' post.slug %}">Open Story</a>
+					</div>
+				</article>
+				{% endfor %}
+			</div>
+		</section>
+		{% endif %}
+
+		{% if not completed_projects and not archived_posts %}
 		<div class="empty-state premium-empty">
 			<h2 class="empty-title text-gradient">Archive is Empty</h2>
-			<p class="empty-text">Older news will appear here automatically once posts pass the archive window.</p>
+			<p class="empty-text">Completed projects and archived news will appear here as they finish or age out.</p>
 		</div>
 		{% endif %}
 	</div>
