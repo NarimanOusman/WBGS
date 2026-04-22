@@ -443,44 +443,44 @@ investment@waustate.gov
             form_message = 'An error occurred while submitting your inquiry. Please try again.'
             form_success = False
     
-    # Fetch featured opportunities for hero section
-    featured_opportunities = InvestmentOpportunity.objects.filter(
-        status='published',
-        featured=True
-    ).order_by('-published_at')[:3]
-    
-    # Get all published opportunities
-    opportunities = InvestmentOpportunity.objects.filter(status='published')
-    
-    # Get unique sectors for filtering
-    sectors = [
-        (choice[0], choice[1]) 
-        for choice in InvestmentOpportunity.SECTOR_CHOICES
-    ]
-    
-    # Apply sector filter if specified
+    # Defaults allow the page to render even if the investment tables are unavailable.
+    featured_opportunities = []
+    opportunities = InvestmentOpportunity.objects.none()
+    sectors = [(choice[0], choice[1]) for choice in InvestmentOpportunity.SECTOR_CHOICES]
     selected_sector = request.GET.get('sector', '')
-    if selected_sector:
-        opportunities = opportunities.filter(sector=selected_sector)
-    
-    # Apply search filter if specified
     search_query = request.GET.get('q', '').strip()
-    if search_query:
-        opportunities = opportunities.filter(
-            Q(title__icontains=search_query) |
-            Q(description__icontains=search_query) |
-            Q(key_benefits__icontains=search_query)
-        )
-    
-    # Sort opportunities
-    opportunities = opportunities.order_by('-featured', '-published_at')
-    
+
+    try:
+        featured_opportunities = InvestmentOpportunity.objects.filter(
+            status='published',
+            featured=True,
+        ).order_by('-published_at')[:3]
+
+        opportunities = InvestmentOpportunity.objects.filter(status='published')
+
+        if selected_sector:
+            opportunities = opportunities.filter(sector=selected_sector)
+
+        if search_query:
+            opportunities = opportunities.filter(
+                Q(title__icontains=search_query)
+                | Q(description__icontains=search_query)
+                | Q(key_benefits__icontains=search_query)
+            )
+
+        opportunities = opportunities.order_by('-featured', '-published_at')
+    except DatabaseError as e:
+        logger.error(f'Investment page data load failed: {e}')
+        if not form_message:
+            form_message = 'Investment opportunities are temporarily unavailable. Please check back shortly.'
+            form_success = False
+
     # Pagination (6 opportunities per page)
     paginator = Paginator(opportunities, 6)
     page_num = request.GET.get('page', 1)
     try:
         page_obj = paginator.page(page_num)
-    except:
+    except Exception:
         page_obj = paginator.page(1)
     
     context = {
