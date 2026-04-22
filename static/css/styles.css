@@ -678,11 +678,6 @@ footer {
   opacity: 1;
 }
 
-/* Hide Nav on Index Page */
-.index-page #mainNav {
-  display: none !important;
-}
-
 /* Scroll Reveal: Slide from Left */
 .reveal-from-left {
   opacity: 0;

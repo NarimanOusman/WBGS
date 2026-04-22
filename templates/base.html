@@ -159,9 +159,8 @@
             }
         });
 
-        // Theme Toggle (all pages except index)
+        // Theme toggle
         const body = document.body;
-        const isIndexPage = body.classList.contains('index-page');
         const themeToggleBtn = document.getElementById('themeToggleBtn');
 
         const applyTheme = (theme) => {
@@ -175,7 +174,7 @@
             }
         };
 
-        if (!isIndexPage && themeToggleBtn) {
+        if (themeToggleBtn) {
             const savedTheme = localStorage.getItem('wbgs-theme') || 'light';
             applyTheme(savedTheme);
 
