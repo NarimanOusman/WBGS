@@ -11,6 +11,7 @@
 		<div class="page-header premium-header">
 			<h1 class="page-title glow-text projects-heading">State Newsroom</h1>
 			<p class="text-muted subtitle-glow projects-subtext">Official updates, announcements, and verified progress stories from Western Bahr el Ghazal State.</p>
+			<p class="archive-inline-note">Older posts move to the archive after {{ archive_days|default:90 }} days.</p>
 		</div>
 
 		{% if featured_post %}
@@ -52,6 +53,7 @@
 		<div class="empty-state premium-empty">
 			<h2 class="empty-title text-gradient">No Published News Yet</h2>
 			<p class="empty-text">News posts will appear here once an administrator publishes updates from the Django admin panel.</p>
+			<a class="project-action-link" href="{% url 'archive' %}">View Archive</a>
 		</div>
 		{% endif %}
 	</div>

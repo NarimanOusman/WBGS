@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Archive | WAU State{% endblock %}
+
+{% block content %}
+<div class="page-wrapper projects-wrapper light-theme archive-page news-page">
+	<div class="bg-glow bg-glow-blue"></div>
+	<div class="bg-glow bg-glow-gold"></div>
+
+	<div class="container section relative-z">
+		<div class="page-header premium-header">
+			<h1 class="page-title glow-text projects-heading">News Archive</h1>
+			<p class="text-muted subtitle-glow projects-subtext">Archived updates stay available here after they age out of the main newsroom.</p>
+		</div>
+
+		<div class="archive-summary">
+			<div class="glass-card archive-summary-card">
+				<span class="summary-label">Archived posts</span>
+				<span class="summary-value">{{ archive_count }}</span>
+			</div>
+			<div class="glass-card archive-summary-card">
+				<span class="summary-label">Auto archive window</span>
+				<span class="summary-value">{{ archive_days }}d</span>
+			</div>
+		</div>
+
+		{% if archived_posts %}
+		<section class="news-grid" aria-label="Archived news">
+			{% for post in archived_posts %}
+			<article class="news-card archive-card glass-card">
+				{% if post.cover_image %}
+				<a href="{% url 'news_detail' post.slug %}" class="news-card-media">
+					<img src="{{ post.cover_image.url }}" alt="{{ post.title }}" loading="lazy">
+				</a>
+				{% endif %}
+				<div class="news-card-body">
+					<p class="news-meta">
+						<span class="archive-badge">Archived</span>
+						<span>Published {{ post.published_at|date:"M d, Y" }}</span>
+					</p>
+					<h3><a href="{% url 'news_detail' post.slug %}">{{ post.title }}</a></h3>
+					<p>{{ post.summary }}</p>
+					<a class="project-action-link" href="{% url 'news_detail' post.slug %}">Open Story</a>
+				</div>
+			</article>
+			{% endfor %}
+		</section>
+		{% else %}
+		<div class="empty-state premium-empty">
+			<h2 class="empty-title text-gradient">Archive is Empty</h2>
+			<p class="empty-text">Older news will appear here automatically once posts pass the archive window.</p>
+		</div>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}

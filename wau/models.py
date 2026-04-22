@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
+from datetime import timedelta
 
 class Project(models.Model):
     STATUS_CHOICES = [
@@ -63,6 +64,7 @@ class NewsPost(models.Model):
     STATUS_CHOICES = [
         ('draft', 'Draft'),
         ('published', 'Published'),
+        ('archived', 'Archived'),
     ]
 
     title = models.CharField(max_length=220)
@@ -82,6 +84,14 @@ class NewsPost(models.Model):
         if self.status == 'published' and self.published_at is None:
             self.published_at = timezone.now()
         super().save(*args, **kwargs)
+
+    @classmethod
+    def archive_stale_posts(cls, days=90):
+        cutoff = timezone.now() - timedelta(days=days)
+        return cls.objects.filter(
+            status='published',
+            published_at__lt=cutoff,
+        ).update(status='archived', updated_at=timezone.now())
 
     def __str__(self):
         return self.title

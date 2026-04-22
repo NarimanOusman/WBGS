@@ -152,6 +152,7 @@ class NewsPostAdmin(admin.ModelAdmin):
     search_fields = ('title', 'summary', 'content')
     prepopulated_fields = {'slug': ('title',)}
     readonly_fields = ('created_at', 'updated_at')
+    actions = ('archive_selected_posts', 'restore_selected_posts')
     fieldsets = (
         ('Content', {
             'fields': ('title', 'slug', 'summary', 'content', 'cover_image')
@@ -176,3 +177,13 @@ class NewsPostAdmin(admin.ModelAdmin):
                 ),
             )
             return redirect(request.path)
+
+    @admin.action(description='Archive selected news posts')
+    def archive_selected_posts(self, request, queryset):
+        archived_count = queryset.update(status='archived')
+        self.message_user(request, f'{archived_count} news post(s) archived.')
+
+    @admin.action(description='Restore selected archived posts')
+    def restore_selected_posts(self, request, queryset):
+        restored_count = queryset.filter(status='archived').update(status='published')
+        self.message_user(request, f'{restored_count} news post(s) restored to published.')

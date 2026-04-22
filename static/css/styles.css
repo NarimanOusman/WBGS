@@ -2169,6 +2169,67 @@ body.viewer-open {
   margin: 0 auto;
 }
 
+.archive-inline-note {
+  margin-top: 0.9rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.95rem;
+}
+
+.archive-page .page-header {
+  margin-bottom: 1.5rem;
+}
+
+.archive-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.archive-summary-card {
+  min-width: 180px;
+  padding: 1rem 1.2rem;
+}
+
+.archive-summary-card .summary-label {
+  display: block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.archive-summary-card .summary-value {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.archive-card {
+  border-left: 3px solid rgba(217, 119, 6, 0.8);
+}
+
+.archive-card .news-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.archive-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(217, 119, 6, 0.12);
+  border: 1px solid rgba(217, 119, 6, 0.28);
+  color: #fbbf24;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 @media (max-width: 1400px) {
   .premium-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));

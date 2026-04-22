@@ -50,6 +50,21 @@ def _published_news_queryset():
     except DatabaseError:
         return NewsPost.objects.none()
 
+
+def _archived_news_queryset():
+    try:
+        return NewsPost.objects.filter(status='archived').order_by('-published_at', '-updated_at')
+    except DatabaseError:
+        return NewsPost.objects.none()
+
+
+def _run_news_archiver():
+    try:
+        return NewsPost.archive_stale_posts(getattr(settings, 'NEWS_ARCHIVE_AFTER_DAYS', 90))
+    except Exception:
+        logger.exception('Automatic news archiving failed')
+        return 0
+
 def projects(request):
     projects = list(Project.objects.all().prefetch_related('images').order_by('-created_at'))
     categories = sorted({project.category for project in projects if project.category})
@@ -99,6 +114,7 @@ def about(request):
 
 def news(request):
     try:
+        _run_news_archiver()
         published_posts = list(_published_news_queryset())
 
         featured_post = published_posts[0] if published_posts else None
@@ -111,6 +127,7 @@ def news(request):
                 'featured_post': featured_post,
                 'news_posts': other_posts,
                 'news_count': len(published_posts),
+                'archive_days': getattr(settings, 'NEWS_ARCHIVE_AFTER_DAYS', 90),
             },
         )
     except Exception:
@@ -122,6 +139,7 @@ def news(request):
                 'featured_post': None,
                 'news_posts': [],
                 'news_count': 0,
+                'archive_days': getattr(settings, 'NEWS_ARCHIVE_AFTER_DAYS', 90),
             },
         )
 
@@ -152,7 +170,22 @@ def news_detail(request, slug):
 
 
 def archive(request):
-    return render(request, 'archive.html')
+    try:
+        _run_news_archiver()
+        archived_posts = list(_archived_news_queryset())
+    except Exception:
+        logger.exception('Archive page failed to render')
+        archived_posts = []
+
+    return render(
+        request,
+        'archive.html',
+        {
+            'archived_posts': archived_posts,
+            'archive_count': len(archived_posts),
+            'archive_days': getattr(settings, 'NEWS_ARCHIVE_AFTER_DAYS', 90),
+        },
+    )
 
 
 def investment(request):
