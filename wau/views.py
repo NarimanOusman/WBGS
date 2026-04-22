@@ -631,3 +631,8 @@ def upload_media(request):
         return JsonResponse({'ok': True, 'message': 'Gallery media added.'})
 
     return JsonResponse({'ok': False, 'message': 'Unsupported action.'}, status=400)
+
+
+def favicon(request):
+    """Serve favicon.ico by redirecting to static logo."""
+    return redirect(settings.STATIC_URL + 'images/waulogo.webp', permanent=True)

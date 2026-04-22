@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
@@ -15,4 +17,11 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('portal-admin/', views.admin_page, name='admin_page'),
     path('upload-media/', views.upload_media, name='upload_media'),
+    
+    # Favicon route
+    path('favicon.ico', views.favicon, name='favicon'),
 ]
+
+# Serve media files in development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
