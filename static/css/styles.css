@@ -2363,6 +2363,21 @@ body.viewer-open {
     grid-template-columns: 1fr;
   }
 
+  .archive-summary-card {
+    padding: 0.75rem 0.85rem;
+    min-height: auto;
+  }
+
+  .archive-summary-card .summary-value {
+    margin-top: 0.25rem;
+    font-size: 1.55rem;
+  }
+
+  .archive-summary-card .summary-note {
+    margin-top: 0.25rem;
+    font-size: 0.78rem;
+  }
+
   .archive-project-card .project-image-container {
     height: 175px;
   }
