@@ -17,14 +17,17 @@
 			<div class="glass-card archive-summary-card">
 				<span class="summary-label">Completed projects</span>
 				<span class="summary-value">{{ completed_count }}</span>
+				<span class="summary-note">Finished projects shown in the archive</span>
 			</div>
 			<div class="glass-card archive-summary-card">
-				<span class="summary-label">Archived posts</span>
+				<span class="summary-label">Archived news posts</span>
 				<span class="summary-value">{{ archive_count }}</span>
+				<span class="summary-note">News moved here after the archive window</span>
 			</div>
 			<div class="glass-card archive-summary-card">
 				<span class="summary-label">Auto archive window</span>
 				<span class="summary-value">{{ archive_days }}d</span>
+				<span class="summary-note">Posts are archived after this many days</span>
 			</div>
 		</div>
 
@@ -33,14 +36,14 @@
 			<h2 class="archive-section-title">Completed Projects</h2>
 			<div class="premium-grid">
 				{% for project in completed_projects %}
-				<div class="project-card glass-card">
+				<div class="project-card archive-project-card glass-card">
 					{% if project.image %}
 					<a href="{% url 'project_detail' project.id %}" class="project-image-link">
 						<img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy">
 					</a>
 					{% endif %}
 					<div class="project-card-body">
-						<h3><a href="{% url 'project_detail' project.id %}">{{ project.title }}</a></h3>
+						<h3 class="archive-project-title"><a href="{% url 'project_detail' project.id %}">{{ project.title }}</a></h3>
 						<p class="project-category">{{ project.category }}</p>
 						<p class="project-description">{{ project.description|truncatewords:15 }}</p>
 						<a class="project-action-link" href="{% url 'project_detail' project.id %}">View Project</a>
@@ -67,7 +70,7 @@
 							<span class="archive-badge">Archived</span>
 							<span>Published {{ post.published_at|date:"M d, Y" }}</span>
 						</p>
-						<h3><a href="{% url 'news_detail' post.slug %}">{{ post.title }}</a></h3>
+						<h3 class="archive-news-title"><a href="{% url 'news_detail' post.slug %}">{{ post.title }}</a></h3>
 						<p>{{ post.summary }}</p>
 						<a class="project-action-link" href="{% url 'news_detail' post.slug %}">Open Story</a>
 					</div>

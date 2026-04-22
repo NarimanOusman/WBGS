@@ -2180,15 +2180,15 @@ body.viewer-open {
 }
 
 .archive-summary {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
 .archive-summary-card {
-  min-width: 180px;
   padding: 1rem 1.2rem;
+  min-height: 120px;
 }
 
 .archive-summary-card .summary-label {
@@ -2204,6 +2204,14 @@ body.viewer-open {
   margin-top: 0.4rem;
   font-size: 1.8rem;
   font-weight: 700;
+}
+
+.archive-summary-card .summary-note {
+  display: block;
+  margin-top: 0.35rem;
+  color: rgba(15, 23, 42, 0.72);
+  font-size: 0.82rem;
+  line-height: 1.35;
 }
 
 .archive-card {
@@ -2239,6 +2247,54 @@ body.viewer-open {
   font-weight: 700;
   margin-bottom: 1.2rem;
   color: #0f172a;
+}
+
+.archive-project-card .project-image-container {
+  height: 190px;
+}
+
+.archive-project-card .project-card-body {
+  padding: 0.85rem 0.95rem 0.95rem;
+}
+
+.archive-project-card .project-title,
+.archive-news-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.archive-project-card .project-title {
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  min-height: 2.8em;
+}
+
+.archive-project-card .project-description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.archive-news-title {
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+}
+
+.archive-card .news-card-body p:not(.news-meta) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.archive-project-card .project-action-link,
+.archive-card .project-action-link {
+  width: fit-content;
 }
 
 @media (max-width: 1400px) {
@@ -2297,6 +2353,29 @@ body.viewer-open {
 
   .news-grid {
     grid-template-columns: 1fr;
+  }
+
+  .archive-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .archive-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .archive-project-card .project-image-container {
+    height: 175px;
+  }
+
+  .archive-project-card .project-title {
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    min-height: 0;
+  }
+
+  .archive-card .news-card-body p:not(.news-meta) {
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
   }
 }
 
