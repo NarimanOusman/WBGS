@@ -242,10 +242,10 @@
 								{% if inquiry_opportunities %}
 									<option value="">-- Choose an opportunity --</option>
 									{% for opp in inquiry_opportunities %}
-									<option value="{{ opp.id }}">{{ opp.title }} ({{ opp.get_sector_display }})</option>
+									<option value="{{ opp.id }}">{{ opp.title }} ({{ opp.get_sector_display }}){% if opp.featured %} - Featured{% endif %}</option>
 									{% endfor %}
 								{% else %}
-									<option value="" disabled selected>No opportunities available right now</option>
+									<option value="" disabled>No opportunities available right now</option>
 								{% endif %}
 							</select>
 						</div>
@@ -273,13 +273,13 @@
 						</div>
 
 						<div class="form-group">
-							<label for="investment-range" class="form-label">Investment Range</label>
+							<label for="investment-range" class="form-label">Investment Range (Optional)</label>
 							<input 
 								type="text" 
 								name="investment_range" 
 								id="investment-range" 
 								class="form-input"
-								placeholder="e.g., 1M-5M USD"
+								placeholder="Optional (e.g., 1M-5M USD)"
 							>
 						</div>
 
