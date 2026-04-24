@@ -15,12 +15,31 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  overscroll-behavior-x: none;
+}
+
 body {
   background-color: var(--bg-dark);
   color: var(--text-main);
   font-family: var(--font-base);
   overflow-x: hidden;
   line-height: 1.6;
+  touch-action: pan-y;
+}
+
+main {
+  padding-inline: clamp(10px, 1.6vw, 18px);
+}
+
+.container {
+  width: min(1220px, 100%);
+  margin-inline: auto;
 }
 
 #lights {
