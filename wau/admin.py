@@ -189,24 +189,56 @@ class NewsPostAdmin(admin.ModelAdmin):
         self.message_user(request, f'{restored_count} news post(s) restored to published.')
 
 
-class InvestmentInquiryInline(admin.TabularInline):
-    model = InvestmentInquiry
-    extra = 0
-    readonly_fields = ('created_at', 'updated_at', 'name', 'email', 'organization', 'message')
-    fields = ('name', 'email', 'organization', 'status', 'created_at')
-    can_delete = False
+class InvestmentOpportunityAdminForm(forms.ModelForm):
+    class Meta:
+        model = InvestmentOpportunity
+        fields = '__all__'
 
-    def has_add_permission(self, request, obj=None):
-        return False
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Investment Terms guidance
+        self.fields['capex_min'].widget.attrs.update({
+            'placeholder': 'Minimum capital in USD (e.g., 1000000)',
+            'step': '0.01',
+        })
+        self.fields['capex_max'].widget.attrs.update({
+            'placeholder': 'Maximum capital in USD (e.g., 5000000)',
+            'step': '0.01',
+        })
+        self.fields['expected_roi'].widget.attrs.update({
+            'placeholder': 'Expected ROI in % (e.g., 18.50)',
+            'step': '0.01',
+        })
+        self.fields['timeline_months'].widget.attrs.update({
+            'placeholder': 'Estimated timeline in months (e.g., 24)',
+            'min': '1',
+        })
+
+        # Opportunity Details guidance
+        self.fields['target_sectors'].widget.attrs.update({
+            'placeholder': 'Optional: list related sectors (e.g., Agriculture, Logistics, Export)',
+        })
+        self.fields['key_benefits'].widget.attrs.update({
+            'placeholder': 'Summarize top investor benefits (market size, incentives, demand, partners).',
+            'rows': 4,
+        })
+
+        self.fields['capex_min'].help_text = 'Enter the minimum amount an investor can commit (USD).'
+        self.fields['capex_max'].help_text = 'Enter the upper funding target (USD). Must be greater than minimum.'
+        self.fields['expected_roi'].help_text = 'Estimated return on investment percentage per project plan.'
+        self.fields['timeline_months'].help_text = 'How long project delivery is expected to take.'
+        self.fields['target_sectors'].help_text = 'Optional. Comma-separated sectors this opportunity touches.'
+        self.fields['key_benefits'].help_text = 'Optional. Why this is attractive to investors.'
 
 
 @admin.register(InvestmentOpportunity)
 class InvestmentOpportunityAdmin(admin.ModelAdmin):
+    form = InvestmentOpportunityAdminForm
     list_display = ('title', 'sector', 'status', 'expected_roi', 'featured', 'published_at')
     list_filter = ('status', 'sector', 'featured', 'published_at')
     search_fields = ('title', 'description', 'key_benefits')
     readonly_fields = ('created_at', 'updated_at', 'published_at')
-    inlines = [InvestmentInquiryInline]
     
     fieldsets = (
         ('Opportunity Overview', {
@@ -216,7 +248,7 @@ class InvestmentOpportunityAdmin(admin.ModelAdmin):
             'fields': ('capex_min', 'capex_max', 'expected_roi', 'timeline_months')
         }),
         ('Opportunity Details', {
-            'fields': ('target_sectors', 'key_benefits', 'risk_assessment'),
+            'fields': ('target_sectors', 'key_benefits'),
             'classes': ('collapse',),
         }),
         ('Publishing', {
