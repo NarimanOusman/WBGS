@@ -446,20 +446,18 @@ investment@waustate.gov
     
         # Defaults allow the page to render even if the investment tables are unavailable.
         featured_opportunities = []
+        inquiry_opportunities = []
         opportunities = []
         sectors = [(choice[0], choice[1]) for choice in InvestmentOpportunity.SECTOR_CHOICES]
         selected_sector = request.GET.get('sector', '')
         search_query = request.GET.get('q', '').strip()
 
         try:
-            featured_opportunities = list(
-                InvestmentOpportunity.objects.filter(
-                    status='published',
-                    featured=True,
-                ).order_by('-published_at')[:3]
-            )
+            published_qs = InvestmentOpportunity.objects.filter(status='published').order_by('-featured', '-published_at')
 
-            opportunities_qs = InvestmentOpportunity.objects.filter(status='published')
+            featured_opportunities = list(published_qs.filter(featured=True)[:3])
+            inquiry_opportunities = list(published_qs)
+            opportunities_qs = published_qs
 
             if selected_sector:
                 opportunities_qs = opportunities_qs.filter(sector=selected_sector)
@@ -471,7 +469,7 @@ investment@waustate.gov
                     | Q(key_benefits__icontains=search_query)
                 )
 
-            opportunities = list(opportunities_qs.order_by('-featured', '-published_at'))
+            opportunities = list(opportunities_qs)
         except DatabaseError as e:
             logger.error(f'Investment page data load failed: {e}')
             if not form_message:
@@ -488,6 +486,7 @@ investment@waustate.gov
     
         context = {
             'featured_opportunities': featured_opportunities,
+            'inquiry_opportunities': inquiry_opportunities,
             'page_obj': page_obj,
             'opportunities': page_obj.object_list,
             'sectors': sectors,
@@ -506,6 +505,7 @@ investment@waustate.gov
             'investment.html',
             {
                 'featured_opportunities': [],
+                'inquiry_opportunities': [],
                 'page_obj': empty_page,
                 'opportunities': empty_page.object_list,
                 'sectors': [(choice[0], choice[1]) for choice in InvestmentOpportunity.SECTOR_CHOICES],

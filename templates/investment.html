@@ -239,14 +239,13 @@
 						<div class="form-group">
 							<label for="opportunity-select" class="form-label">Select Opportunity *</label>
 							<select name="opportunity_id" id="opportunity-select" class="form-input" required>
-								<option value="">-- Choose an opportunity --</option>
-								{% for opp in page_obj.object_list %}
-								<option value="{{ opp.id }}">{{ opp.title }} ({{ opp.get_sector_display }})</option>
-								{% endfor %}
-								{% if featured_opportunities %}
-									{% for opp in featured_opportunities %}
-									<option value="{{ opp.id }}">{{ opp.title }} ({{ opp.get_sector_display }}) - Featured</option>
+								{% if inquiry_opportunities %}
+									<option value="">-- Choose an opportunity --</option>
+									{% for opp in inquiry_opportunities %}
+									<option value="{{ opp.id }}">{{ opp.title }} ({{ opp.get_sector_display }})</option>
 									{% endfor %}
+								{% else %}
+									<option value="" disabled selected>No opportunities available right now</option>
 								{% endif %}
 							</select>
 						</div>
