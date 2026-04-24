@@ -3005,6 +3005,7 @@ body.viewer-open {
 .featured-card {
   padding: 1.5rem;
   border-radius: 1rem;
+  min-width: 0;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.8) 100%);
@@ -3126,6 +3127,7 @@ body.viewer-open {
 .benefit-card {
   padding: 2rem;
   text-align: center;
+  min-width: 0;
   border-radius: 1rem;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -3170,6 +3172,7 @@ body.viewer-open {
 
 .sector-card {
   padding: 1.5rem;
+  min-width: 0;
   border-radius: 0.8rem;
   text-align: center;
   backdrop-filter: blur(10px);
@@ -3295,6 +3298,7 @@ body.viewer-open {
 
 .opportunity-card {
   padding: 1.5rem;
+  min-width: 0;
   border-radius: 1rem;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -3360,6 +3364,7 @@ body.viewer-open {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.6rem;
 }
 
 .detail-label {
@@ -3479,6 +3484,7 @@ body.viewer-open {
 .inquiry-content {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
   padding: 2rem;
+  min-width: 0;
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
@@ -3624,6 +3630,7 @@ body.viewer-open {
 
 .investment-brief {
   padding: 1.5rem;
+  min-width: 0;
   border: 2px dashed rgba(212, 175, 55, 0.3);
   border-radius: 0.8rem;
   background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(15, 63, 102, 0.02) 100%);
@@ -3674,6 +3681,7 @@ body.viewer-open {
 
 .trust-card {
   padding: 1.5rem;
+  min-width: 0;
   border-radius: 1rem;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -3703,6 +3711,7 @@ body.viewer-open {
 
 .incentives-box {
   padding: 2rem;
+  min-width: 0;
   border-radius: 1rem;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(212, 175, 55, 0.3);
@@ -3803,7 +3812,15 @@ body.viewer-open {
     font-size: 1rem;
   }
 
+  .hero-cta {
+    align-items: stretch;
+  }
+
   .featured-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-stats {
     grid-template-columns: 1fr;
   }
 
@@ -3825,8 +3842,27 @@ body.viewer-open {
     flex-direction: column-reverse;
   }
 
+  .filter-btn,
+  .filter-reset,
+  .submit-btn,
+  .inquiry-btn,
+  .download-link,
+  .cta-button {
+    width: 100%;
+    text-align: center;
+  }
+
   .opportunities-grid {
     grid-template-columns: 1fr;
+  }
+
+  .detail-row {
+    flex-wrap: wrap;
+  }
+
+  .detail-label,
+  .detail-value {
+    width: 100%;
   }
 
   .inquiry-content {
@@ -3849,6 +3885,7 @@ body.viewer-open {
 
   .step {
     padding: 0.8rem;
+    align-items: flex-start;
   }
 
   .step-content h4 {
@@ -3869,5 +3906,4 @@ body.viewer-open {
     padding: 0.8rem 1.5rem;
     font-size: 0.95rem;
   }
-}
 }
