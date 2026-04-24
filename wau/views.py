@@ -333,45 +333,46 @@ def archive(request):
 
 
 def investment(request):
-    # Handle inquiry form submission
-    form_message = None
-    form_success = False
+    try:
+        # Handle inquiry form submission
+        form_message = None
+        form_success = False
     
-    if request.method == 'POST':
-        try:
-            opportunity_id = request.POST.get('opportunity_id')
-            name = request.POST.get('name', '').strip()
-            email = request.POST.get('email', '').strip()
-            phone = request.POST.get('phone', '').strip()
-            organization = request.POST.get('organization', '').strip()
-            investment_range = request.POST.get('investment_range', '').strip()
-            message = request.POST.get('message', '').strip()
+        if request.method == 'POST':
+            try:
+                opportunity_id = request.POST.get('opportunity_id')
+                name = request.POST.get('name', '').strip()
+                email = request.POST.get('email', '').strip()
+                phone = request.POST.get('phone', '').strip()
+                organization = request.POST.get('organization', '').strip()
+                investment_range = request.POST.get('investment_range', '').strip()
+                message = request.POST.get('message', '').strip()
             
-            if not all([opportunity_id, name, email, message]):
-                form_message = 'Please fill in all required fields (marked with *).'
-                form_success = False
-            else:
-                try:
-                    opportunity = InvestmentOpportunity.objects.get(
-                        id=opportunity_id,
-                        status='published'
-                    )
-                    inquiry = InvestmentInquiry.objects.create(
-                        opportunity=opportunity,
-                        name=name,
-                        email=email,
-                        phone=phone,
-                        organization=organization,
-                        investment_range=investment_range,
-                        message=message,
-                        status='new'
-                    )
-                    
-                    # Send email notification to admin
+                if not all([opportunity_id, name, email, message]):
+                    form_message = 'Please fill in all required fields (marked with *).'
+                    form_success = False
+                else:
                     try:
-                        admin_email = getattr(settings, 'INVESTMENT_ADMIN_EMAIL', 'investment@waustate.gov')
-                        admin_subject = f'New Investment Inquiry: {opportunity.title}'
-                        admin_message = f'''New investment inquiry received:
+                        opportunity = InvestmentOpportunity.objects.get(
+                            id=opportunity_id,
+                            status='published'
+                        )
+                        inquiry = InvestmentInquiry.objects.create(
+                            opportunity=opportunity,
+                            name=name,
+                            email=email,
+                            phone=phone,
+                            organization=organization,
+                            investment_range=investment_range,
+                            message=message,
+                            status='new'
+                        )
+                    
+                        # Send email notification to admin
+                        try:
+                            admin_email = getattr(settings, 'INVESTMENT_ADMIN_EMAIL', 'investment@waustate.gov')
+                            admin_subject = f'New Investment Inquiry: {opportunity.title}'
+                            admin_message = f'''New investment inquiry received:
 
 Opportunity: {opportunity.title}
 Sector: {opportunity.get_sector_display()}
@@ -391,20 +392,20 @@ View inquiry in admin: /portal-admin/
 Status: {inquiry.status}
 Created: {inquiry.created_at.strftime('%B %d, %Y at %H:%M')}
 '''
-                        send_mail(
-                            admin_subject,
-                            admin_message,
-                            settings.DEFAULT_FROM_EMAIL,
-                            [admin_email],
-                            fail_silently=True,
-                        )
-                    except Exception as e:
-                        logger.warning(f'Failed to send admin notification email: {e}')
+                            send_mail(
+                                admin_subject,
+                                admin_message,
+                                settings.DEFAULT_FROM_EMAIL,
+                                [admin_email],
+                                fail_silently=True,
+                            )
+                        except Exception as e:
+                            logger.warning(f'Failed to send admin notification email: {e}')
                     
-                    # Send confirmation email to investor
-                    try:
-                        investor_subject = f'Investment Inquiry Received - {opportunity.title}'
-                        investor_message = f'''Dear {name},
+                        # Send confirmation email to investor
+                        try:
+                            investor_subject = f'Investment Inquiry Received - {opportunity.title}'
+                            investor_message = f'''Dear {name},
 
 Thank you for your interest in the {opportunity.title} investment opportunity in Western Bahr el Ghazal State.
 
@@ -423,78 +424,97 @@ Best regards,
 WAU State Investment Team
 investment@waustate.gov
 '''
-                        send_mail(
-                            investor_subject,
-                            investor_message,
-                            settings.DEFAULT_FROM_EMAIL,
-                            [email],
-                            fail_silently=True,
-                        )
-                    except Exception as e:
-                        logger.warning(f'Failed to send investor confirmation email: {e}')
+                            send_mail(
+                                investor_subject,
+                                investor_message,
+                                settings.DEFAULT_FROM_EMAIL,
+                                [email],
+                                fail_silently=True,
+                            )
+                        except Exception as e:
+                            logger.warning(f'Failed to send investor confirmation email: {e}')
                     
-                    form_message = f'Thank you, {name}! We received your inquiry and will be in touch within 24-48 hours.'
-                    form_success = True
-                except InvestmentOpportunity.DoesNotExist:
-                    form_message = 'The selected opportunity could not be found or is no longer available.'
-                    form_success = False
-        except Exception as e:
-            logger.error(f'Investment inquiry submission error: {e}')
-            form_message = 'An error occurred while submitting your inquiry. Please try again.'
-            form_success = False
+                        form_message = f'Thank you, {name}! We received your inquiry and will be in touch within 24-48 hours.'
+                        form_success = True
+                    except InvestmentOpportunity.DoesNotExist:
+                        form_message = 'The selected opportunity could not be found or is no longer available.'
+                        form_success = False
+            except Exception as e:
+                logger.error(f'Investment inquiry submission error: {e}')
+                form_message = 'An error occurred while submitting your inquiry. Please try again.'
+                form_success = False
     
-    # Defaults allow the page to render even if the investment tables are unavailable.
-    featured_opportunities = []
-    opportunities = InvestmentOpportunity.objects.none()
-    sectors = [(choice[0], choice[1]) for choice in InvestmentOpportunity.SECTOR_CHOICES]
-    selected_sector = request.GET.get('sector', '')
-    search_query = request.GET.get('q', '').strip()
+        # Defaults allow the page to render even if the investment tables are unavailable.
+        featured_opportunities = []
+        opportunities = []
+        sectors = [(choice[0], choice[1]) for choice in InvestmentOpportunity.SECTOR_CHOICES]
+        selected_sector = request.GET.get('sector', '')
+        search_query = request.GET.get('q', '').strip()
 
-    try:
-        featured_opportunities = InvestmentOpportunity.objects.filter(
-            status='published',
-            featured=True,
-        ).order_by('-published_at')[:3]
-
-        opportunities = InvestmentOpportunity.objects.filter(status='published')
-
-        if selected_sector:
-            opportunities = opportunities.filter(sector=selected_sector)
-
-        if search_query:
-            opportunities = opportunities.filter(
-                Q(title__icontains=search_query)
-                | Q(description__icontains=search_query)
-                | Q(key_benefits__icontains=search_query)
+        try:
+            featured_opportunities = list(
+                InvestmentOpportunity.objects.filter(
+                    status='published',
+                    featured=True,
+                ).order_by('-published_at')[:3]
             )
 
-        opportunities = opportunities.order_by('-featured', '-published_at')
-    except DatabaseError as e:
-        logger.error(f'Investment page data load failed: {e}')
-        if not form_message:
-            form_message = 'Investment opportunities are temporarily unavailable. Please check back shortly.'
-            form_success = False
+            opportunities_qs = InvestmentOpportunity.objects.filter(status='published')
 
-    # Pagination (6 opportunities per page)
-    paginator = Paginator(opportunities, 6)
-    page_num = request.GET.get('page', 1)
-    try:
-        page_obj = paginator.page(page_num)
-    except Exception:
-        page_obj = paginator.page(1)
+            if selected_sector:
+                opportunities_qs = opportunities_qs.filter(sector=selected_sector)
+
+            if search_query:
+                opportunities_qs = opportunities_qs.filter(
+                    Q(title__icontains=search_query)
+                    | Q(description__icontains=search_query)
+                    | Q(key_benefits__icontains=search_query)
+                )
+
+            opportunities = list(opportunities_qs.order_by('-featured', '-published_at'))
+        except DatabaseError as e:
+            logger.error(f'Investment page data load failed: {e}')
+            if not form_message:
+                form_message = 'Investment opportunities are temporarily unavailable. Please check back shortly.'
+                form_success = False
+
+        # Pagination (6 opportunities per page)
+        paginator = Paginator(opportunities, 6)
+        page_num = request.GET.get('page', 1)
+        try:
+            page_obj = paginator.page(page_num)
+        except Exception:
+            page_obj = paginator.page(1)
     
-    context = {
-        'featured_opportunities': featured_opportunities,
-        'page_obj': page_obj,
-        'opportunities': page_obj.object_list,
-        'sectors': sectors,
-        'selected_sector': selected_sector,
-        'search_query': search_query,
-        'form_message': form_message,
-        'form_success': form_success,
-    }
-    
-    return render(request, 'investment.html', context)
+        context = {
+            'featured_opportunities': featured_opportunities,
+            'page_obj': page_obj,
+            'opportunities': page_obj.object_list,
+            'sectors': sectors,
+            'selected_sector': selected_sector,
+            'search_query': search_query,
+            'form_message': form_message,
+            'form_success': form_success,
+        }
+
+        return render(request, 'investment.html', context)
+    except Exception as e:
+        logger.error(f'Investment page unexpected error: {e}')
+        empty_page = Paginator([], 6).page(1)
+        return render(
+            request,
+            'investment.html',
+            {
+                'featured_opportunities': [],
+                'page_obj': empty_page,
+                'opportunities': empty_page.object_list,
+                'sectors': [(choice[0], choice[1]) for choice in InvestmentOpportunity.SECTOR_CHOICES],
+                'selected_sector': '',
+                'search_query': '',
+                'form_message': 'Investment opportunities are temporarily unavailable. Please try again shortly.',
+                'form_success': False,
+            },
+        )
 
 
 def download_investment_brief(request):
