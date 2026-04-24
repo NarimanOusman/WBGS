@@ -16,29 +16,12 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: clip;
-  overscroll-behavior-x: none;
-}
-
 body {
   background-color: var(--bg-dark);
   color: var(--text-main);
   font-family: var(--font-base);
   overflow-x: hidden;
   line-height: 1.6;
-  touch-action: pan-y;
-}
-
-main {
-}
-
-.container {
-  width: min(1220px, 100%);
-  margin-inline: auto;
 }
 
 #lights {
