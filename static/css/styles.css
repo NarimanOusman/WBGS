@@ -15,13 +15,25 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   background-color: var(--bg-dark);
   color: var(--text-main);
   font-family: var(--font-base);
   overflow-x: hidden;
   line-height: 1.6;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+}
+
+main,
+.page-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 #lights {
@@ -3801,6 +3813,18 @@ body.viewer-open {
 }
 
 @media (max-width: 640px) {
+  html,
+  body {
+    overflow-x: clip;
+    overscroll-behavior-x: none;
+    touch-action: pan-y;
+  }
+
+  main,
+  .page-wrapper {
+    overflow-x: clip;
+  }
+
   .investment-hero {
     padding: 2rem 0;
   }
