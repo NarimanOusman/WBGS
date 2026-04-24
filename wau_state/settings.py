@@ -164,7 +164,6 @@ if not DEBUG:
 # Keep app alive even without Cloudinary by writing to /tmp in production.
 if not USE_CLOUDINARY and not DEBUG:
     MEDIA_ROOT = Path('/tmp/wau_media')
-    MEDIA_ROOT.mkdir(parents=True, exist_ok=True)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
