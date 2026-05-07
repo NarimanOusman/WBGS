@@ -13,10 +13,43 @@
 
     <div class="container section relative-z">
         <section class="hero projects-hero projects-header-animate">
-            <div id="lights" aria-hidden="true"></div>
-            <div class="hero-content projects-hero-content">
-                <h1 id="statePortalTitle" class="text-type text-gradient projects-typed-title"></h1>
+            <div class="carousel-container" id="carouselContainer" aria-label="Hero carousel">
+                <!-- Carousel images -->
+                <div class="carousel-slide carousel-slide-active" data-index="0" style="background-image: url('{% static 'images/image1.webp' %}')">
+                    <div class="carousel-overlay"></div>
+                    <div class="carousel-text-content">
+                        <h1 class="carousel-title">Building <span class="text-gradient">Digital Infrastructure</span></h1>
+                        <p class="carousel-subtitle">Advanced technology solutions for Western Bahr el Ghazal State</p>
+                    </div>
+                </div>
+
+                <div class="carousel-slide" data-index="1" style="background-image: url('{% static 'images/image2.jpg' %}')">
+                    <div class="carousel-overlay"></div>
+                    <div class="carousel-text-content">
+                        <h1 class="carousel-title">Connecting <span class="text-gradient">Communities</span></h1>
+                        <p class="carousel-subtitle">Empowering regions through modern development projects</p>
+                    </div>
+                </div>
+
+                <div class="carousel-slide" data-index="2" style="background-image: url('{% static 'images/image3.jpg' %}')">
+                    <div class="carousel-overlay"></div>
+                    <div class="carousel-text-content">
+                        <h1 class="carousel-title">Driving <span class="text-gradient">Progress</span></h1>
+                        <p class="carousel-subtitle">Sustainable growth and transformation initiatives</p>
+                    </div>
+                </div>
+
+                <!-- Carousel controls -->
+                <div class="carousel-controls">
+                    <button class="carousel-dot" data-slide="0" aria-label="Go to slide 1" aria-current="true"></button>
+                    <button class="carousel-dot" data-slide="1" aria-label="Go to slide 2"></button>
+                    <button class="carousel-dot" data-slide="2" aria-label="Go to slide 3"></button>
+                </div>
+
+                <!-- Auto-rotation indicator -->
+                <div class="carousel-progress" id="carouselProgress"></div>
             </div>
+            <div class="hero-content projects-hero-content"></div>
         </section>
 
         <section class="projects-dashboard-intro premium-header projects-header-animate">
@@ -149,33 +182,114 @@
 {% endblock %}
 
 {% block extra_js %}
-<script type="module">
-    import { initHyperspeed } from "{% static 'js/hyperspeed.js' %}";
-    import { hyperspeedPresets } from "{% static 'js/hyperspeed_presets.js' %}";
-    import { TextType } from "{% static 'js/text-type.js' %}";
-
+<script>
+    // Image Carousel Functionality
     document.addEventListener('DOMContentLoaded', () => {
-        const container = document.getElementById('lights');
-        if (container) {
-            initHyperspeed(container, hyperspeedPresets.six);
-        }
+        const carousel = document.getElementById('carouselContainer');
+        const slides = carousel.querySelectorAll('.carousel-slide');
+        const dots = carousel.querySelectorAll('.carousel-dot');
+        const progressBar = document.getElementById('carouselProgress');
+        
+        let currentSlide = 0;
+        const slideInterval = 3000; // 3 seconds per slide
+        const transitionDuration = 300; // 300ms transition
+        let autoPlayTimer;
+        let progressTimer;
 
-        const titleElement = document.getElementById('statePortalTitle');
-        if (titleElement) {
-            new TextType(titleElement, {
-                text: ["Western Bahr el Ghazal State Portal"],
-                typingSpeed: 70,
-                pauseDuration: 2500,
-                loop: true,
-                cursorCharacter: "_",
-                cursorBlinkDuration: 0.5,
-                segments: [
-                    { text: "Western Bahr el Ghazal State ", className: "text-type-primary" },
-                    { text: "Portal", className: "text-type-secondary" }
-                ]
+        // Function to show slide
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('carousel-slide-active');
+                slide.classList.remove('carousel-slide-prev');
+                if (i === index) {
+                    slide.classList.add('carousel-slide-active');
+                } else if (i === (index - 1 + slides.length) % slides.length) {
+                    slide.classList.add('carousel-slide-prev');
+                }
             });
+
+            dots.forEach((dot, i) => {
+                dot.classList.remove('active');
+                dot.setAttribute('aria-current', 'false');
+                if (i === index) {
+                    dot.classList.add('active');
+                    dot.setAttribute('aria-current', 'true');
+                }
+            });
+
+            currentSlide = index;
         }
 
+        // Function to go to next slide
+        function nextSlide() {
+            const nextIndex = (currentSlide + 1) % slides.length;
+            showSlide(nextIndex);
+            resetAutoPlay();
+        }
+
+        // Function to go to previous slide
+        function prevSlide() {
+            const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(prevIndex);
+            resetAutoPlay();
+        }
+
+        // Function to start auto-play
+        function startAutoPlay() {
+            autoPlayTimer = setInterval(nextSlide, slideInterval);
+            updateProgress();
+        }
+
+        // Function to reset auto-play
+        function resetAutoPlay() {
+            clearInterval(autoPlayTimer);
+            clearInterval(progressTimer);
+            progressBar.style.animation = 'none';
+            setTimeout(() => {
+                progressBar.style.animation = '';
+                startAutoPlay();
+            }, 10);
+        }
+
+        // Function to update progress bar
+        function updateProgress() {
+            progressBar.style.width = '0%';
+            progressBar.offsetHeight; // Trigger reflow
+            progressBar.style.transition = `width ${slideInterval - 100}ms linear`;
+            progressBar.style.width = '100%';
+        }
+
+        // Dot click handlers
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+                resetAutoPlay();
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (carousel.closest('.page-wrapper')) {
+                if (e.key === 'ArrowLeft') prevSlide();
+                if (e.key === 'ArrowRight') nextSlide();
+            }
+        });
+
+        // Pause on hover
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(autoPlayTimer);
+            clearInterval(progressTimer);
+        });
+
+        carousel.addEventListener('mouseleave', () => {
+            startAutoPlay();
+        });
+
+        // Initialize
+        showSlide(0);
+        startAutoPlay();
+
+        // Handle intersection observer for animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
