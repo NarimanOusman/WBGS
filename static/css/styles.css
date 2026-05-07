@@ -891,22 +891,6 @@ footer {
   text-shadow: 0 4px 24px rgba(2, 6, 23, 0.65);
 }
 
-.projects-hero .carousel-title {
-  color: #38bdf8;
-}
-
-.projects-hero .text-gradient {
-  background: none;
-  -webkit-background-clip: initial;
-  background-clip: initial;
-  -webkit-text-fill-color: currentColor;
-  color: inherit;
-}
-
-.projects-hero .carousel-subtitle {
-  color: #ffffff;
-}
-
 @media (min-width: 1025px) {
   .projects-page nav:not(.nav-scrolled) {
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.08), rgba(56, 189, 248, 0.06));
@@ -4126,6 +4110,40 @@ body.viewer-open {
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   line-height: 1.5;
   animation: slideInUp 0.8s ease-out 0.6s both;
+}
+
+/* --- Project: Logo-color title, white subtitle, remove blur artifact --- */
+.carousel-title,
+.carousel-title .text-gradient {
+  color: #38bdf8 !important; /* logo primary blue */
+  -webkit-text-fill-color: #38bdf8 !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+.carousel-subtitle {
+  color: #ffffff !important;
+}
+
+/* Remove any accidental blurred pseudo-elements behind the title */
+.carousel-title::before,
+.carousel-title::after,
+.carousel-title .text-gradient::before,
+.carousel-title .text-gradient::after,
+.carousel-text-content::before,
+.carousel-text-content::after {
+  content: none !important;
+  display: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Ensure carousel overlay stays behind text */
+.projects-hero .carousel-overlay {
+  z-index: 1;
 }
 
 .carousel-controls {
