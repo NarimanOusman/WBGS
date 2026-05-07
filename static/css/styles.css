@@ -891,6 +891,22 @@ footer {
   text-shadow: 0 4px 24px rgba(2, 6, 23, 0.65);
 }
 
+.projects-hero .carousel-title {
+  color: #38bdf8;
+}
+
+.projects-hero .text-gradient {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: currentColor;
+  color: inherit;
+}
+
+.projects-hero .carousel-subtitle {
+  color: #ffffff;
+}
+
 @media (min-width: 1025px) {
   .projects-page nav:not(.nav-scrolled) {
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.08), rgba(56, 189, 248, 0.06));
