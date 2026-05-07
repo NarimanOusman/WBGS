@@ -874,7 +874,7 @@ footer {
   margin-inline: -0.75rem;
   margin-bottom: 0.9rem;
   padding: 0 0.75rem;
-  background-color: #000000;
+  background: transparent;
   border-radius: 0 0 24px 24px;
   box-shadow: 0 20px 40px -25px rgba(2, 6, 23, 0.7);
   position: relative;
@@ -939,6 +939,45 @@ footer {
 
   .projects-hero .carousel-text-content {
     padding-top: clamp(6rem, 10vw, 8rem);
+  }
+}
+
+/* Mobile - Hero flush with top, navbar overlaid */
+@media (max-width: 1024px) {
+  .projects-wrapper {
+    padding-top: 0;
+  }
+
+  .projects-hero {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-inline: 0;
+    padding: 0;
+    min-height: 60vh;
+    border-radius: 0;
+    position: relative;
+  }
+
+  .projects-hero .carousel-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    min-height: 60vh;
+    background: transparent;
+    display: block;
+    overflow: hidden;
+  }
+
+  .projects-hero .carousel-slide-active {
+    opacity: 1 !important;
+  }
+
+  .projects-page nav:not(.nav-scrolled) {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.05), rgba(56, 189, 248, 0.04));
+    box-shadow: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
   }
 }
 
@@ -2672,11 +2711,11 @@ body.viewer-open {
 
   .projects-hero {
     min-height: 50vh;
-    margin-inline: -0.25rem;
-    padding: 0 0.25rem;
-    border-radius: 0 0 20px 20px;
-    margin-top: -14px;
-    margin-bottom: 1rem;
+    margin-inline: 0;
+    padding: 0;
+    border-radius: 0;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
   .projects-hero-content {
