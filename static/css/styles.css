@@ -2759,6 +2759,12 @@ body.viewer-open {
     margin-top: 1.35rem;
   }
 
+  .projects-summary-bar {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+    margin: 0 auto 1rem;
+  }
+
   .project-image-container {
     height: 250px;
   }
