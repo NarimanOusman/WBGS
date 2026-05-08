@@ -1083,16 +1083,16 @@ footer {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
-  margin-bottom: 0.45rem;
-  border-radius: 0;
-  background: transparent;
-  color: #38bdf8;
+  width: 72px;
+  height: 72px;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  background: transparent; /* remove bg on all devices */
+  color: #38bdf8; /* logo blue for modern accent */
   box-shadow: none;
 }
 
-.summary-icon svg { width: 28px; height: 28px; }
+.summary-icon svg { width: 36px; height: 36px; }
 
 .summary-item .summary-label { margin-top: 0.25rem; }
 
@@ -1552,31 +1552,11 @@ footer {
   font-weight: 700;
 }
 
-/* Prevent project title overflow: clamp to 2 lines with ellipsis */
-.project-title {
-  display: -webkit-box;
-  line-clamp: 2;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .premium-content .description {
   color: #94a3b8;
   font-size: 0.9rem;
   line-height: 1.5;
   margin-bottom: 1.1rem;
-}
-
-/* Prevent description overflow: clamp to 3 lines on cards */
-.premium-content .description {
-  display: -webkit-box;
-  line-clamp: 3;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .project-gallery-meta {
@@ -2925,12 +2905,38 @@ body.viewer-open {
     font-weight: 800;
   }
 
+  /* Ensure project cards don't overflow title/description */
+  .project-title {
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .project-content .description {
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  /* Add space between filters and project cards on phones */
+  .projects-grid.premium-grid {
+    margin-top: 1.2rem;
+  }
+
   /* Mobile-optimized filter controls: search full width, status and category side-by-side */
   .projects-tools {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.58rem;
     padding: 1.4rem 0.6rem 0;
-    margin: 0 auto 2rem;
+    margin: 0 auto 1.2rem;
   }
 
   .projects-search-wrap {
