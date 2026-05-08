@@ -59,18 +59,43 @@
 
         <div class="projects-summary-bar" aria-label="Project summary">
             <div class="summary-item summary-total">
+                <span class="summary-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6"/>
+                        <rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6"/>
+                        <rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6"/>
+                        <rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6"/>
+                    </svg>
+                </span>
                 <span class="summary-label">Total Projects</span>
                 <strong class="summary-value">{{ project_stats.total }}</strong>
             </div>
             <div class="summary-item summary-completed">
+                <span class="summary-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
                 <span class="summary-label">Completed</span>
                 <strong class="summary-value">{{ project_stats.completed }}</strong>
             </div>
             <div class="summary-item summary-ongoing">
+                <span class="summary-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
                 <span class="summary-label">Ongoing</span>
                 <strong class="summary-value">{{ project_stats.ongoing }}</strong>
             </div>
             <div class="summary-item summary-average">
+                <span class="summary-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M21 12A9 9 0 1112 3v9h9z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="7.5" cy="16.5" r="1.5" fill="currentColor"/>
+                    </svg>
+                </span>
                 <span class="summary-label">Average Progress</span>
                 <strong class="summary-value">{{ project_stats.average_progress }}%</strong>
             </div>

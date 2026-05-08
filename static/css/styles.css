@@ -1079,6 +1079,23 @@ footer {
   gap: 0.14rem;
 }
 
+.summary-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 0.45rem;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(240,246,255,0.9));
+  color: #1e3a8a; /* icon color matches labels */
+  box-shadow: 0 8px 18px -10px rgba(15,23,42,0.35), inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+.summary-icon svg { width: 28px; height: 28px; }
+
+.summary-item .summary-label { margin-top: 0.25rem; }
+
 .summary-item::before {
   content: "";
   position: absolute;
@@ -1190,7 +1207,7 @@ footer {
   align-items: end;
   max-width: 1180px;
   margin: 0 auto 1.4rem;
-  padding: 0 0.85rem;
+  padding: 1.8rem 0.85rem 0;
 }
 
 .projects-search-wrap,
@@ -2561,12 +2578,14 @@ body.viewer-open {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
+  /* Keep summary cards as four columns on wide laptops/desktops; collapse later at smaller breakpoints */
   .projects-summary-bar {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
+  /* Keep tools in three columns on desktop */
   .projects-tools {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1.6fr) repeat(2, minmax(0, 1fr));
   }
 
   .archive-tools {
@@ -2859,18 +2878,30 @@ body.viewer-open {
     aspect-ratio: 1;
     text-align: center;
     align-items: center;
-  }
-
-  .summary-average {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.2rem;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 0.6rem;
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,250,255,0.95));
+    color: #38bdf8; /* logo blue */
+    box-shadow: 0 12px 30px -18px rgba(15,23,42,0.32), inset 0 1px 0 rgba(255,255,255,0.9);
     text-align: left;
   }
 
   .summary-label {
     font-size: 0.78rem;
+
+  /* Make the cards visually tighter and more professional on wide screens */
+  .summary-item {
+    padding: 1.25rem 1.2rem;
+  }
+
+  @media (max-width: 900px) {
+    .projects-summary-bar { grid-template-columns: 1fr; }
+    .summary-item { padding: 1rem; }
+    .summary-icon { width: 48px; height: 48px; margin-bottom: 0.45rem; }
+    .summary-icon svg { width: 22px; height: 22px; }
+  }
     margin-bottom: 0.22rem;
     letter-spacing: 0.035em;
   }
@@ -2891,7 +2922,7 @@ body.viewer-open {
   .projects-tools {
     grid-template-columns: 1fr;
     gap: 0.58rem;
-    padding: 0 0.6rem;
+    padding: 1.4rem 0.6rem 0;
     margin: 0 auto 1.2rem;
   }
 
