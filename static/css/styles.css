@@ -1086,10 +1086,10 @@ footer {
   width: 56px;
   height: 56px;
   margin-bottom: 0.45rem;
-  border-radius: 12px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(240,246,255,0.9));
-  color: #1e3a8a; /* icon color matches labels */
-  box-shadow: 0 8px 18px -10px rgba(15,23,42,0.35), inset 0 1px 0 rgba(255,255,255,0.8);
+  border-radius: 0;
+  background: transparent;
+  color: #38bdf8;
+  box-shadow: none;
 }
 
 .summary-icon svg { width: 28px; height: 28px; }
@@ -2910,7 +2910,7 @@ body.viewer-open {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.58rem;
     padding: 1.4rem 0.6rem 0;
-    margin: 0 auto 1.2rem;
+    margin: 0 auto 2rem;
   }
 
   .projects-search-wrap {
