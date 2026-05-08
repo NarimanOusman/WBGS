@@ -2918,15 +2918,19 @@ body.viewer-open {
     gap: 0.2rem;
   }
 
-  /* Mobile-optimized filter controls: stacked vertically with improved spacing */
+  /* Mobile-optimized filter controls: search full width, status and category side-by-side */
   .projects-tools {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.58rem;
     padding: 1.4rem 0.6rem 0;
     margin: 0 auto 1.2rem;
   }
 
-  .projects-search-wrap,
+  .projects-search-wrap {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
   .projects-select-wrap {
     width: 100%;
   }
