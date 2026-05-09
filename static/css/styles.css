@@ -4577,6 +4577,92 @@ body.viewer-open {
     width: 11px;
     height: 11px;
   }
+
+/* Investment sectors - desktop layout and image mapping */
+@media (min-width: 1024px) {
+  .sectors-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.6rem;
+  }
+
+  /* TEMP DEBUG: visible outline to confirm desktop CSS is applied (remove after verification) */
+  .sectors-grid {
+    outline: 3px solid rgba(34,197,94,0.7);
+    outline-offset: 6px;
+  }
+
+  .sector-card {
+    position: relative;
+    min-height: 260px;
+    padding: 1.6rem;
+    border-radius: 14px;
+    overflow: hidden;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    border: 2px solid rgba(255,255,255,0.08);
+  }
+
+  .sector-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: saturate(0.98) contrast(0.95);
+    z-index: 1;
+    transition: transform 0.6s ease, filter 0.45s ease;
+    transform-origin: center;
+  }
+
+  .sector-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(2,6,23,0.18) 0%, rgba(2,6,23,0.42) 100%);
+    z-index: 2;
+  }
+
+  .sector-card > * {
+    position: relative;
+    z-index: 3;
+  }
+
+  .sector-card .sector-badge {
+    background: rgba(255,255,255,0.12);
+    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.14);
+  }
+
+  .sector-card:hover::before {
+    transform: scale(1.06);
+    filter: saturate(1.05) contrast(1.02);
+  }
+
+  /* Map data-sector values to `_sector` images in static/images/ */
+  .sector-card[data-sector="agriculture"]::before {
+    background-image: url('/static/images/agriculture_sector.jpg');
+  }
+  .sector-card[data-sector="renewable_energy"]::before {
+    background-image: url('/static/images/Renewable%20Energy_sector.webp');
+  }
+  .sector-card[data-sector="infrastructure"]::before {
+    background-image: url('/static/images/Infrastructure_sector.jpg');
+  }
+  .sector-card[data-sector="technology"]::before {
+    background-image: url('/static/images/Technology_sector.webp');
+  }
+  .sector-card[data-sector="healthcare"]::before {
+    background-image: url('/static/images/Healthcare_sector.jpg');
+  }
+  /* fallback gradient for sectors without an image */
+  .sector-card[data-sector="manufacturing"]::before,
+  .sector-card:not([data-sector])::before {
+    background: linear-gradient(135deg, #0f766e 0%, #22d3ee 100%);
+  }
+}
 }
 
 /* Mobile - medium */
