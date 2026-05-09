@@ -2317,10 +2317,15 @@ body.viewer-open {
 }
 
 .news-detail {
-  width: min(95vw, 1280px);
-  max-width: 1280px;
-  margin: 2.5rem auto 1.45rem;
+  margin: 4rem auto 1.45rem;
   padding: 1.4rem 1.5rem;
+}
+
+@media (min-width: 641px) {
+  .news-detail {
+    width: 95vw;
+    max-width: 1280px;
+  }
 }
 
 .news-detail-cover {
@@ -4436,7 +4441,7 @@ body.viewer-open {
   .news-detail {
     width: auto;
     max-width: none;
-    margin: 1rem 0 1.2rem;
+    margin: 3rem 0 1.2rem;
     padding: 1rem;
   }
 
