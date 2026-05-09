@@ -3288,6 +3288,14 @@ body.viewer-open {
   --light-bg: #f8fafc;
 }
 
+@media (min-width: 641px) {
+  /* Small left inset for investment pages on tablet/desktop */
+  .investment-wrapper {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+  }
+}
+
 .investment-hero {
   background: linear-gradient(135deg, rgba(15, 63, 102, 0.05) 0%, rgba(212, 175, 55, 0.03) 100%);
   padding: 4rem 0;
