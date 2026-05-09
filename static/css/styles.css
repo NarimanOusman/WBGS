@@ -218,12 +218,13 @@ nav {
   position: fixed;
   top: 0;
   right: -100%;
-  width: 80vw;
-  height: 60vh;
+  width: 100vw;
+  height: 55vh;
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(56, 189, 248, 0.95));
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom-left-radius: 30px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   border-left: 1px solid rgba(255, 255, 255, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: -10px 10px 40px rgba(0, 0, 0, 0.5);
@@ -2752,8 +2753,8 @@ body.viewer-open {
 
 @media (max-width: 640px) {
   .mobile-menu-overlay {
-    width: 50vw;
-    height: 72vh;
+    width: 100vw;
+    height: 55vh;
   }
 
   .premium-grid {
