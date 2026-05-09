@@ -2389,6 +2389,10 @@ body.viewer-open {
   gap: 0.38rem;
 }
 
+.archive-search-wrap .archive-control-label {
+  margin-top: 0.35rem;
+}
+
 .archive-control-label {
   font-size: 0.78rem;
   font-weight: 700;
