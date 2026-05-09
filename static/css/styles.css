@@ -3346,14 +3346,18 @@ body.viewer-open {
 }
 
 .secondary-button {
-  background: transparent;
+  background: #ffffff;
   color: var(--primary);
   border: 2px solid var(--primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .secondary-button:hover {
-  background: var(--primary);
-  color: white;
+  background: #f8fafc;
+  color: var(--primary);
 }
 
 .featured-section {
@@ -4149,7 +4153,7 @@ body.viewer-open {
 }
 
 @media (max-width: 900px) {
-  .hero-cta {
+  .investment-wrapper .hero-cta {
     flex-direction: column;
   }
 
@@ -4184,7 +4188,7 @@ body.viewer-open {
   }
 
   .investment-hero {
-    padding: clamp(5rem, 10vw, 5.8rem) 0 2rem;
+    padding: 5.2rem 0 2rem;
   }
 
   .hero-title {
@@ -4195,19 +4199,20 @@ body.viewer-open {
     font-size: 1rem;
   }
 
-  .hero-cta {
+  .investment-wrapper .hero-cta {
     flex-direction: row;
     flex-wrap: nowrap;
-    align-items: stretch;
-    gap: 0.6rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
   }
 
-  .hero-cta .cta-button {
+  .investment-wrapper .hero-cta .cta-button {
     flex: 1 1 0;
-    width: auto;
-    padding: 0.72rem 0.5rem;
-    font-size: 0.92rem;
+    min-width: 0;
+    padding: 0.8rem 0.75rem;
     text-align: center;
+    justify-content: center;
   }
 
   .featured-grid {
@@ -4223,11 +4228,7 @@ body.viewer-open {
     padding-top: 1.25rem;
   }
 
-  .benefits-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.9rem;
-  }
-
+  .benefits-grid,
   .sectors-grid,
   .trust-grid {
     grid-template-columns: 1fr;
