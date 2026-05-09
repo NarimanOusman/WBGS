@@ -1579,6 +1579,9 @@ footer {
   font-size: 0.9rem;
   line-height: 1.5;
   margin-bottom: 1.1rem;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .project-gallery-meta {
@@ -2939,7 +2942,7 @@ body.viewer-open {
     max-width: 100%;
   }
 
-  .project-content .description {
+  .premium-content .description {
     display: -webkit-box;
     line-clamp: 3;
     -webkit-line-clamp: 3;
