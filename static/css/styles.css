@@ -1725,6 +1725,10 @@ footer {
   overflow: hidden;
 }
 
+.project-detail-page .project-overview-panel {
+  margin-top: clamp(4.8rem, 8vw, 6.2rem);
+}
+
 .project-overview-panel::before {
   content: "";
   position: absolute;
@@ -2857,6 +2861,10 @@ body.viewer-open {
     padding: 1rem 0.75rem;
     margin-inline: 0.35rem;
     border-radius: 20px;
+  }
+
+  .project-detail-page .project-overview-panel {
+    margin-top: 5.35rem;
   }
 
   .project-overview-main {
