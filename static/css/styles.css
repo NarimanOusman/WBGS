@@ -4184,7 +4184,7 @@ body.viewer-open {
   }
 
   .investment-hero {
-    padding: 2rem 0;
+    padding: clamp(5rem, 10vw, 5.8rem) 0 2rem;
   }
 
   .hero-title {
@@ -4196,7 +4196,18 @@ body.viewer-open {
   }
 
   .hero-cta {
+    flex-direction: row;
+    flex-wrap: nowrap;
     align-items: stretch;
+    gap: 0.6rem;
+  }
+
+  .hero-cta .cta-button {
+    flex: 1 1 0;
+    width: auto;
+    padding: 0.72rem 0.5rem;
+    font-size: 0.92rem;
+    text-align: center;
   }
 
   .featured-grid {
@@ -4212,7 +4223,11 @@ body.viewer-open {
     padding-top: 1.25rem;
   }
 
-  .benefits-grid,
+  .benefits-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+
   .sectors-grid,
   .trust-grid {
     grid-template-columns: 1fr;
