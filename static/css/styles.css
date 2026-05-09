@@ -2317,8 +2317,12 @@ body.viewer-open {
 }
 
 .news-detail {
-  margin: 4rem auto 1.45rem;
+  margin: 1rem auto 1.45rem;
   padding: 1.4rem 1.5rem;
+}
+
+.news-page .container.section.relative-z {
+  padding-top: clamp(4.75rem, 7vw, 6rem);
 }
 
 @media (min-width: 641px) {
