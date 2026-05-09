@@ -2317,9 +2317,9 @@ body.viewer-open {
 }
 
 .news-detail {
-  width: min(90vw, 1280px);
+  width: min(95vw, 1280px);
   max-width: 1280px;
-  margin: 1.75rem auto 1.45rem;
+  margin: 2.5rem auto 1.45rem;
   padding: 1.4rem 1.5rem;
 }
 
