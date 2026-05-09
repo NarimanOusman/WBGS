@@ -4197,6 +4197,7 @@ body.viewer-open {
 
   .hero-subtitle {
     font-size: 1rem;
+    margin-bottom: 1.15rem;
   }
 
   .investment-wrapper .hero-cta {
@@ -4208,11 +4209,21 @@ body.viewer-open {
   }
 
   .investment-wrapper .hero-cta .cta-button {
-    flex: 1 1 0;
     min-width: 0;
-    padding: 0.8rem 0.75rem;
-    text-align: center;
+    min-height: 48px;
+    padding: 0 0.75rem;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
+    text-align: center;
+  }
+
+  .investment-wrapper .hero-cta .primary-button {
+    flex: 1.25 1 0;
+  }
+
+  .investment-wrapper .hero-cta .secondary-button {
+    flex: 1 1 0;
   }
 
   .featured-grid {
