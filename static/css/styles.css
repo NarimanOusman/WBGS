@@ -1073,10 +1073,10 @@ footer {
 .projects-summary-bar {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.9rem;
+  gap: 1rem;
   margin: 0 auto 1.35rem;
-  max-width: 1180px;
-  padding: 0 0.85rem;
+  max-width: min(96vw, 1860px);
+  padding: 0 1rem;
   position: relative;
 }
 
@@ -1209,14 +1209,37 @@ footer {
 }
 
 @media (min-width: 1024px) {
+  .projects-summary-bar {
+    gap: 1.25rem;
+    margin: 0 auto 1.7rem;
+    padding: 0 1.25rem;
+  }
+
+  .summary-item {
+    min-height: 220px;
+    padding: 1.65rem 1.35rem;
+    border-radius: 24px;
+  }
+
+  .summary-icon {
+    width: 84px;
+    height: 84px;
+    margin-bottom: 0.7rem;
+  }
+
+  .summary-icon svg {
+    width: 42px;
+    height: 42px;
+  }
+
   .summary-label {
-    font-size: 1.12rem;
+    font-size: 1.22rem;
     font-weight: 900;
     line-height: 1.1;
   }
 
   .summary-value {
-    font-size: 1.3rem;
+    font-size: 1.85rem;
     font-weight: 900;
     line-height: 1.05;
   }
