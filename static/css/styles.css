@@ -597,7 +597,8 @@ nav {
 
 /* Footer */
 footer {
-  padding: 4rem 10%;
+  margin-top: 4rem;
+  padding: 0.75rem 10%;
   background: #050505;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   text-align: center;
@@ -854,6 +855,7 @@ footer {
   position: relative;
   overflow: hidden;
   padding-top: 92px;
+  padding-bottom: 3rem;
   min-height: 100vh;
 }
 
@@ -1046,6 +1048,26 @@ footer {
 .premium-header {
   margin-bottom: 4rem;
   text-align: center;
+}
+
+.news-page .page-header {
+  margin-top: 4rem;
+  padding-top: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.news-page .page-title {
+  display: inline-block;
+  margin-top: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.news-page .projects-subtext,
+.news-page .archive-inline-note {
+  position: relative;
+  z-index: 2;
 }
 
 .projects-summary-bar {
@@ -2300,7 +2322,8 @@ body.viewer-open {
 .archive-inline-note {
   margin-top: 0.9rem;
   color: #334155;
-  font-size: 0.95rem;
+  margin-top: 4rem;
+  padding: 0.75rem 10%;
 }
 
 .archive-page .page-header {
@@ -2929,6 +2952,7 @@ body.viewer-open {
   /* Add space between filters and project cards on phones */
   .projects-grid.premium-grid {
     margin-top: 1.2rem;
+    margin-bottom: 1.5rem;
   }
 
   /* Mobile-optimized filter controls: search full width, status and category side-by-side */
@@ -3999,6 +4023,11 @@ body.viewer-open {
 
   .featured-stats {
     grid-template-columns: 1fr;
+  }
+
+  .news-page .page-header {
+    margin-top: 2.75rem;
+    padding-top: 1.25rem;
   }
 
   .benefits-grid,
