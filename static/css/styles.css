@@ -4577,92 +4577,173 @@ body.viewer-open {
     width: 11px;
     height: 11px;
   }
+}
 
 /* Investment sectors - desktop layout and image mapping */
 @media (min-width: 1024px) {
   .sectors-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.6rem;
-  }
-
-  /* TEMP DEBUG: visible outline to confirm desktop CSS is applied (remove after verification) */
-  .sectors-grid {
-    outline: 3px solid rgba(34,197,94,0.7);
-    outline-offset: 6px;
+    gap: 1rem;
   }
 
   .sector-card {
     position: relative;
-    min-height: 260px;
-    padding: 1.6rem;
-    border-radius: 14px;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 118px;
+    padding: 0;
     overflow: hidden;
-    color: #ffffff;
+    border-radius: 18px;
+    background: #ffffff;
+    border: 1px solid rgba(148, 163, 184, 0.24);
+    box-shadow: 0 12px 24px -22px rgba(15, 23, 42, 0.26);
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+  }
+
+  .sector-card-content {
+    flex: 0 0 38%;
+    max-width: 38%;
+    min-width: 0;
+    padding: 0.55rem 0.55rem 0.55rem 0.7rem;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    gap: 0.6rem;
-    border: 2px solid rgba(255,255,255,0.08);
+    justify-content: center;
+    position: relative;
+    z-index: 3; /* keep text/content above image overlays */
   }
 
-  .sector-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
+  .sector-card-media {
+    flex: 0 0 62%;
+    min-width: 0;
     background-size: cover;
-    background-position: center;
-    filter: saturate(0.98) contrast(0.95);
-    z-index: 1;
-    transition: transform 0.6s ease, filter 0.45s ease;
-    transform-origin: center;
+    background-position: center center;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    margin-left: -8%;
+    width: 70%;
+    z-index: 1; /* sit below content */
   }
 
-  .sector-card::after {
+  .sector-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.18) 9%, rgba(0, 0, 0, 0.52) 20%, rgba(0, 0, 0, 0.84) 32%, rgba(0, 0, 0, 1) 100%);
+    mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.18) 9%, rgba(0, 0, 0, 0.52) 20%, rgba(0, 0, 0, 0.84) 32%, rgba(0, 0, 0, 1) 100%);
+  }
+
+  /* Feathered smoky edge so image blends into the white text side */
+  .sector-card-media::before {
     content: "";
     position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(2,6,23,0.18) 0%, rgba(2,6,23,0.42) 100%);
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 150px;
+    background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(255, 255, 255, 0.82) 24%,
+      rgba(255, 255, 255, 0.42) 54%,
+      rgba(255, 255, 255, 0) 100%);
+    filter: blur(12px);
+    pointer-events: none;
     z-index: 2;
   }
 
   .sector-card > * {
     position: relative;
+  }
+
+  .sector-card-content {
     z-index: 3;
   }
 
+  .sector-card-media {
+    z-index: 1;
+  }
+
   .sector-card .sector-badge {
-    background: rgba(255,255,255,0.12);
-    color: #ffffff;
-    border: 1px solid rgba(255,255,255,0.14);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    width: fit-content;
+    margin: 0 0 0.22rem;
+    padding: 0.2rem 0.52rem;
+    border-radius: 999px;
+    background: rgba(15, 118, 110, 0.08);
+    color: #0f766e;
+    border: 1px solid rgba(15, 118, 110, 0.16);
+    font-size: 0.66rem;
+    font-weight: 700;
   }
 
-  .sector-card:hover::before {
-    transform: scale(1.06);
-    filter: saturate(1.05) contrast(1.02);
+  .sector-card h3,
+  .sector-card h3 a {
+    margin: 0 0 0.24rem;
+    color: #153e75;
+    font-size: 0.96rem;
+    font-weight: 800;
+    line-height: 1.2;
   }
 
-  /* Map data-sector values to `_sector` images in static/images/ */
-  .sector-card[data-sector="agriculture"]::before {
-    background-image: url('/static/images/agriculture_sector.jpg');
+  .sector-card p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.82rem;
+    line-height: 1.3;
+    max-width: none;
   }
-  .sector-card[data-sector="renewable_energy"]::before {
-    background-image: url('/static/images/Renewable%20Energy_sector.webp');
+
+  .sector-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(15, 118, 110, 0.2);
+    box-shadow: 0 22px 42px -24px rgba(15, 23, 42, 0.36);
   }
-  .sector-card[data-sector="infrastructure"]::before {
-    background-image: url('/static/images/Infrastructure_sector.jpg');
+
+  .sector-card:hover .sector-card-media img {
+    filter: saturate(1.02) contrast(1.01);
   }
-  .sector-card[data-sector="technology"]::before {
-    background-image: url('/static/images/Technology_sector.webp');
+
+  /* Reverse layout: image on left, text on right */
+  .sector-card.reverse {
+    flex-direction: row-reverse;
   }
-  .sector-card[data-sector="healthcare"]::before {
-    background-image: url('/static/images/Healthcare_sector.jpg');
+
+  .sector-card.reverse .sector-card-content {
+    flex: 0 0 38%;
+    max-width: 38%;
+    padding-left: 0.7rem;
+    padding-right: 0.55rem;
+    text-align: left;
+    z-index: 3;
   }
-  /* fallback gradient for sectors without an image */
-  .sector-card[data-sector="manufacturing"]::before,
-  .sector-card:not([data-sector])::before {
-    background: linear-gradient(135deg, #0f766e 0%, #22d3ee 100%);
+
+  .sector-card.reverse .sector-card-media {
+    margin-left: 0;
+    margin-right: -8%;
+    width: 70%;
+    flex: 0 0 62%;
   }
-}
+
+  /* Mirror the mask so the left edge (now right in reversed layout) is feathered */
+  .sector-card.reverse .sector-card-media img {
+    -webkit-mask-image: linear-gradient(270deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.24) 10%, rgba(0,0,0,0.62) 22%, rgba(0,0,0,0.9) 34%, rgba(0,0,0,1) 100%);
+    mask-image: linear-gradient(270deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.24) 10%, rgba(0,0,0,0.62) 22%, rgba(0,0,0,0.9) 34%, rgba(0,0,0,1) 100%);
+  }
+
+  .sector-card.reverse .sector-card-media::before {
+    left: auto;
+    right: 0;
+    background: linear-gradient(270deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.78) 26%, rgba(255,255,255,0.36) 56%, rgba(255,255,255,0) 100%);
+    filter: blur(10px);
+  }
+
+  .sector-card[data-sector="manufacturing"] .sector-card-media,
+  .sector-card:not([data-sector]) .sector-card-media { background: linear-gradient(135deg, #0f766e 0%, #22d3ee 100%); }
 }
 
 /* Mobile - medium */

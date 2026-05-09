@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Investment Opportunities | WAU State{% endblock %}
 
@@ -87,28 +88,58 @@
 			<h2 class="section-title glow-text">Investment Sectors</h2>
 			<div class="sectors-grid">
 				<div class="sector-card glass-card" data-sector="agriculture">
-					<h3>🌾 Agriculture</h3>
-					<p>Modern farming techniques, equipment, and market access initiatives.</p>
+					<div class="sector-card-content">
+						<h3>🌾 Agriculture</h3>
+						<p>Modern farming techniques, equipment, and market access initiatives.</p>
+					</div>
+					<div class="sector-card-media" aria-hidden="true">
+						<img src="{% static 'images/agriculture_sector.jpg' %}" alt="" loading="lazy">
+					</div>
 				</div>
 				<div class="sector-card glass-card" data-sector="renewable_energy">
-					<h3>⚡ Renewable Energy</h3>
-					<p>Solar, wind, and hydroelectric power projects with long-term contracts.</p>
+					<div class="sector-card-content">
+						<h3>⚡ Renewable Energy</h3>
+						<p>Solar, wind, and hydroelectric power projects with long-term contracts.</p>
+					</div>
+					<div class="sector-card-media" aria-hidden="true">
+						<img src="{% static 'images/Renewable Energy_sector.webp' %}" alt="" loading="lazy">
+					</div>
 				</div>
 				<div class="sector-card glass-card" data-sector="infrastructure">
-					<h3>🏗️ Infrastructure</h3>
-					<p>Roads, water systems, and connectivity projects with government guarantees.</p>
+					<div class="sector-card-content">
+						<h3>🏗️ Infrastructure</h3>
+						<p>Roads, water systems, and connectivity projects with government guarantees.</p>
+					</div>
+					<div class="sector-card-media" aria-hidden="true">
+						<img src="{% static 'images/Infrastructure_sector.jpg' %}" alt="" loading="lazy">
+					</div>
 				</div>
 				<div class="sector-card glass-card" data-sector="technology">
-					<h3>💻 Technology</h3>
-					<p>Digital transformation, telecom, and fintech opportunities.</p>
+					<div class="sector-card-content">
+						<h3>💻 Technology</h3>
+						<p>Digital transformation, telecom, and fintech opportunities.</p>
+					</div>
+					<div class="sector-card-media" aria-hidden="true">
+						<img src="{% static 'images/Technology_sector.webp' %}" alt="" loading="lazy">
+					</div>
 				</div>
 				<div class="sector-card glass-card" data-sector="manufacturing">
-					<h3>🏭 Manufacturing</h3>
-					<p>Processing facilities and light manufacturing with local supply chains.</p>
+					<div class="sector-card-content">
+						<h3>🏭 Manufacturing</h3>
+						<p>Processing facilities and light manufacturing with local supply chains.</p>
+					</div>
+					<div class="sector-card-media" aria-hidden="true">
+						<img src="{% static 'images/Manufacturing_project.jpg' %}" alt="" loading="lazy">
+					</div>
 				</div>
 				<div class="sector-card glass-card" data-sector="healthcare">
-					<h3>🏥 Healthcare</h3>
-					<p>Medical facilities and pharmaceutical distribution networks.</p>
+					<div class="sector-card-content">
+						<h3>🏥 Healthcare</h3>
+						<p>Medical facilities and pharmaceutical distribution networks.</p>
+					</div>
+					<div class="sector-card-media" aria-hidden="true">
+						<img src="{% static 'images/Healthcare_sector.jpg' %}" alt="" loading="lazy">
+					</div>
 				</div>
 			</div>
 		</div>
