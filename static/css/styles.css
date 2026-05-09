@@ -2816,6 +2816,94 @@ body.viewer-open {
     min-width: 92px;
   }
 
+  /* Archive page phone cards: same design for completed projects and archived news */
+  .archive-page .archive-section .premium-grid,
+  .archive-page .archive-section .news-grid {
+    gap: 0.85rem;
+    padding-inline: 0.15rem;
+  }
+
+  .archive-page .archive-project-card,
+  .archive-page .archive-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 132px;
+    grid-template-areas: "body media";
+    align-items: stretch;
+    gap: 0.65rem;
+    border-radius: 14px;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 12px 24px -20px rgba(15, 23, 42, 0.32);
+    overflow: hidden;
+  }
+
+  .archive-page .archive-project-card .project-card-body,
+  .archive-page .archive-card .news-card-body {
+    grid-area: body;
+    padding: 0.72rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.32rem;
+  }
+
+  .archive-page .archive-project-card .project-image-link,
+  .archive-page .archive-card .news-card-media {
+    grid-area: media;
+    display: block;
+    width: 132px;
+    height: 132px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0.55rem 0.55rem 0.55rem 0;
+    align-self: center;
+    justify-self: end;
+  }
+
+  .archive-page .archive-project-card .project-image-link img,
+  .archive-page .archive-card .news-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .archive-page .archive-project-card .project-title,
+  .archive-page .archive-news-title {
+    font-size: 1.02rem;
+    line-height: 1.24;
+    margin: 0;
+    min-height: 0;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+  }
+
+  .archive-page .archive-project-card .project-description,
+  .archive-page .archive-card .news-card-body p:not(.news-meta) {
+    font-size: 0.9rem;
+    line-height: 1.34;
+    margin: 0.06rem 0 0.34rem;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  .archive-page .archive-card .news-meta,
+  .archive-page .archive-project-card .project-category {
+    font-size: 0.74rem;
+    margin: 0;
+    gap: 0.35rem;
+  }
+
+  .archive-page .archive-project-card .project-action-link,
+  .archive-page .archive-card .project-action-link {
+    width: fit-content;
+    min-height: 0;
+    padding: 0.36rem 0.78rem;
+    border-radius: 9px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-top: 0.2rem;
+  }
+
   .premium-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
