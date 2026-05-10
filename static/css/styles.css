@@ -4602,19 +4602,21 @@ body.viewer-open {
   }
 
   .sector-card-content {
-    flex: 0 0 38%;
-    max-width: 38%;
+    flex: 1 1 44%;
+    max-width: none;
     min-width: 0;
     padding: 0.55rem 0.55rem 0.55rem 0.7rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-self: stretch;
+    height: 100%;
     position: relative;
     z-index: 3; /* keep text/content above image overlays */
   }
 
   .sector-card-media {
-    flex: 0 0 62%;
+    flex: 0 0 56%;
     min-width: 0;
     background-size: cover;
     background-position: center center;
@@ -4622,8 +4624,8 @@ body.viewer-open {
     flex-shrink: 0;
     overflow: hidden;
     position: relative;
-    margin-left: -8%;
-    width: 70%;
+    margin-left: -6%;
+    width: 62%;
     z-index: 1; /* sit below content */
   }
 
@@ -4714,19 +4716,21 @@ body.viewer-open {
   }
 
   .sector-card.reverse .sector-card-content {
-    flex: 0 0 38%;
-    max-width: 38%;
+    flex: 1 1 44%;
+    max-width: none;
     padding-left: 0.7rem;
     padding-right: 0.55rem;
     text-align: left;
+    align-self: stretch;
+    height: 100%;
     z-index: 3;
   }
 
   .sector-card.reverse .sector-card-media {
     margin-left: 0;
-    margin-right: -8%;
-    width: 70%;
-    flex: 0 0 62%;
+    margin-right: -6%;
+    width: 62%;
+    flex: 0 0 56%;
   }
 
   /* Mirror the mask so the left edge (now right in reversed layout) is feathered */
@@ -4744,6 +4748,137 @@ body.viewer-open {
 
   .sector-card[data-sector="manufacturing"] .sector-card-media,
   .sector-card:not([data-sector]) .sector-card-media { background: linear-gradient(135deg, #0f766e 0%, #22d3ee 100%); }
+}
+
+/* Investment sectors - tablet responsive layout */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .sectors-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .sector-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 46%;
+    align-items: stretch;
+    min-height: 138px;
+    padding: 0;
+    text-align: left;
+    overflow: hidden;
+    border-radius: 14px;
+  }
+
+  .sector-card.reverse {
+    grid-template-columns: 46% minmax(0, 1fr);
+  }
+
+  .sector-card-content,
+  .sector-card.reverse .sector-card-content {
+    max-width: none;
+    min-width: 0;
+    padding: 0.6rem 0.65rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .sector-card-media,
+  .sector-card.reverse .sector-card-media {
+    margin: 0;
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .sector-card-media img,
+  .sector-card.reverse .sector-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .sector-card-media::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 84px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.42) 58%, rgba(255, 255, 255, 0) 100%);
+    filter: blur(8px);
+    pointer-events: none;
+  }
+
+  .sector-card.reverse .sector-card-media::before {
+    inset: 0 0 0 auto;
+    background: linear-gradient(270deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.42) 58%, rgba(255, 255, 255, 0) 100%);
+  }
+}
+
+/* Investment sectors - phone responsive layout */
+@media (max-width: 640px) {
+  .sector-card,
+  .sector-card.reverse {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0;
+    text-align: left;
+    overflow: hidden;
+    border-radius: 14px;
+  }
+
+  .sector-card-media,
+  .sector-card.reverse .sector-card-media {
+    order: 1;
+    width: 100%;
+    height: 146px;
+    margin: 0;
+    position: relative;
+  }
+
+  .sector-card-content,
+  .sector-card.reverse .sector-card-content {
+    order: 2;
+    max-width: none;
+    min-width: 0;
+    width: 100%;
+    height: auto;
+    padding: 0.72rem 0.78rem 0.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    z-index: 2;
+  }
+
+  .sector-card-media::before,
+  .sector-card.reverse .sector-card-media::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 58px;
+    width: auto;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.42) 48%, rgba(255, 255, 255, 0.9) 100%);
+    filter: blur(7px);
+    pointer-events: none;
+  }
+
+  .sector-card h3,
+  .sector-card h3 a {
+    font-size: 0.98rem;
+    margin-bottom: 0.24rem;
+  }
+
+  .sector-card p {
+    font-size: 0.86rem;
+    line-height: 1.32;
+  }
 }
 
 /* Mobile - medium */
