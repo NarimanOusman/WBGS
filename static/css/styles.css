@@ -4844,7 +4844,7 @@ body.viewer-open {
     flex-direction: row;
     align-items: stretch;
     gap: 0.5rem;
-    min-height: 122px;
+    min-height: 136px;
     padding: 0;
     overflow: hidden;
     border-radius: 12px;
@@ -4897,8 +4897,8 @@ body.viewer-open {
     border: none;
     border-radius: 0; /* no rounding for mobile thumbnails */
     margin: 0; /* make sure thumbnail has no top/left/bottom margins */
-    -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.72) 28%, rgba(0, 0, 0, 0.9) 48%, rgba(0, 0, 0, 1) 66%);
-    mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.72) 28%, rgba(0, 0, 0, 0.9) 48%, rgba(0, 0, 0, 1) 66%);
+    -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.22) 0%, rgba(0, 0, 0, 0.58) 22%, rgba(0, 0, 0, 0.84) 42%, rgba(0, 0, 0, 1) 64%);
+    mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.22) 0%, rgba(0, 0, 0, 0.58) 22%, rgba(0, 0, 0, 0.84) 42%, rgba(0, 0, 0, 1) 64%);
   }
 
   /* Deep smoky feather: starts near card center and dissolves into image */
@@ -4906,12 +4906,12 @@ body.viewer-open {
   .sector-card.reverse .sector-card-media::before {
     content: "";
     position: absolute;
-    left: -120px;
+    left: -150px;
     top: 0;
     bottom: 0;
-    width: 220px;
-    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.98) 42%, rgba(255,255,255,0.84) 64%, rgba(255,255,255,0.46) 84%, rgba(255,255,255,0) 100%);
-    filter: blur(30px);
+    width: 300px;
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.99) 34%, rgba(255,255,255,0.92) 50%, rgba(255,255,255,0.7) 68%, rgba(255,255,255,0.28) 86%, rgba(255,255,255,0) 100%);
+    filter: blur(38px);
     opacity: 1;
     pointer-events: none;
     z-index: 2;
@@ -4929,13 +4929,13 @@ body.viewer-open {
 
   .sector-card.reverse .sector-card-media::before {
     left: auto;
-    right: -120px;
-    background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.98) 42%, rgba(255,255,255,0.84) 64%, rgba(255,255,255,0.46) 84%, rgba(255,255,255,0) 100%);
+    right: -150px;
+    background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.99) 34%, rgba(255,255,255,0.92) 50%, rgba(255,255,255,0.7) 68%, rgba(255,255,255,0.28) 86%, rgba(255,255,255,0) 100%);
   }
 
   .sector-card.reverse .sector-card-media img {
-    -webkit-mask-image: linear-gradient(270deg, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.72) 28%, rgba(0, 0, 0, 0.9) 48%, rgba(0, 0, 0, 1) 66%);
-    mask-image: linear-gradient(270deg, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.72) 28%, rgba(0, 0, 0, 0.9) 48%, rgba(0, 0, 0, 1) 66%);
+    -webkit-mask-image: linear-gradient(270deg, rgba(0, 0, 0, 0.22) 0%, rgba(0, 0, 0, 0.58) 22%, rgba(0, 0, 0, 0.84) 42%, rgba(0, 0, 0, 1) 64%);
+    mask-image: linear-gradient(270deg, rgba(0, 0, 0, 0.22) 0%, rgba(0, 0, 0, 0.58) 22%, rgba(0, 0, 0, 0.84) 42%, rgba(0, 0, 0, 1) 64%);
   }
 }
 
