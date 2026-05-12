@@ -4020,6 +4020,51 @@ body.viewer-open {
   text-align: center;
 }
 
+.investment-quick-links {
+  padding: 1.25rem;
+  min-width: 0;
+  border-radius: 0.8rem;
+  border: 1px solid rgba(15, 63, 102, 0.14);
+  background: linear-gradient(135deg, rgba(15, 63, 102, 0.04) 0%, rgba(212, 175, 55, 0.04) 100%);
+  text-align: left;
+}
+
+.quick-links-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.quick-link-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.95rem;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(15, 63, 102, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.quick-link-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(15, 63, 102, 0.22);
+  box-shadow: 0 8px 16px rgba(15, 63, 102, 0.08);
+}
+
+.quick-link-label {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.quick-link-text {
+  font-size: 0.85rem;
+  color: #64748b;
+  line-height: 1.4;
+}
+
 .brief-title {
   font-size: 1rem;
   font-weight: 700;
@@ -4048,6 +4093,135 @@ body.viewer-open {
 .download-link:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(212, 175, 55, 0.3);
+}
+
+/* Investment Timeline */
+.investment-timeline-section {
+  padding: 3rem 0;
+}
+
+.timeline-intro {
+  text-align: center;
+  font-size: 1.05rem;
+  color: #64748b;
+  margin: -1rem auto 2rem;
+  max-width: 720px;
+  line-height: 1.6;
+}
+
+.investment-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.timeline-item {
+  min-width: 0;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  border: 1px solid rgba(15, 63, 102, 0.12);
+}
+
+.timeline-step {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary) 0%, #0a2342 100%);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  box-shadow: 0 10px 20px rgba(15, 63, 102, 0.18);
+}
+
+.timeline-content h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 0.35rem;
+}
+
+.timeline-content p {
+  color: #64748b;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* FAQ */
+.investment-faq-section {
+  padding: 3rem 0;
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.42) 0%, rgba(255, 255, 255, 0.88) 100%);
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.faq-item {
+  min-width: 0;
+  padding: 0;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(15, 63, 102, 0.12);
+}
+
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 1rem 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+  position: relative;
+  padding-right: 3rem;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "+";
+  position: absolute;
+  right: 1.05rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 63, 102, 0.08);
+  color: var(--primary);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.faq-item[open] summary::after {
+  content: "–";
+}
+
+.faq-item p {
+  margin: 0;
+  padding: 0 1.1rem 1rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* Mobile sticky bar */
+.investment-mobile-bar {
+  display: none;
 }
 
 /* Trust Section */
@@ -4158,6 +4332,10 @@ body.viewer-open {
   .featured-grid {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
+
+  .investment-timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 900px) {
@@ -4180,6 +4358,14 @@ body.viewer-open {
   .incentives-list {
     grid-template-columns: 1fr;
   }
+
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-links-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 640px) {
@@ -4197,6 +4383,93 @@ body.viewer-open {
 
   .investment-hero {
     padding: 5.2rem 0 2rem;
+  }
+
+  .investment-wrapper {
+    padding-bottom: 5.5rem;
+  }
+
+  .investment-timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-item {
+    padding: 1rem;
+  }
+
+  .timeline-step {
+    width: 2.65rem;
+    height: 2.65rem;
+  }
+
+  .timeline-intro {
+    font-size: 0.98rem;
+    margin-bottom: 1.35rem;
+  }
+
+  .investment-quick-links {
+    padding: 1rem;
+  }
+
+  .quick-link-card {
+    padding: 0.85rem;
+  }
+
+  .faq-item summary {
+    padding: 0.95rem 1rem;
+    font-size: 0.98rem;
+  }
+
+  .faq-item p {
+    padding: 0 1rem 0.95rem;
+    font-size: 0.95rem;
+  }
+
+  .investment-mobile-bar {
+    position: fixed;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    z-index: 1200;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    padding: 0.6rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(15, 63, 102, 0.14);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.16);
+  }
+
+  .mobile-bar-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0.75rem 0.9rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 0.92rem;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .mobile-bar-email {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    color: var(--primary);
+    border: 1px solid rgba(15, 63, 102, 0.16);
+  }
+
+  .mobile-bar-inquiry {
+    background: linear-gradient(135deg, var(--primary) 0%, #0a2342 100%);
+    color: #ffffff;
+  }
+
+  .mobile-bar-action:active {
+    transform: scale(0.98);
   }
 
   .hero-title {

@@ -381,6 +381,20 @@
 						<p class="brief-description">Download our comprehensive investment brief covering sectors, incentives, and policy framework.</p>
 						<a href="{% url 'download_investment_brief' %}" class="download-link">Download PDF</a>
 					</div>
+
+					<div class="investment-quick-links glass-card">
+						<h4 class="brief-title">Quick Access</h4>
+						<div class="quick-links-grid">
+							<a href="#investment-timeline" class="quick-link-card">
+								<span class="quick-link-label">Timeline</span>
+								<span class="quick-link-text">See the 4-step process</span>
+							</a>
+							<a href="#investment-faq" class="quick-link-card">
+								<span class="quick-link-label">FAQ</span>
+								<span class="quick-link-text">Read common questions</span>
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -421,6 +435,82 @@
 			</div>
 		</div>
 	</section>
+
+	<!-- Investment Timeline -->
+	<section class="investment-timeline-section" id="investment-timeline">
+		<div class="container section relative-z">
+			<h2 class="section-title glow-text">Project Timeline</h2>
+			<p class="timeline-intro">A simple view of how an investment moves from first contact to active delivery.</p>
+			<ol class="investment-timeline">
+				<li class="timeline-item glass-card">
+					<span class="timeline-step">01</span>
+					<div class="timeline-content">
+						<h3>Discovery</h3>
+						<p>We review your interest, budget, and sector focus to match you with the right opportunity.</p>
+					</div>
+				</li>
+				<li class="timeline-item glass-card">
+					<span class="timeline-step">02</span>
+					<div class="timeline-content">
+						<h3>Feasibility</h3>
+						<p>Our team checks the project scope, market fit, and basic implementation requirements.</p>
+					</div>
+				</li>
+				<li class="timeline-item glass-card">
+					<span class="timeline-step">03</span>
+					<div class="timeline-content">
+						<h3>Approval & Agreement</h3>
+						<p>We finalize the legal and investment terms so everyone understands the next steps.</p>
+					</div>
+				</li>
+				<li class="timeline-item glass-card">
+					<span class="timeline-step">04</span>
+					<div class="timeline-content">
+						<h3>Launch & Delivery</h3>
+						<p>The project moves into execution with tracking, support, and ongoing coordination.</p>
+					</div>
+				</li>
+			</ol>
+		</div>
+	</section>
+
+	<!-- FAQ Section -->
+	<section class="investment-faq-section" id="investment-faq">
+		<div class="container section relative-z">
+			<h2 class="section-title glow-text">Frequently Asked Questions</h2>
+			<div class="faq-grid">
+				<details class="faq-item glass-card">
+					<summary>Who can invest in WAU State opportunities?</summary>
+					<p>Individuals, businesses, and development partners who are interested in working with the state can submit an inquiry.</p>
+				</details>
+				<details class="faq-item glass-card">
+					<summary>How do I start the process?</summary>
+					<p>Choose an opportunity, fill out the inquiry form, and our team will contact you with the next steps.</p>
+				</details>
+				<details class="faq-item glass-card">
+					<summary>Are the opportunities government backed?</summary>
+					<p>Yes. The listed opportunities are presented within the state investment framework and supported by government coordination.</p>
+				</details>
+				<details class="faq-item glass-card">
+					<summary>Can I review more information before contacting you?</summary>
+					<p>Yes. You can download the investment brief for a fuller overview of sectors, incentives, and policy details.</p>
+				</details>
+				<details class="faq-item glass-card">
+					<summary>How long does the process usually take?</summary>
+					<p>Timing depends on the opportunity and due diligence requirements, but the process is designed to move clearly through review and agreement stages.</p>
+				</details>
+				<details class="faq-item glass-card">
+					<summary>What if I need help choosing a sector?</summary>
+					<p>Our team can help you compare sectors based on budget, interest, and implementation goals.</p>
+				</details>
+			</div>
+		</div>
+	</section>
+
+	<div class="investment-mobile-bar" role="navigation" aria-label="Quick investment actions">
+		<a href="mailto:investment@waustate.gov" class="mobile-bar-action mobile-bar-email">Email Us</a>
+		<a href="#inquiry-form" class="mobile-bar-action mobile-bar-inquiry">Inquiry Form</a>
+	</div>
 </div>
 
 {% endblock %}
